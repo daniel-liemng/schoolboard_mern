@@ -1,0 +1,11 @@
+html,
+body,
+main {
+  background-color: #f5edfc;
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
