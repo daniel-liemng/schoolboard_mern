@@ -5,6 +5,7 @@ import {
   ErrorPage,
   HomePage,
   LoginPage,
+  ProfilePage,
   SignupPage,
 } from './pages';
 import Layout from './compnents/Layout';
@@ -12,6 +13,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { createContext, useMemo, useState } from 'react';
 import { createTheme, PaletteMode, ThemeProvider } from '@mui/material';
 import { amber, deepOrange, grey } from '@mui/material/colors';
+import { Toaster } from 'react-hot-toast';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 axios.defaults.withCredentials = true;
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <CoursesPage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/profile',
+    element: (
+      <Layout>
+        <ProfilePage />
       </Layout>
     ),
   },
@@ -116,13 +126,12 @@ const App = () => {
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
-  console.log(mode.toUpperCase());
-
   return (
     <>
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <Toaster position='top-right' toastOptions={{ duration: 5000 }} />
           <RouterProvider router={router} />
         </ThemeProvider>
       </ColorModeContext.Provider>

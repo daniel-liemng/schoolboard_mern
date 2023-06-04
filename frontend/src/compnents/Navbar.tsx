@@ -12,11 +12,20 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import { menu } from '../data/data';
-import { useTheme } from '@mui/material';
+import { menu, userMenu } from '../data/data';
+import {
+  Avatar,
+  Menu,
+  MenuItem,
+  Paper,
+  Tooltip,
+  useTheme,
+} from '@mui/material';
 import { ColorModeContext } from '../App';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import { useAppSelector } from '../hooks/hooks';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const drawerWidth = 240;
 
@@ -24,12 +33,28 @@ interface NavbarProps {
   window?: () => Window;
 }
 
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
 const Navbar = (props: NavbarProps) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
+
+  const { isAuthenticated, user } = useAppSelector((state) => state.user);
+
+  const appMenu = isAuthenticated ? menu.slice(0, 2) : menu;
+
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState: boolean) => !prevState);
@@ -42,7 +67,7 @@ const Navbar = (props: NavbarProps) => {
       </Typography>
       <Divider />
       <List>
-        {menu.map((item) => (
+        {appMenu.map((item) => (
           <ListItem
             key={item.name}
             sx={{
@@ -56,6 +81,41 @@ const Navbar = (props: NavbarProps) => {
             </Link>
           </ListItem>
         ))}
+        {isAuthenticated && (
+          <ListItem>
+            <Tooltip title={`Hello ${user?.name || user?.email}`}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                {/* <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' /> */}
+                <AccountCircleIcon />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id='menu-appbar'
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {userMenu.map((item) => (
+                <MenuItem key={item.name} onClick={handleCloseUserMenu}>
+                  <Link to={item.link}>
+                    <Typography textAlign='center'>{item.name}</Typography>
+                  </Link>
+                </MenuItem>
+              ))}
+            </Menu>
+          </ListItem>
+        )}
+
         <ListItem onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
         </ListItem>
@@ -93,16 +153,50 @@ const Navbar = (props: NavbarProps) => {
           <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {menu.map((item) => (
+            {appMenu.map((item) => (
               <Link to={item.link} key={item.name}>
                 <Button sx={{ color: '#fff' }}>{item.name}</Button>
               </Link>
             ))}
+            {isAuthenticated && (
+              <>
+                <Tooltip title={`Hello ${user?.name || user?.email}`}>
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 1 }}>
+                    {/* <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' /> */}
+                    <AccountCircleIcon fontSize='large' />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id='menu-appbar'
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {userMenu.map((item) => (
+                    <MenuItem key={item.name} onClick={handleCloseUserMenu}>
+                      <Link to={item.link}>
+                        <Typography textAlign='center'>{item.name}</Typography>
+                      </Link>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+            )}
             <IconButton onClick={colorMode.toggleColorMode}>
               {theme.palette.mode === 'dark' ? (
-                <DarkModeIcon />
+                <DarkModeIcon fontSize='large' />
               ) : (
-                <LightModeIcon />
+                <LightModeIcon fontSize='large' />
               )}
             </IconButton>
           </Box>

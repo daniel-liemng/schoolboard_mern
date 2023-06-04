@@ -12,7 +12,10 @@ import {
 } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSignupUserMutation } from '../hooks/userHooks';
+import { toast } from 'react-hot-toast';
+import { AxiosError } from 'axios';
 
 type FormValues = {
   name: string;
@@ -22,10 +25,14 @@ type FormValues = {
 };
 
 const SignupPage = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
+    getValues,
   } = useForm<FormValues>({
     defaultValues: {
       name: '',
@@ -35,12 +42,35 @@ const SignupPage = () => {
     },
   });
 
+  const { mutateAsync: signup, isLoading, error } = useSignupUserMutation();
+
   const [showPassword, setshowPassword] = useState(false);
   const [showPassword2, setshowPassword2] = useState(false);
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
+  const onSubmit = async (data: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
+    if (getValues('password') !== getValues('password2')) {
+      toast.error('Passwords do not match');
+      return;
+    }
+
+    await signup({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    });
+
+    reset();
+    toast.success('Created new account successfully');
+    navigate('/');
   };
+
+  if (error instanceof AxiosError) {
+    toast.error(error?.response?.data?.message || 'Something went wrong');
+  }
 
   return (
     <Box
@@ -179,6 +209,7 @@ const SignupPage = () => {
             fullWidth
             disableElevation
             size='large'
+            disabled={isLoading}
             sx={{ marginTop: '1rem' }}
           >
             Sign Up

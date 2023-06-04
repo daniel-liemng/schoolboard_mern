@@ -12,7 +12,10 @@ import {
 import { useState } from 'react';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLoginUserMutation } from '../hooks/userHooks.js';
+import { toast } from 'react-hot-toast';
+import { AxiosError } from 'axios';
 
 type FormValues = {
   email: string;
@@ -20,10 +23,13 @@ type FormValues = {
 };
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormValues>({
     defaultValues: {
       email: '',
@@ -31,15 +37,25 @@ const LoginPage = () => {
     },
   });
 
+  const { mutateAsync: login, isLoading, error } = useLoginUserMutation();
+
   const [showPassword, setshowPassword] = useState(false);
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
+  const onSubmit = async (data: { email: string; password: string }) => {
+    await login(data);
+
+    reset();
+    toast.success('Logged in successfully');
+    navigate('/');
   };
 
   const handleClickShowPassword = () => {
     setshowPassword((val) => !val);
   };
+
+  if (error instanceof AxiosError) {
+    toast.error(error?.response?.data?.message || 'Something went wrong');
+  }
 
   return (
     <Box
@@ -124,6 +140,7 @@ const LoginPage = () => {
             fullWidth
             disableElevation
             size='large'
+            disabled={isLoading}
             sx={{ marginTop: '1rem' }}
           >
             Login
