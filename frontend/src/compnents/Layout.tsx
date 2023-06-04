@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import { useGetCurrentUserQuery } from '../hooks/userHooks';
 import { useAppDispatch } from '../hooks/hooks';
 import { setAuth, setCurrentUser } from '../redux/userSlice';
+import { useNavigate } from 'react-router-dom';
 // import { AxiosError } from 'axios';
 // import { toast } from 'react-hot-toast';
 
@@ -13,9 +14,11 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
 
-  const { data } = useGetCurrentUserQuery();
+  const { data, error } = useGetCurrentUserQuery();
 
   useEffect(() => {
     if (data) {
@@ -23,7 +26,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       const { _id, name, email, phone, gender, dob } = data;
       dispatch(setCurrentUser({ _id, name, email, phone, gender, dob }));
     }
-  }, [dispatch, data]);
+    if (error) {
+      navigate('/login');
+    }
+  }, [dispatch, data, navigate]);
 
   // if (error instanceof AxiosError) {
   //   toast.error(error?.response?.data?.message || 'Something went wrong');

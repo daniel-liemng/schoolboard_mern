@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 require('colors');
 
 const userRoutes = require('./routes/user');
+const categoryRoutes = require('./routes/category');
+const courseRoutes = require('./routes/course');
 
 const connectDB = require('./db/connectDB');
 const ErrorHandler = require('./middlewares/ErrorHandler');
@@ -31,6 +33,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/courses', courseRoutes);
 
 app.use(ErrorHandler);
 
