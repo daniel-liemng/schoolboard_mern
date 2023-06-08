@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   FormControl,
   FormHelperText,
@@ -19,7 +20,7 @@ import {
 } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useGetAllCategoriesQuery } from '../../hooks/categoryHooks';
 import { useAppSelector } from '../../hooks/hooks';
@@ -29,7 +30,7 @@ import {
   useUpdateCourseMutation,
 } from '../../hooks/courseHooks';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import Loading from '../../compnents/Loading';
 
 type FormValues = {
   title: string;
@@ -110,9 +111,12 @@ const UpdateCoursePage = () => {
 
   const navigate = useNavigate();
 
-  const { data: course } = useGetCourseQuery(courseId as string);
+  const { data: course, isLoading: isCourseLoading } = useGetCourseQuery(
+    courseId as string
+  );
 
-  const { data: categories, isLoading } = useGetAllCategoriesQuery();
+  const { data: categories, isLoading: isCatLoading } =
+    useGetAllCategoriesQuery();
 
   const { mutateAsync: updateCourse } = useUpdateCourseMutation();
 
@@ -152,8 +156,8 @@ const UpdateCoursePage = () => {
 
   console.log('COURSE**', course);
 
-  if (isLoading) {
-    return <h1>Loading</h1>;
+  if (isCourseLoading || isCatLoading) {
+    return <Loading />;
   }
 
   return (
@@ -445,16 +449,38 @@ const UpdateCoursePage = () => {
           </Grid>
         </Grid>
 
-        <Button
-          type='submit'
-          variant='contained'
-          fullWidth
-          disableElevation
-          size='large'
-          sx={{ marginTop: '1rem' }}
+        <Box
+          sx={{
+            mt: '1rem',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            gap: '1rem',
+          }}
         >
-          Update
-        </Button>
+          <Button
+            component={Link}
+            to='/user-courses'
+            variant='contained'
+            // fullWidth
+            disableElevation
+            size='large'
+            color='secondary'
+            sx={{ marginTop: '1rem' }}
+          >
+            Cancel
+          </Button>
+          <Button
+            type='submit'
+            variant='contained'
+            // fullWidth
+            disableElevation
+            size='large'
+            sx={{ marginTop: '1rem' }}
+          >
+            Update
+          </Button>
+        </Box>
       </form>
     </Paper>
   );

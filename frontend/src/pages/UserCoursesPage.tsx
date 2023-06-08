@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {
+  Box,
   Button,
   Container,
   Paper,
@@ -12,18 +13,35 @@ import {
   Typography,
 } from '@mui/material';
 import { useGetUserCoursesQuery } from '../hooks/userHooks';
-import CourseDetailsModal from '../compnents/modal/CourseDetailsModal';
 import { Course } from '../types/Course';
 import { Link } from 'react-router-dom';
-import { LinkedCamera } from '@mui/icons-material';
+import DeleteCourseModal from '../compnents/modal/DeleteCourseModal';
+import { useDeleteCourseMutation } from '../hooks/courseHooks';
+import { toast } from 'react-hot-toast';
+import Loading from '../compnents/Loading';
 
 const UserCoursesPage = () => {
-  const { data: courses } = useGetUserCoursesQuery();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { data: courses, isLoading } = useGetUserCoursesQuery();
+
+  const { mutateAsync: deleteCourse } = useDeleteCourseMutation();
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteCourse = async (courseId) => {
+    await deleteCourse(courseId);
+    toast.success('Course Deleted');
+    handleClose();
+    window.location.reload();
+  };
 
   console.log('Course', courses);
 
-  if (!courses) {
-    return null;
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (
@@ -31,14 +49,30 @@ const UserCoursesPage = () => {
       <Typography variant='h5' align='center' my='1.5rem'>
         Registered Courses
       </Typography>
-      <Button
-        to='/admin/course/create-course'
-        component={Link}
-        variant='contained'
-        sx={{ my: '1rem' }}
+
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          gap: '1rem',
+          mb: '1rem',
+        }}
       >
-        Create course
-      </Button>
+        <Button variant='contained' sx={{ my: '1rem' }}>
+          Create category
+        </Button>
+
+        <Button
+          to='/admin/course/create-course'
+          component={Link}
+          variant='contained'
+          sx={{ my: '1rem' }}
+        >
+          Create course
+        </Button>
+      </Box>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label='simple table'>
           <TableHead>
@@ -86,9 +120,20 @@ const UserCoursesPage = () => {
                   >
                     Update
                   </Button>
-                  <Button variant='contained' size='small' color='error'>
+                  <Button
+                    onClick={() => setIsModalOpen(true)}
+                    variant='contained'
+                    size='small'
+                    color='error'
+                  >
                     Delete
                   </Button>
+                  <DeleteCourseModal
+                    course={course}
+                    isModalOpen={isModalOpen}
+                    handleClose={handleClose}
+                    handleDeleteCourse={handleDeleteCourse}
+                  />
                 </TableCell>
               </TableRow>
             ))}

@@ -39,6 +39,12 @@ export const useUpdateCourseMutation = () =>
     }) => (await axios.put(`/api/courses/${courseId}`, courseData)).data,
   });
 
+export const useDeleteCourseMutation = () =>
+  useMutation({
+    mutationFn: async (courseId) =>
+      (await axios.delete(`/api/courses/${courseId}`)).data,
+  });
+
 // export const useGetUserCoursesQuery = () =>
 //   useQuery({
 //     queryKey: ['user-courses'],

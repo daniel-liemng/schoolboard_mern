@@ -13,7 +13,7 @@ const Loading = () => {
         alignItems: 'center',
       }}
     >
-      <ClipLoader size={60} />
+      <ClipLoader size={120} />
     </Box>
   );
 };

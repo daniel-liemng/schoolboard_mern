@@ -93,30 +93,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
   handleClose,
   user,
 }) => {
-  // const { user } = useAppSelector((state) => state.user);
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm<FormValues>({
-  //   defaultValues: {
-  //     name: user?.name || '',
-  //     dob: user?.dob || dayjs(new Date()),
-  //     gender: user?.gender || '',
-  //     email: user?.email || '',
-  //     phone: user?.phone || '',
-  //   },
-  // });
-
   const { control, handleSubmit } = useForm<FormValues>({
-    // defaultValues: {
-    //   name: user?.name,
-    //   dob: user?.dob || dayjs(new Date()),
-    //   gender: user?.gender || '',
-    //   email: user?.email || '',
-    //   phone: user?.phone || '',
-    // },
     mode: 'onChange',
   });
 

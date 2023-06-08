@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   FormControl,
   FormHelperText,
@@ -24,6 +25,7 @@ import { useGetAllCategoriesQuery } from '../../hooks/categoryHooks';
 import { useAppSelector } from '../../hooks/hooks';
 import { Category } from '../../types/Category';
 import { useCreateCourseMutation } from '../../hooks/courseHooks';
+import { Link } from 'react-router-dom';
 
 type FormValues = {
   title: string;
@@ -423,16 +425,38 @@ const CreateCoursePage = () => {
           </Grid>
         </Grid>
 
-        <Button
-          type='submit'
-          variant='contained'
-          fullWidth
-          disableElevation
-          size='large'
-          sx={{ marginTop: '1rem' }}
+        <Box
+          sx={{
+            mt: '1rem',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            gap: '1rem',
+          }}
         >
-          Create
-        </Button>
+          <Button
+            component={Link}
+            to='/user-courses'
+            variant='contained'
+            // fullWidth
+            disableElevation
+            size='large'
+            color='secondary'
+            sx={{ marginTop: '1rem' }}
+          >
+            Cancel
+          </Button>
+          <Button
+            type='submit'
+            variant='contained'
+            // fullWidth
+            disableElevation
+            size='large'
+            sx={{ marginTop: '1rem' }}
+          >
+            Create
+          </Button>
+        </Box>
       </form>
     </Paper>
   );
