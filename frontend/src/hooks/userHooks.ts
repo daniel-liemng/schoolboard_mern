@@ -30,3 +30,9 @@ export const useChangePasswordMutation = () =>
     mutationFn: async (passwordData) =>
       (await axios.patch('/api/users/change-password', passwordData)).data,
   });
+
+export const useGetUserCoursesQuery = () =>
+  useQuery({
+    queryKey: ['user-courses'],
+    queryFn: async () => (await axios.get('/api/users/courses')).data,
+  });

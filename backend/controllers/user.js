@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 
 const User = require('../models/user');
 const CustomError = require('../utils/CustomError');
+const Course = require('../models/course');
 
 const signup = asyncHandler(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -18,7 +19,7 @@ const signup = asyncHandler(async (req, res, next) => {
 
   const token = newUser.generateToken();
 
-  res.cookie('token', token, { httpOnly: true, maxAge: 3600 * 1000 });
+  res.cookie('token', token, { httpOnly: true, maxAge: 3600 * 10000 });
   res.status(201).json(newUser);
 });
 
@@ -39,7 +40,7 @@ const login = asyncHandler(async (req, res, next) => {
 
   const token = user.generateToken();
 
-  res.cookie('token', token, { httpOnly: true, maxAge: 3600 * 1000 });
+  res.cookie('token', token, { httpOnly: true, maxAge: 3600 * 10000 });
   res.status(200).json(user);
 });
 
@@ -98,10 +99,35 @@ const changePassword = asyncHandler(async (req, res, next) => {
   res.status(200).json({ message: 'New password updated' });
 });
 
+// const getCurrentUserCourses = asyncHandler(async (req, res, next) => {
+//   const { email } = req.user;
+
+//   const user = await User.findOne({ email }).populate('registeredCourseIds');
+
+//   const courses = user.registeredCourseIds.populate
+
+//   res.status(200).json(user.registeredCourseIds);
+// });
+
+const getCurrentUserCourses = asyncHandler(async (req, res, next) => {
+  const { _id: userId } = req.user;
+
+  const userCourses = await Course.find({
+    registeredUserIds: {
+      $in: userId,
+    },
+  })
+    .populate('instructor')
+    .populate('category');
+
+  res.status(200).json(userCourses);
+});
+
 module.exports = {
   signup,
   login,
   getCurrentUser,
   updateProfile,
   changePassword,
+  getCurrentUserCourses,
 };

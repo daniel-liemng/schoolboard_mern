@@ -23,6 +23,10 @@ export const userMenu = [
     link: '/profile',
   },
   {
+    name: 'Courses',
+    link: '/user-courses',
+  },
+  {
     name: 'Logout',
     link: '/',
   },

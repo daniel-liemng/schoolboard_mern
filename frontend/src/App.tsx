@@ -1,12 +1,16 @@
 import axios from 'axios';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
+  CourseDetailsPage,
   CoursesPage,
+  CreateCoursePage,
   ErrorPage,
   HomePage,
   LoginPage,
   ProfilePage,
   SignupPage,
+  UpdateCoursePage,
+  UserCoursesPage,
 } from './pages';
 import Layout from './compnents/Layout';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -56,6 +60,38 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <ProfilePage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/user-courses',
+    element: (
+      <Layout>
+        <UserCoursesPage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/admin/course/create-course',
+    element: (
+      <Layout>
+        <CreateCoursePage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/admin/course/update-course/:courseId',
+    element: (
+      <Layout>
+        <UpdateCoursePage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/admin/course/:courseId',
+    element: (
+      <Layout>
+        <CourseDetailsPage />
       </Layout>
     ),
   },

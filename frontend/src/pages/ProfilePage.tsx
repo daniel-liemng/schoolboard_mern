@@ -22,8 +22,6 @@ const ProfilePage = () => {
   const [profileModalOpen, setProfileModalOpen] = useState(false);
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
 
-  // useEffect(() => {});
-
   const handleUpload = () => {
     console.log('Upload');
   };
@@ -35,8 +33,6 @@ const ProfilePage = () => {
   const handlePasswordModalClose = () => {
     setPasswordModalOpen(false);
   };
-
-  console.log('USER-PROFILE', user);
 
   return (
     <Box sx={{ marginTop: '2rem', padding: '2rem' }}>
@@ -149,7 +145,7 @@ const ProfilePage = () => {
                 </Grid>
                 <Grid item xs={8} sx={{ mt: '1rem' }}>
                   <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
-                    {user.phone}
+                    {user.phone || 'N/A'}
                   </Typography>
                 </Grid>
 
@@ -163,7 +159,7 @@ const ProfilePage = () => {
                     variant='body1'
                     sx={{ fontWeight: 'bold', textTransform: 'capitalize' }}
                   >
-                    {user.gender}
+                    {user.gender || 'N/A'}
                   </Typography>
                 </Grid>
 
@@ -174,7 +170,7 @@ const ProfilePage = () => {
                 </Grid>
                 <Grid item xs={8} sx={{ mt: '1rem' }}>
                   <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
-                    {user.dob}
+                    {user.dob || 'N/A'}
                   </Typography>
                 </Grid>
               </Grid>

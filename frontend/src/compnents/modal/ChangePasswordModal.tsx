@@ -18,11 +18,6 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { useChangePasswordMutation } from '../../hooks/userHooks';
 
-interface ChangePasswordModalProps {
-  isModalOpen: boolean;
-  handleClose: () => void;
-}
-
 const style = {
   position: 'absolute',
   top: '50%',
@@ -35,6 +30,11 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+interface ChangePasswordModalProps {
+  isModalOpen: boolean;
+  handleClose: () => void;
+}
 
 type FormValues = {
   currentPassword: string;

@@ -273,15 +273,6 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
                     <DatePicker
                       {...field}
                       label='DOB'
-                      // inputFormat='MM/DD/YYYY'
-                      // textField={(params: any) => (
-                      //   <TextField
-                      //     {...params}
-                      //     error={!!fieldState.error?.message}
-                      //     helperText={fieldState.error?.message}
-                      //   />
-                      // )}
-                      // Validation is not fired with the default react-hook-form mode. So you need this custom onChange event handling.
                       slotProps={{
                         textField: {
                           variant: 'outlined',

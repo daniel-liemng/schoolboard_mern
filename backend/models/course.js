@@ -26,6 +26,10 @@ const courseSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Start date is required'],
     },
+    day: {
+      type: String,
+      required: [true, 'Day is required'],
+    },
     time: {
       type: String,
       required: [true, 'Time is required'],
@@ -42,6 +46,12 @@ const courseSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'Total student is required'],
     },
+    // status: {
+    //   type: String,
+    //   required: [true, 'Course status is required'],
+    //   enum: ['Register', 'Active', 'Expired'],
+    // },
+    registeredUserIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   },
   { timestamps: true }
 );
