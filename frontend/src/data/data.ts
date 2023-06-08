@@ -27,6 +27,10 @@ export const userMenu = [
     link: '/user-courses',
   },
   {
+    name: 'Category',
+    link: '/admin/category',
+  },
+  {
     name: 'Logout',
     link: '/',
   },

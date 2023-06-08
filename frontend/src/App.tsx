@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
+  CategoryPage,
   CourseDetailsPage,
   CoursesPage,
   CreateCoursePage,
@@ -92,6 +93,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <CourseDetailsPage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/admin/category',
+    element: (
+      <Layout>
+        <CategoryPage />
       </Layout>
     ),
   },

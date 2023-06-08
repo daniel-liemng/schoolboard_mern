@@ -8,10 +8,10 @@ import {
   TextField,
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { useCreateCategoryMutation } from '../../hooks/categoryHooks';
 import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
+import { useCreateCategoryMutation } from '../../hooks/categoryHooks';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -41,13 +41,13 @@ const CreateCategoryModal: React.FC<CreateCategoryProps> = ({
     mutateAsync: createCategory,
     isLoading,
     error,
+    reset,
   } = useCreateCategoryMutation();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<FormValues>({
     defaultValues: {
       title: '',
@@ -118,7 +118,7 @@ const CreateCategoryModal: React.FC<CreateCategoryProps> = ({
                 color='secondary'
                 disableElevation
                 size='large'
-                // disabled={isLoading}
+                disabled={isLoading}
                 sx={{ marginTop: '1rem' }}
               >
                 Cancel

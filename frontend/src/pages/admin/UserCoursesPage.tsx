@@ -12,14 +12,14 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { useGetUserCoursesQuery } from '../hooks/userHooks';
-import { Course } from '../types/Course';
+import { useGetUserCoursesQuery } from '../../hooks/userHooks';
+import { Course } from '../../types/Course';
 import { Link } from 'react-router-dom';
-import DeleteCourseModal from '../compnents/modal/DeleteCourseModal';
-import { useDeleteCourseMutation } from '../hooks/courseHooks';
+import DeleteCourseModal from '../../compnents/modal/DeleteCourseModal';
+import { useDeleteCourseMutation } from '../../hooks/courseHooks';
 import { toast } from 'react-hot-toast';
-import Loading from '../compnents/Loading';
-import CreateCategoryModal from '../compnents/modal/CreateCategoryModal';
+import Loading from '../../compnents/Loading';
+import CreateCategoryModal from '../../compnents/modal/CreateCategoryModal';
 
 const UserCoursesPage = () => {
   const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
@@ -40,7 +40,7 @@ const UserCoursesPage = () => {
   const handleDeleteCourse = async (courseId) => {
     await deleteCourse(courseId);
     toast.success('Course Deleted');
-    handleClose();
+    handleCourseModalClose();
     window.location.reload();
   };
 

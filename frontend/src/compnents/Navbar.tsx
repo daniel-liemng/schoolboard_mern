@@ -144,7 +144,11 @@ const Navbar = (props: NavbarProps) => {
             <Typography
               variant='h6'
               component='div'
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+              sx={{
+                flexGrow: 1,
+                display: { xs: 'none', sm: 'block' },
+                textTransform: 'uppercase',
+              }}
             >
               Tech School
             </Typography>
@@ -202,6 +206,7 @@ const Navbar = (props: NavbarProps) => {
           </Box>
         </Toolbar>
       </AppBar>
+
       <Box component='nav'>
         <Drawer
           container={container}
