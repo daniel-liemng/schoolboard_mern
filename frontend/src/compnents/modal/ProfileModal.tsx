@@ -52,14 +52,6 @@ type FormValues = {
   phone?: string;
 };
 
-// const defaultValues: FormValues = {
-//   name: '',
-//   email: '',
-//   phone: '',
-//   gender: '',
-//   dob: dayjs(new Date()),
-// };
-
 const validationRules = {
   name: {
     required: 'Please provide name',

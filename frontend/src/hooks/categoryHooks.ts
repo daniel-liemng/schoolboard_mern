@@ -6,3 +6,9 @@ export const useGetAllCategoriesQuery = () =>
     queryKey: ['all-cat'],
     queryFn: async () => (await axios.get('/api/categories')).data,
   });
+
+export const useCreateCategoryMutation = () =>
+  useMutation({
+    mutationFn: async (catData) =>
+      (await axios.post('/api/categories', catData)).data,
+  });

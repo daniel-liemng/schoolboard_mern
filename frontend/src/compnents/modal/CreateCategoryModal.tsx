@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Box,
   Button,
@@ -6,17 +5,12 @@ import {
   Typography,
   Backdrop,
   Fade,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  InputAdornment,
-  IconButton,
+  TextField,
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { useCreateCategoryMutation } from '../../hooks/categoryHooks';
 import { toast } from 'react-hot-toast';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-
-import { useChangePasswordMutation } from '../../hooks/userHooks';
+import { AxiosError } from 'axios';
 
 const style = {
   position: 'absolute',
@@ -31,22 +25,23 @@ const style = {
   p: 4,
 };
 
-interface CreateCategoryModalProps {
+type FormValues = {
+  title: string;
+};
+interface CreateCategoryProps {
   isModalOpen: boolean;
   handleClose: () => void;
 }
 
-type FormValues = {
-  title: string;
-};
-
-const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({
+const CreateCategoryModal: React.FC<CreateCategoryProps> = ({
   isModalOpen,
   handleClose,
 }) => {
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPassword2, setShowPassword2] = useState(false);
+  const {
+    mutateAsync: createCategory,
+    isLoading,
+    error,
+  } = useCreateCategoryMutation();
 
   const {
     register,
@@ -55,39 +50,19 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({
     reset,
   } = useForm<FormValues>({
     defaultValues: {
-      currentPassword: '',
-      password: '',
-      password2: '',
+      title: '',
     },
   });
 
-  const {
-    mutateAsync: changePassword,
-    isLoading,
-    error,
-  } = useChangePasswordMutation();
-
-  const onSubmit = async (data: FormValues) => {
-    const { currentPassword, password, password2 } = data;
-
-    if (currentPassword === password) {
-      return toast.error('New password must not be the same with the old one');
-    }
-
-    if (password !== password2) {
-      return toast.error('New password and confirm new password do not match');
-    }
-
-    await changePassword({ currentPassword, password });
-
+  const onSubmit = async (data: { title: string }) => {
+    await createCategory(data);
     reset();
+    toast.success('Category Created');
     handleClose();
-
-    toast.success('New password updated');
   };
 
-  if (error) {
-    return toast.error(error?.response?.data?.message);
+  if (error instanceof AxiosError) {
+    toast.error(error?.response?.data?.message || 'Something went wrong');
   }
 
   return (
@@ -112,193 +87,54 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({
             component='h3'
             align='center'
           >
-            Change Password
+            Create category
           </Typography>
 
-          <Box sx={{ mt: '2rem' }}>
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
-              <FormControl
-                variant='outlined'
-                fullWidth
-                sx={{ marginBottom: '0.5rem' }}
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <TextField
+              id='title'
+              label='Title'
+              {...register('title', { required: true })}
+              variant='outlined'
+              fullWidth
+              error={!!errors.title}
+              sx={{ marginY: '2rem' }}
+            />
+            {errors.title?.type === 'required' && (
+              <Box
+                sx={{ marginBottom: '1rem', color: 'red', textAlign: 'left' }}
               >
-                <InputLabel htmlFor='outlined-adornment-current-password'>
-                  Current Password
-                </InputLabel>
-                <OutlinedInput
-                  id='outlined-adornment-current-password'
-                  type={showCurrentPassword ? 'text' : 'password'}
-                  label='Current Password'
-                  {...register('currentPassword', {
-                    required: true,
-                    minLength: 6,
-                  })}
-                  error={!!errors.currentPassword}
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton
-                        aria-label='toggle password visibility'
-                        onClick={() => setShowCurrentPassword((val) => !val)}
-                        edge='end'
-                      >
-                        {showCurrentPassword ? (
-                          <VisibilityOff />
-                        ) : (
-                          <Visibility />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-              {errors.currentPassword?.type === 'required' && (
-                <Box
-                  sx={{
-                    marginBottom: '1rem',
-                    color: 'red',
-                    textAlign: 'left',
-                    ml: '0.5rem',
-                    fontSize: '12px',
-                  }}
-                >
-                  Current password is required
-                </Box>
-              )}
-              {errors.currentPassword?.type === 'minLength' && (
-                <Box
-                  sx={{
-                    marginBottom: '1rem',
-                    color: 'red',
-                    textAlign: 'left',
-                    ml: '0.5rem',
-                    fontSize: '12px',
-                  }}
-                >
-                  Current password contains at least 6 characters
-                </Box>
-              )}
+                Title is required
+              </Box>
+            )}
 
-              <FormControl
-                variant='outlined'
-                fullWidth
-                sx={{ marginBottom: '0.5rem' }}
+            <Box
+              sx={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}
+            >
+              <Button
+                type='button'
+                onClick={handleClose}
+                variant='contained'
+                color='secondary'
+                disableElevation
+                size='large'
+                // disabled={isLoading}
+                sx={{ marginTop: '1rem' }}
               >
-                <InputLabel htmlFor='outlined-adornment-password'>
-                  New Password
-                </InputLabel>
-                <OutlinedInput
-                  id='outlined-adornment-password'
-                  type={showPassword ? 'text' : 'password'}
-                  label='New Password'
-                  {...register('password', { required: true, minLength: 6 })}
-                  error={!!errors.password}
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton
-                        aria-label='toggle password visibility'
-                        onClick={() => setShowPassword((val) => !val)}
-                        edge='end'
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-              {errors.password?.type === 'required' && (
-                <Box
-                  sx={{
-                    marginBottom: '1rem',
-                    color: 'red',
-                    textAlign: 'left',
-                    ml: '0.5rem',
-                    fontSize: '12px',
-                  }}
-                >
-                  New password is required
-                </Box>
-              )}
-              {errors.password?.type === 'minLength' && (
-                <Box
-                  sx={{
-                    marginBottom: '1rem',
-                    color: 'red',
-                    textAlign: 'left',
-                    ml: '0.5rem',
-                    fontSize: '12px',
-                  }}
-                >
-                  Password contains at least 6 characters
-                </Box>
-              )}
-
-              <FormControl
-                variant='outlined'
-                fullWidth
-                sx={{ marginBottom: '0.5rem' }}
-              >
-                <InputLabel htmlFor='outlined-adornment-password2'>
-                  Confirm New Password
-                </InputLabel>
-                <OutlinedInput
-                  id='outlined-adornment-password2'
-                  type={showPassword2 ? 'text' : 'password'}
-                  label='Confirm New Password'
-                  {...register('password2', { required: true, minLength: 6 })}
-                  error={!!errors.password2}
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton
-                        aria-label='toggle password visibility'
-                        onClick={() => setShowPassword2((val) => !val)}
-                        edge='end'
-                      >
-                        {showPassword2 ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-              {errors.password2?.type === 'required' && (
-                <Box
-                  sx={{
-                    marginBottom: '1rem',
-                    color: 'red',
-                    textAlign: 'left',
-                    ml: '0.5rem',
-                    fontSize: '12px',
-                  }}
-                >
-                  Confirm password is required
-                </Box>
-              )}
-              {errors.password2?.type === 'minLength' && (
-                <Box
-                  sx={{
-                    marginBottom: '1rem',
-                    color: 'red',
-                    textAlign: 'left',
-                    ml: '0.5rem',
-                    fontSize: '12px',
-                  }}
-                >
-                  Confirm password contains at least 6 characters
-                </Box>
-              )}
-
+                Cancel
+              </Button>
               <Button
                 type='submit'
                 variant='contained'
-                fullWidth
                 disableElevation
                 size='large'
-                disabled={isLoading}
+                // disabled={isLoading}
                 sx={{ marginTop: '1rem' }}
               >
-                Change Password
+                Create
               </Button>
-            </form>
-          </Box>
+            </Box>
+          </form>
         </Box>
       </Fade>
     </Modal>

@@ -19,16 +19,22 @@ import DeleteCourseModal from '../compnents/modal/DeleteCourseModal';
 import { useDeleteCourseMutation } from '../hooks/courseHooks';
 import { toast } from 'react-hot-toast';
 import Loading from '../compnents/Loading';
+import CreateCategoryModal from '../compnents/modal/CreateCategoryModal';
 
 const UserCoursesPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   const { data: courses, isLoading } = useGetUserCoursesQuery();
 
   const { mutateAsync: deleteCourse } = useDeleteCourseMutation();
 
-  const handleClose = () => {
-    setIsModalOpen(false);
+  const handleCourseModalClose = () => {
+    setIsCourseModalOpen(false);
+  };
+
+  const handleCategoryModalClose = () => {
+    setIsCategoryModalOpen(false);
   };
 
   const handleDeleteCourse = async (courseId) => {
@@ -59,9 +65,17 @@ const UserCoursesPage = () => {
           mb: '1rem',
         }}
       >
-        <Button variant='contained' sx={{ my: '1rem' }}>
+        <Button
+          onClick={() => setIsCategoryModalOpen(true)}
+          variant='contained'
+          sx={{ my: '1rem' }}
+        >
           Create category
         </Button>
+        <CreateCategoryModal
+          isModalOpen={isCategoryModalOpen}
+          handleClose={handleCategoryModalClose}
+        />
 
         <Button
           to='/admin/course/create-course'
@@ -121,7 +135,7 @@ const UserCoursesPage = () => {
                     Update
                   </Button>
                   <Button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => setIsCourseModalOpen(true)}
                     variant='contained'
                     size='small'
                     color='error'
@@ -130,8 +144,8 @@ const UserCoursesPage = () => {
                   </Button>
                   <DeleteCourseModal
                     course={course}
-                    isModalOpen={isModalOpen}
-                    handleClose={handleClose}
+                    isModalOpen={isCourseModalOpen}
+                    handleClose={handleCourseModalClose}
                     handleDeleteCourse={handleDeleteCourse}
                   />
                 </TableCell>
