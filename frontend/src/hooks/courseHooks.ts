@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { CourseData } from '../types/CourseInfo';
 
@@ -25,6 +25,7 @@ export const useGetCourseQuery = (courseId: string) =>
   useQuery({
     queryKey: ['course-detail', courseId],
     queryFn: async () => (await axios.get(`/api/courses/${courseId}`)).data,
+    enabled: !!courseId,
   });
 
 export const useUpdateCourseMutation = () =>

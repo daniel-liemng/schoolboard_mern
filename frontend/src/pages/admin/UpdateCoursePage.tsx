@@ -19,15 +19,17 @@ import {
 } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 import { useGetAllCategoriesQuery } from '../../hooks/categoryHooks';
 import { useAppSelector } from '../../hooks/hooks';
 import { Category } from '../../types/Category';
 import {
-  useCreateCourseMutation,
   useGetCourseQuery,
+  useUpdateCourseMutation,
 } from '../../hooks/courseHooks';
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 type FormValues = {
   title: string;
@@ -104,23 +106,27 @@ const validationRules = {
 const UpdateCoursePage = () => {
   const { courseId } = useParams();
 
-  const { data: course } = useGetCourseQuery(courseId);
-  const { data: categories } = useGetAllCategoriesQuery();
-
   const { user } = useAppSelector((state) => state.user);
 
-  const { mutateAsync: createCourse } = useCreateCourseMutation();
+  const navigate = useNavigate();
+
+  const { data: course } = useGetCourseQuery(courseId as string);
+
+  const { data: categories, isLoading } = useGetAllCategoriesQuery();
+
+  const { mutateAsync: updateCourse } = useUpdateCourseMutation();
 
   const { control, handleSubmit } = useForm<FormValues>({
-    // defaultValues: {
-    //   name: user?.name,
-    //   dob: user?.dob || dayjs(new Date()),
-    //   gender: user?.gender || '',
-    //   email: user?.email || '',
-    //   phone: user?.phone || '',
-    // },
     mode: 'onChange',
   });
+
+  const getTime = (time: string, index: number) => {
+    const specificTime = time.split(' - ')[index].trim();
+
+    const formattedTime = dayjs(`1/1/1 ${specificTime}`).format('HH:mm');
+
+    return `2023-06-10T${formattedTime}`;
+  };
 
   const onSubmit = async (data: FormValues) => {
     const courseData = {
@@ -139,18 +145,21 @@ const UpdateCoursePage = () => {
       total_student: data.total_student,
     };
 
-    await createCourse(courseData);
-    toast.success('Course Created');
+    await updateCourse({ courseId, courseData });
+    toast.success('Course Updated');
+    navigate('/user-courses');
   };
 
-  // console.log('UUser', dayjs(data.time_to));
+  console.log('COURSE**', course);
 
-  console.log(course);
+  if (isLoading) {
+    return <h1>Loading</h1>;
+  }
 
   return (
     <Paper sx={{ margin: '2rem', padding: '1rem' }}>
       <Typography variant='h5' align='center' sx={{ my: '1.5rem' }}>
-        Create new course
+        Update course
       </Typography>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -159,7 +168,7 @@ const UpdateCoursePage = () => {
             <Controller
               name='title'
               control={control}
-              defaultValue=''
+              defaultValue={course?.title || ''}
               rules={validationRules.title}
               render={({ field, fieldState }) => (
                 <TextField
@@ -179,7 +188,7 @@ const UpdateCoursePage = () => {
             <Controller
               name='course_code'
               control={control}
-              defaultValue=''
+              defaultValue={course?.course_code || ''}
               rules={validationRules.course_code}
               render={({ field, fieldState }) => (
                 <TextField
@@ -199,7 +208,7 @@ const UpdateCoursePage = () => {
             <Controller
               name='category'
               control={control}
-              defaultValue=''
+              defaultValue={course?.category?._id || ''}
               rules={validationRules.category}
               render={({ field, fieldState }) => (
                 <FormControl
@@ -228,7 +237,7 @@ const UpdateCoursePage = () => {
             <Controller
               name='fee'
               control={control}
-              defaultValue=''
+              defaultValue={course?.fee || ''}
               rules={validationRules.fee}
               render={({ field, fieldState }) => (
                 <TextField
@@ -248,7 +257,7 @@ const UpdateCoursePage = () => {
             <Controller
               name='desc'
               control={control}
-              defaultValue=''
+              defaultValue={course?.desc || ''}
               rules={validationRules.desc}
               render={({ field, fieldState }) => (
                 <TextField
@@ -270,7 +279,7 @@ const UpdateCoursePage = () => {
             <Controller
               name='start_date'
               control={control}
-              defaultValue={dayjs(new Date())}
+              defaultValue={dayjs(course.start_date) || dayjs('')}
               // rules={validationRules.dob}
               render={({ field, fieldState }) => (
                 <LocalizationProvider
@@ -305,7 +314,7 @@ const UpdateCoursePage = () => {
             <Controller
               name='day'
               control={control}
-              defaultValue=''
+              defaultValue={course?.day || ''}
               rules={validationRules.day}
               render={({ field, fieldState }) => (
                 <TextField
@@ -325,7 +334,9 @@ const UpdateCoursePage = () => {
             <Controller
               name='time_from'
               control={control}
-              defaultValue={dayjs('2023-06-10T12:00')}
+              defaultValue={
+                dayjs(getTime(course?.time, 0)) || dayjs('2023-06-10T12:00')
+              }
               // rules={validationRules.dob}
               render={({ field, fieldState }) => (
                 <LocalizationProvider
@@ -360,7 +371,9 @@ const UpdateCoursePage = () => {
             <Controller
               name='time_to'
               control={control}
-              defaultValue={dayjs('2023-06-10T12:00')}
+              defaultValue={
+                dayjs(getTime(course?.time, 1)) || dayjs('2023-06-10T12:00')
+              }
               // rules={validationRules.dob}
               render={({ field, fieldState }) => (
                 <LocalizationProvider
@@ -395,7 +408,7 @@ const UpdateCoursePage = () => {
             <Controller
               name='period'
               control={control}
-              defaultValue=''
+              defaultValue={course?.period || ''}
               rules={validationRules.period}
               render={({ field, fieldState }) => (
                 <TextField
@@ -415,7 +428,7 @@ const UpdateCoursePage = () => {
             <Controller
               name='total_student'
               control={control}
-              defaultValue=''
+              defaultValue={course?.total_student || ''}
               rules={validationRules.total_student}
               render={({ field, fieldState }) => (
                 <TextField
@@ -440,7 +453,7 @@ const UpdateCoursePage = () => {
           size='large'
           sx={{ marginTop: '1rem' }}
         >
-          Create
+          Update
         </Button>
       </form>
     </Paper>
