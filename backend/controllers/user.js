@@ -99,16 +99,6 @@ const changePassword = asyncHandler(async (req, res, next) => {
   res.status(200).json({ message: 'New password updated' });
 });
 
-// const getCurrentUserCourses = asyncHandler(async (req, res, next) => {
-//   const { email } = req.user;
-
-//   const user = await User.findOne({ email }).populate('registeredCourseIds');
-
-//   const courses = user.registeredCourseIds.populate
-
-//   res.status(200).json(user.registeredCourseIds);
-// });
-
 const getCurrentUserCourses = asyncHandler(async (req, res, next) => {
   const { _id: userId } = req.user;
 

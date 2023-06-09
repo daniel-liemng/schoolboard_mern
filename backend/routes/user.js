@@ -8,6 +8,7 @@ const {
   getCurrentUserCourses,
 } = require('../controllers/user');
 const isAuthenticated = require('../middlewares/isAuth');
+const isInstructor = require('../middlewares/isInstructor');
 
 const router = express.Router();
 

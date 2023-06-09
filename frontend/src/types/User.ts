@@ -8,4 +8,5 @@ export type User = {
   phone?: string;
   gender?: string;
   dob?: string;
+  registeredCourseIds?: string[];
 };

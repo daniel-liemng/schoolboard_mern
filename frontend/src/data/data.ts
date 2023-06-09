@@ -31,6 +31,10 @@ export const userMenu = [
     link: '/admin/category',
   },
   {
+    name: 'Users',
+    link: '/admin/users',
+  },
+  {
     name: 'Logout',
     link: '/',
   },
