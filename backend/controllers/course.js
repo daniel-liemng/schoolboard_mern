@@ -72,19 +72,17 @@ const registerCourse = asyncHandler(async (req, res, next) => {
   res.status(200).json(updatedCourses);
 });
 
-// const getUserCourses = asyncHandler(async (req, res, next) => {
-//   const { _id: userId } = req.user;
+const getInstructorCourses = asyncHandler(async (req, res, next) => {
+  const { _id: userId } = req.user;
 
-//   const userCourses = await Course.find({
-//     registeredUserIds: {
-//       $in: userId,
-//     },
-//   })
-//     .populate('instructor')
-//     .populate('category');
+  const userCourses = await Course.find({
+    instructor: userId,
+  })
+    .populate('instructor')
+    .populate('category');
 
-//   res.status(200).json(userCourses);
-// });
+  res.status(200).json(userCourses);
+});
 
 module.exports = {
   addCourse,
@@ -93,4 +91,5 @@ module.exports = {
   updateCourse,
   deleteCourse,
   registerCourse,
+  getInstructorCourses,
 };

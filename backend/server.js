@@ -9,6 +9,7 @@ const userRoutes = require('./routes/user');
 const categoryRoutes = require('./routes/category');
 const courseRoutes = require('./routes/course');
 const adminRoutes = require('./routes/admin');
+const sessionRoutes = require('./routes/session');
 
 const connectDB = require('./db/connectDB');
 const ErrorHandler = require('./middlewares/ErrorHandler');
@@ -37,6 +38,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/sessions', sessionRoutes);
 
 app.use(ErrorHandler);
 

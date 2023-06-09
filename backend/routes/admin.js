@@ -7,4 +7,5 @@ const { getAllUsers } = require('../controllers/admin');
 const router = express.Router();
 
 router.get('/all-users', isAuthenticated, isAdmin, getAllUsers);
+
 module.exports = router;

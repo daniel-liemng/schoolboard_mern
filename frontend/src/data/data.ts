@@ -8,6 +8,10 @@ export const menu = [
     link: '/courses',
   },
   {
+    name: 'UserCourses',
+    link: '/user-courses',
+  },
+  {
     name: 'Login',
     link: '/login',
   },
@@ -24,7 +28,7 @@ export const userMenu = [
   },
   {
     name: 'Courses',
-    link: '/user-courses',
+    link: '/instructor-courses',
   },
   {
     name: 'Category',

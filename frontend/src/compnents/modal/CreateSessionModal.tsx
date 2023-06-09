@@ -11,7 +11,8 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
-import { useCreateCategoryMutation } from '../../hooks/categoryHooks';
+import { useCreateSessionMutation } from '../../hooks/sessionHooks';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -26,22 +27,25 @@ const style = {
 };
 
 type FormValues = {
-  title: string;
+  date: string;
 };
-interface CreateCategoryProps {
+
+interface CreateSessionProps {
   isModalOpen: boolean;
   handleClose: () => void;
+  courseId: string | undefined;
 }
 
-const CreateCategoryModal: React.FC<CreateCategoryProps> = ({
+const CreateSessionModal: React.FC<CreateSessionProps> = ({
   isModalOpen,
   handleClose,
+  courseId,
 }) => {
   const {
-    mutateAsync: createCategory,
+    mutateAsync: createSession,
     isLoading,
     error,
-  } = useCreateCategoryMutation();
+  } = useCreateSessionMutation();
 
   const {
     register,
@@ -50,14 +54,14 @@ const CreateCategoryModal: React.FC<CreateCategoryProps> = ({
     reset,
   } = useForm<FormValues>({
     defaultValues: {
-      title: '',
+      date: '',
     },
   });
 
-  const onSubmit = async (data: { title: string }) => {
-    await createCategory(data);
+  const onSubmit = async (data: { date: string }) => {
+    await createSession({ courseId, date: data?.date });
     reset();
-    toast.success('Category Created');
+    toast.success('Session Created');
     handleClose();
   };
 
@@ -87,24 +91,24 @@ const CreateCategoryModal: React.FC<CreateCategoryProps> = ({
             component='h3'
             align='center'
           >
-            Create category
+            Create session
           </Typography>
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <TextField
-              id='title'
-              label='Title'
-              {...register('title', { required: true })}
+              id='date'
+              label='Date'
+              {...register('date', { required: true })}
               variant='outlined'
               fullWidth
-              error={!!errors.title}
+              error={!!errors.date}
               sx={{ marginY: '2rem' }}
             />
-            {errors.title?.type === 'required' && (
+            {errors.date?.type === 'required' && (
               <Box
                 sx={{ marginBottom: '1rem', color: 'red', textAlign: 'left' }}
               >
-                Title is required
+                Date is required
               </Box>
             )}
 
@@ -140,4 +144,4 @@ const CreateCategoryModal: React.FC<CreateCategoryProps> = ({
   );
 };
 
-export default CreateCategoryModal;
+export default CreateSessionModal;

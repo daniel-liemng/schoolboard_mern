@@ -44,7 +44,7 @@ const Navbar = (props: NavbarProps) => {
 
   const { isAuthenticated, user } = useAppSelector((state) => state.user);
 
-  const appMenu = isAuthenticated ? menu.slice(0, 2) : menu;
+  const appMenu = isAuthenticated ? menu.slice(0, 3) : menu;
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 

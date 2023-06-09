@@ -52,6 +52,7 @@ const courseSchema = new mongoose.Schema(
     //   enum: ['Register', 'Active', 'Expired'],
     // },
     registeredUserIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    sessionIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session' }],
   },
   { timestamps: true }
 );

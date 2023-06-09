@@ -12,36 +12,19 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { useGetUserCoursesQuery } from '../../hooks/userHooks';
-import { Course } from '../../types/Course';
 import { Link } from 'react-router-dom';
-import DeleteCourseModal from '../../compnents/modal/DeleteCourseModal';
-import { useDeleteCourseMutation } from '../../hooks/courseHooks';
 import { toast } from 'react-hot-toast';
-import Loading from '../../compnents/Loading';
-import CreateCategoryModal from '../../compnents/modal/CreateCategoryModal';
+import { useGetUserCoursesQuery } from '../hooks/userHooks';
+import Loading from '../compnents/Loading';
+import { Course } from '../types/Course';
 
 const UserCoursesPage = () => {
   const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
-  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   const { data: courses, isLoading } = useGetUserCoursesQuery();
 
-  const { mutateAsync: deleteCourse } = useDeleteCourseMutation();
-
   const handleCourseModalClose = () => {
     setIsCourseModalOpen(false);
-  };
-
-  const handleCategoryModalClose = () => {
-    setIsCategoryModalOpen(false);
-  };
-
-  const handleDeleteCourse = async (courseId) => {
-    await deleteCourse(courseId);
-    toast.success('Course Deleted');
-    handleCourseModalClose();
-    window.location.reload();
   };
 
   console.log('Course', courses);
@@ -53,39 +36,8 @@ const UserCoursesPage = () => {
   return (
     <Container sx={{ mt: '1rem' }}>
       <Typography variant='h5' align='center' my='1.5rem'>
-        Registered Courses
+        All Courses (User)
       </Typography>
-
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          gap: '1rem',
-          mb: '1rem',
-        }}
-      >
-        <Button
-          onClick={() => setIsCategoryModalOpen(true)}
-          variant='contained'
-          sx={{ my: '1rem' }}
-        >
-          Create category
-        </Button>
-        <CreateCategoryModal
-          isModalOpen={isCategoryModalOpen}
-          handleClose={handleCategoryModalClose}
-        />
-
-        <Button
-          to='/admin/course/create-course'
-          component={Link}
-          variant='contained'
-          sx={{ my: '1rem' }}
-        >
-          Create course
-        </Button>
-      </Box>
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label='simple table'>
@@ -142,12 +94,6 @@ const UserCoursesPage = () => {
                   >
                     Delete
                   </Button>
-                  <DeleteCourseModal
-                    course={course}
-                    isModalOpen={isCourseModalOpen}
-                    handleClose={handleCourseModalClose}
-                    handleDeleteCourse={handleDeleteCourse}
-                  />
                 </TableCell>
               </TableRow>
             ))}

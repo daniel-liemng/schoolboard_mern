@@ -11,8 +11,10 @@ import {
   ProfilePage,
   SignupPage,
   UpdateCoursePage,
-  UserCoursesPage,
+  InstructorCoursesPage,
   UsersPage,
+  UserCoursesPage,
+  AttendancePage,
 } from './pages';
 import Layout from './compnents/Layout';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -58,6 +60,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/user-courses',
+    element: (
+      <Layout>
+        <UserCoursesPage />
+      </Layout>
+    ),
+  },
+  {
     path: '/profile',
     element: (
       <Layout>
@@ -66,10 +76,10 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/user-courses',
+    path: '/instructor-courses',
     element: (
       <Layout>
-        <UserCoursesPage />
+        <InstructorCoursesPage />
       </Layout>
     ),
   },
@@ -110,6 +120,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <UsersPage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/admin/attendance/:courseId',
+    element: (
+      <Layout>
+        <AttendancePage />
       </Layout>
     ),
   },

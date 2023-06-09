@@ -13,7 +13,7 @@ export const useRegisterCourseMutation = () =>
   useMutation({
     mutationFn: async (courseId) =>
       (await axios.patch('/api/courses/register-course', { courseId })).data,
-    retry: false,
+    onSuccess: () => queryClient.invalidateQueries(['all-courses']),
   });
 
 export const useCreateCourseMutation = () =>
@@ -47,8 +47,9 @@ export const useDeleteCourseMutation = () =>
       (await axios.delete(`/api/courses/${courseId}`)).data,
   });
 
-// export const useGetUserCoursesQuery = () =>
-//   useQuery({
-//     queryKey: ['user-courses'],
-//     queryFn: async () => (await axios.get('/api/courses/user/courses')).data,
-//   });
+export const useGetInstructorCoursesQuery = () =>
+  useQuery({
+    queryKey: ['instructor-courses'],
+    queryFn: async () =>
+      (await axios.get('/api/courses/instructor-courses')).data,
+  });
