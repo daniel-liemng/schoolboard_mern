@@ -10,23 +10,55 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Typography,
 } from '@mui/material';
 import {
   useDeleteCategoryMutation,
   useGetAllCategoriesQuery,
+  useUpdateCategoryMutation,
 } from '../../hooks/categoryHooks';
 import { Category } from '../../types/Category';
 
 // import DeleteCourseModal from '../../compnents/modal/DeleteCourseModal';
 import CreateCategoryModal from '../../compnents/modal/CreateCategoryModal';
 import DeleteCategoryModal from '../../compnents/modal/DeleteCategoryModal';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+
+type FormValues = {
+  title: string;
+};
 
 const CategoryPage = () => {
   const { data: categories } = useGetAllCategoriesQuery();
 
+  const { mutateAsync: updateCategory, isLoading: isUpdateLoading } =
+    useUpdateCategoryMutation();
+
   const [isCreateCatModalOpen, setIsCreateCatModalOpen] = useState(false);
   const [isDeleteCatModalOpen, setIsDeleteCatModalOpen] = useState(false);
+
+  const [selectedIndex, setSelectedIndex] = useState();
+  const [catTitle, setCatTitle] = useState('');
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  const handleEditSubmit = async (catId: string) => {
+    // e.preventDefault();
+
+    await updateCategory({ catId, catData: { title: catTitle } });
+
+    toast.success('Category Updated');
+    setSelectedIndex(undefined);
+  };
+
+  console.log('777', selectedIndex);
+  console.log('777', catTitle);
 
   return (
     <Paper sx={{ m: '2rem', height: '100%', p: '2.5rem' }}>
@@ -51,11 +83,52 @@ const CategoryPage = () => {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component='th' scope='row'>
-                      {cat.title}
+                      {selectedIndex === index && (
+                        <form>
+                          <TextField
+                            fullWidth
+                            variant='standard'
+                            id='title'
+                            name='title'
+                            value={catTitle}
+                            onChange={(e) => setCatTitle(e.target.value)}
+                          />
+
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'flex-end',
+                              gap: '0.5rem',
+                              mt: '0.5rem',
+                            }}
+                          >
+                            <Button
+                              type='button'
+                              onClick={() => handleEditSubmit(cat?._id)}
+                              variant='contained'
+                              size='small'
+                            >
+                              Edit
+                            </Button>
+                            <Button
+                              onClick={() => setSelectedIndex(undefined)}
+                              variant='contained'
+                              size='small'
+                              color='secondary'
+                            >
+                              Cancel
+                            </Button>
+                          </Box>
+                        </form>
+                      )}
+                      {selectedIndex !== index && (
+                        <Typography>{cat?.title}</Typography>
+                      )}
                     </TableCell>
 
                     <TableCell align='left'>
                       <Button
+                        onClick={() => setSelectedIndex(index)}
                         variant='contained'
                         size='small'
                         color='secondary'

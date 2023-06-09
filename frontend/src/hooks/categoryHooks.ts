@@ -13,6 +13,17 @@ export const useCreateCategoryMutation = () =>
       (await axios.post('/api/categories', catData)).data,
   });
 
+export const useUpdateCategoryMutation = () =>
+  useMutation({
+    mutationFn: async ({
+      catId,
+      catData,
+    }: {
+      catId: string;
+      catData: { title: string };
+    }) => (await axios.put(`/api/categories/${catId}`, catData)).data,
+  });
+
 export const useDeleteCategoryMutation = () =>
   useMutation({
     mutationFn: async (catId) =>
