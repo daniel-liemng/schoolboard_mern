@@ -41,13 +41,13 @@ const CreateCategoryModal: React.FC<CreateCategoryProps> = ({
     mutateAsync: createCategory,
     isLoading,
     error,
-    reset,
   } = useCreateCategoryMutation();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormValues>({
     defaultValues: {
       title: '',

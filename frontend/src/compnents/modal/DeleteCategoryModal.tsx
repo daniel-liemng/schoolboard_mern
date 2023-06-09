@@ -21,7 +21,7 @@ const style = {
 interface DeleteCategoryModalProps {
   isModalOpen: boolean;
   handleClose: () => void;
-  cat: Category;
+  cat: Category | undefined;
 }
 
 const DeleteCategoryModal: React.FC<DeleteCategoryModalProps> = ({

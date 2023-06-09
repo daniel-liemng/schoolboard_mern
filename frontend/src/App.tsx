@@ -176,7 +176,7 @@ const App = () => {
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Toaster position='top-right' toastOptions={{ duration: 5000 }} />
+          <Toaster position='top-center' toastOptions={{ duration: 5000 }} />
           <RouterProvider router={router} />
         </ThemeProvider>
       </ColorModeContext.Provider>

@@ -14,21 +14,15 @@ import {
   Typography,
 } from '@mui/material';
 import {
-  useDeleteCategoryMutation,
   useGetAllCategoriesQuery,
   useUpdateCategoryMutation,
 } from '../../hooks/categoryHooks';
 import { Category } from '../../types/Category';
 
-// import DeleteCourseModal from '../../compnents/modal/DeleteCourseModal';
 import CreateCategoryModal from '../../compnents/modal/CreateCategoryModal';
 import DeleteCategoryModal from '../../compnents/modal/DeleteCategoryModal';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-hot-toast';
 
-type FormValues = {
-  title: string;
-};
+import { toast } from 'react-hot-toast';
 
 const CategoryPage = () => {
   const { data: categories } = useGetAllCategoriesQuery();
@@ -39,26 +33,19 @@ const CategoryPage = () => {
   const [isCreateCatModalOpen, setIsCreateCatModalOpen] = useState(false);
   const [isDeleteCatModalOpen, setIsDeleteCatModalOpen] = useState(false);
 
+  // update
   const [selectedIndex, setSelectedIndex] = useState();
   const [catTitle, setCatTitle] = useState('');
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>();
+  //delete
+  const [selectedCat, setSelectedCat] = useState<Category>();
 
   const handleEditSubmit = async (catId: string) => {
-    // e.preventDefault();
-
     await updateCategory({ catId, catData: { title: catTitle } });
 
     toast.success('Category Updated');
     setSelectedIndex(undefined);
   };
-
-  console.log('777', selectedIndex);
-  console.log('777', catTitle);
 
   return (
     <Paper sx={{ m: '2rem', height: '100%', p: '2.5rem' }}>
@@ -90,7 +77,8 @@ const CategoryPage = () => {
                             variant='standard'
                             id='title'
                             name='title'
-                            value={catTitle}
+                            value={catTitle || cat?.title}
+                            // value={catTitle}
                             onChange={(e) => setCatTitle(e.target.value)}
                           />
 
@@ -107,6 +95,7 @@ const CategoryPage = () => {
                               onClick={() => handleEditSubmit(cat?._id)}
                               variant='contained'
                               size='small'
+                              disabled={isUpdateLoading}
                             >
                               Edit
                             </Button>
@@ -137,7 +126,10 @@ const CategoryPage = () => {
                         Update
                       </Button>
                       <Button
-                        onClick={() => setIsDeleteCatModalOpen(true)}
+                        onClick={() => {
+                          setIsDeleteCatModalOpen(true);
+                          setSelectedCat(cat);
+                        }}
                         variant='contained'
                         size='small'
                         color='error'
@@ -145,7 +137,7 @@ const CategoryPage = () => {
                         Delete
                       </Button>
                       <DeleteCategoryModal
-                        cat={cat}
+                        cat={selectedCat}
                         isModalOpen={isDeleteCatModalOpen}
                         handleClose={() => setIsDeleteCatModalOpen(false)}
                       />
