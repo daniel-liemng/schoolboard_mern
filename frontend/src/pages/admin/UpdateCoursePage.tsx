@@ -154,8 +154,6 @@ const UpdateCoursePage = () => {
     navigate('/user-courses');
   };
 
-  console.log('COURSE**', course);
-
   if (isCourseLoading || isCatLoading) {
     return <Loading />;
   }
