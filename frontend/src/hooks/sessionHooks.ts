@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { queryClient } from '../main';
 
-export const useGetAllSessions = (courseId: string) =>
+export const useGetAllSessionsByCourseIdQuery = (courseId: string) =>
   useQuery({
     queryKey: ['all-sessions'],
     queryFn: async () =>

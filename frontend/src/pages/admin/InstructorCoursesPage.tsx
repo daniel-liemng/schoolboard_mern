@@ -121,12 +121,13 @@ const InstructorCoursesPage = () => {
                     sx={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}
                   >
                     <Button
-                      to={`/admin/course/${course._id}`}
+                      to={`/admin/summary/${course._id}`}
                       component={Link}
                       variant='contained'
                       size='small'
+                      color='info'
                     >
-                      Details
+                      Summary
                     </Button>
                     <Button
                       to={`/admin/course/update-course/${course._id}`}
@@ -159,15 +160,6 @@ const InstructorCoursesPage = () => {
                       color='success'
                     >
                       Attendance
-                    </Button>
-                    <Button
-                      to={`/admin/summary/${course._id}`}
-                      component={Link}
-                      variant='contained'
-                      size='small'
-                      color='info'
-                    >
-                      Summary
                     </Button>
                   </Box>
                 </TableCell>

@@ -23,7 +23,9 @@ const createSesstion = asyncHandler(async (req, res, next) => {
 const getAllSessionsByCourseId = asyncHandler(async (req, res, next) => {
   const { courseId } = req.params;
 
-  const sessions = await Session.find({ courseId }).populate('courseId');
+  const sessions = await Session.find({ courseId })
+    .populate('courseId')
+    .populate('attendedStudentIds');
 
   res.status(200).json(sessions);
 });
@@ -42,16 +44,11 @@ const updateStudents = asyncHandler(async (req, res, next) => {
   const { sessionId } = req.params;
   const { studentIds } = req.body;
 
-  console.log('11', sessionId);
-  console.log('22', studentIds);
-
   const session = await Session.findOne({ _id: sessionId });
 
   session.attendedStudentIds = studentIds;
 
   const updatedSession = await session.save();
-
-  console.log(updatedSession);
 
   res.status(200).json(updatedSession);
 });

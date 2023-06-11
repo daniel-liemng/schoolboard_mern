@@ -20,7 +20,7 @@ import {
   Typography,
 } from '@mui/material';
 import {
-  useGetAllSessions,
+  useGetAllSessionsByCourseIdQuery,
   useGetSessionQuery,
   useUpdateStudentIdsMutation,
 } from '../../hooks/sessionHooks';
@@ -38,7 +38,9 @@ const AttendancePage = () => {
   const [selectedSessionId, setSelectedSessionId] = useState('');
   const [selectedStudentIds, setSelectedStudentIds] = useState([]);
 
-  const { data: sessions } = useGetAllSessions(courseId as string);
+  const { data: sessions } = useGetAllSessionsByCourseIdQuery(
+    courseId as string
+  );
   const { data: course } = useGetCourseQuery(courseId as string);
   const { mutateAsync: updateStudents } = useUpdateStudentIdsMutation();
   const { data: session } = useGetSessionQuery(selectedSessionId);
