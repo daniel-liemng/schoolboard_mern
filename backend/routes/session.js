@@ -6,18 +6,19 @@ const {
   createSesstion,
   getAllSessionsByCourseId,
   updateStudents,
+  getSessionBySessionId,
 } = require('../controllers/session');
 
 const router = express.Router();
 
 router.post('/', isAuthenticated, isInstructor, createSesstion);
+router.put('/:sessionId', isAuthenticated, isInstructor, updateStudents);
+router.get('/:sessionId', isAuthenticated, isInstructor, getSessionBySessionId);
 router.get(
-  '/:courseId',
+  '/all/:courseId',
   isAuthenticated,
   isInstructor,
   getAllSessionsByCourseId
 );
-
-router.put('/:sessionId', isAuthenticated, isInstructor, updateStudents);
 
 module.exports = router;

@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import {
   useGetAllSessions,
+  useGetSessionQuery,
   useUpdateStudentIdsMutation,
 } from '../../hooks/sessionHooks';
 import { useState } from 'react';
@@ -40,8 +41,13 @@ const AttendancePage = () => {
   const { data: sessions } = useGetAllSessions(courseId as string);
   const { data: course } = useGetCourseQuery(courseId as string);
   const { mutateAsync: updateStudents } = useUpdateStudentIdsMutation();
+  const { data: session } = useGetSessionQuery(selectedSessionId);
 
   const studentList = course?.registeredUserIds;
+  // const allStudentId = studentList?.map()
+
+  const fullAttendList = session?.attendedStudentIds;
+  const shortAttendList = fullAttendList?.map((item) => item._id);
 
   const handleToggle = (value: string) => () => {
     const currentIndex = selectedStudentIds.indexOf(value);
@@ -65,9 +71,12 @@ const AttendancePage = () => {
     toast.success('Saved attendance');
   };
 
-  console.log('999', studentList);
-  console.log('SESS', selectedSessionId);
-  console.log('ALL', selectedStudentIds);
+  // console.log('999', studentList);
+  // console.log('SESS', selectedSessionId);
+  // console.log('ALL', selectedStudentIds);
+  // console.log('ONE_SESSION', session);
+  // console.log('ATT_LIST', shortAttendList);
+  console.log('**99**', course);
 
   return (
     <Paper sx={{ m: '2rem', p: '2rem' }}>
@@ -91,17 +100,15 @@ const AttendancePage = () => {
             courseId={courseId}
           />
 
-          <Typography variant='h6' sx={{ mb: '1.5rem' }}>
-            Select the session
-          </Typography>
-          <FormControl fullWidth>
-            <InputLabel id='session'>Session</InputLabel>
+          <FormControl fullWidth sx={{ mt: '1.5rem' }}>
+            <InputLabel id='session'>Select Session</InputLabel>
             <Select
               labelId='session'
-              label='Session'
+              label='Select Session'
               value={selectedSessionId}
               onChange={(e) => setSelectedSessionId(e.target.value)}
             >
+              <MenuItem disabled>Select a session</MenuItem>
               {sessions?.map((sess, index) => (
                 <MenuItem key={index} value={sess._id}>
                   Session {index + 1}: {sess.date}
@@ -125,6 +132,7 @@ const AttendancePage = () => {
                     edge='end'
                     onChange={handleToggle(student._id)}
                     checked={selectedStudentIds.indexOf(student._id) !== -1}
+                    // checked={shortAttendList?.includes(student._id)}
                   />
                 }
                 disablePadding

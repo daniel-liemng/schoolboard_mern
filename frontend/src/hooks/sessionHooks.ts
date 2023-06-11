@@ -5,7 +5,8 @@ import { queryClient } from '../main';
 export const useGetAllSessions = (courseId: string) =>
   useQuery({
     queryKey: ['all-sessions'],
-    queryFn: async () => (await axios.get(`/api/sessions/${courseId}`)).data,
+    queryFn: async () =>
+      (await axios.get(`/api/sessions/all/${courseId}`)).data,
   });
 
 export const useCreateSessionMutation = () =>
@@ -32,4 +33,11 @@ export const useUpdateStudentIdsMutation = () =>
         })
       ).data;
     },
+  });
+
+export const useGetSessionQuery = (sessionId: string) =>
+  useQuery({
+    queryKey: ['session', sessionId],
+    queryFn: async () => (await axios.get(`/api/sessions/${sessionId}`)).data,
+    enabled: !!sessionId,
   });

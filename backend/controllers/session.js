@@ -28,6 +28,16 @@ const getAllSessionsByCourseId = asyncHandler(async (req, res, next) => {
   res.status(200).json(sessions);
 });
 
+const getSessionBySessionId = asyncHandler(async (req, res, next) => {
+  const { sessionId } = req.params;
+
+  const session = await Session.findById(sessionId).populate(
+    'attendedStudentIds'
+  );
+
+  res.status(200).json(session);
+});
+
 const updateStudents = asyncHandler(async (req, res, next) => {
   const { sessionId } = req.params;
   const { studentIds } = req.body;
@@ -46,4 +56,9 @@ const updateStudents = asyncHandler(async (req, res, next) => {
   res.status(200).json(updatedSession);
 });
 
-module.exports = { createSesstion, getAllSessionsByCourseId, updateStudents };
+module.exports = {
+  createSesstion,
+  getAllSessionsByCourseId,
+  updateStudents,
+  getSessionBySessionId,
+};

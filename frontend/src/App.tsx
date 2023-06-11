@@ -15,6 +15,7 @@ import {
   UsersPage,
   UserCoursesPage,
   AttendancePage,
+  CourseSummaryPage,
 } from './pages';
 import Layout from './compnents/Layout';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -128,6 +129,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <AttendancePage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/admin/summary/:courseId',
+    element: (
+      <Layout>
+        <CourseSummaryPage />
       </Layout>
     ),
   },

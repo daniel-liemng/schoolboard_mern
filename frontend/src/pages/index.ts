@@ -13,6 +13,7 @@ import CreateCoursePage from './admin/CreateCoursePage';
 import UpdateCoursePage from './admin/UpdateCoursePage';
 import UsersPage from './admin/UsersPage';
 import AttendancePage from './admin/AttendancePage';
+import CourseSummaryPage from './admin/CourseSummaryPage';
 
 export {
   HomePage,
@@ -29,4 +30,5 @@ export {
   UsersPage,
   UserCoursesPage,
   AttendancePage,
+  CourseSummaryPage,
 };

@@ -67,33 +67,35 @@ const UserCoursesPage = () => {
                 <TableCell align='left'>{course.day}</TableCell>
                 <TableCell align='left'>{course.time}</TableCell>
                 <TableCell align='left'>
-                  <Button
-                    to={`/admin/course/${course._id}`}
-                    component={Link}
-                    variant='contained'
-                    size='small'
-                    sx={{ mr: '0.5rem' }}
+                  <Box
+                    sx={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}
                   >
-                    Details
-                  </Button>
-                  <Button
-                    to={`/admin/course/update-course/${course._id}`}
-                    component={Link}
-                    variant='contained'
-                    size='small'
-                    color='secondary'
-                    sx={{ mr: '0.5rem' }}
-                  >
-                    Update
-                  </Button>
-                  <Button
-                    onClick={() => setIsCourseModalOpen(true)}
-                    variant='contained'
-                    size='small'
-                    color='error'
-                  >
-                    Delete
-                  </Button>
+                    <Button
+                      to={`/admin/course/${course._id}`}
+                      component={Link}
+                      variant='contained'
+                      size='small'
+                    >
+                      Details
+                    </Button>
+                    <Button
+                      to={`/admin/course/update-course/${course._id}`}
+                      component={Link}
+                      variant='contained'
+                      size='small'
+                      color='secondary'
+                    >
+                      Update
+                    </Button>
+                    <Button
+                      onClick={() => setIsCourseModalOpen(true)}
+                      variant='contained'
+                      size='small'
+                      color='error'
+                    >
+                      Delete
+                    </Button>
+                  </Box>
                 </TableCell>
               </TableRow>
             ))}

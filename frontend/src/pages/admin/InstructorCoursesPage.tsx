@@ -160,6 +160,15 @@ const InstructorCoursesPage = () => {
                     >
                       Attendance
                     </Button>
+                    <Button
+                      to={`/admin/summary/${course._id}`}
+                      component={Link}
+                      variant='contained'
+                      size='small'
+                      color='info'
+                    >
+                      Summary
+                    </Button>
                   </Box>
                 </TableCell>
               </TableRow>
