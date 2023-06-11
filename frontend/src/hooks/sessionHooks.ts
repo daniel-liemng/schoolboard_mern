@@ -14,3 +14,22 @@ export const useCreateSessionMutation = () =>
       (await axios.post('/api/sessions', sesData)).data,
     onSuccess: () => queryClient.invalidateQueries(['all-sessions']),
   });
+
+export const useUpdateStudentIdsMutation = () =>
+  useMutation({
+    mutationFn: async ({
+      sessionId,
+      studentData,
+    }: {
+      sessionId: string;
+      studentData: string[];
+    }) => {
+      console.log(sessionId);
+
+      return (
+        await axios.put(`/api/sessions/${sessionId}`, {
+          studentIds: studentData,
+        })
+      ).data;
+    },
+  });

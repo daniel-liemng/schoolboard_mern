@@ -23,7 +23,8 @@ const getCourse = asyncHandler(async (req, res, next) => {
 
   const course = await Course.findById(courseId)
     .populate('instructor', ['name', 'email', 'phone'])
-    .populate('category', 'title');
+    .populate('category', 'title')
+    .populate('registeredUserIds');
 
   res.status(200).json(course);
 });

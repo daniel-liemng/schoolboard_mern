@@ -28,4 +28,22 @@ const getAllSessionsByCourseId = asyncHandler(async (req, res, next) => {
   res.status(200).json(sessions);
 });
 
-module.exports = { createSesstion, getAllSessionsByCourseId };
+const updateStudents = asyncHandler(async (req, res, next) => {
+  const { sessionId } = req.params;
+  const { studentIds } = req.body;
+
+  console.log('11', sessionId);
+  console.log('22', studentIds);
+
+  const session = await Session.findOne({ _id: sessionId });
+
+  session.attendedStudentIds = studentIds;
+
+  const updatedSession = await session.save();
+
+  console.log(updatedSession);
+
+  res.status(200).json(updatedSession);
+});
+
+module.exports = { createSesstion, getAllSessionsByCourseId, updateStudents };

@@ -33,8 +33,6 @@ interface NavbarProps {
   window?: () => Window;
 }
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
 const Navbar = (props: NavbarProps) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -162,6 +160,7 @@ const Navbar = (props: NavbarProps) => {
                 <Button sx={{ color: '#fff' }}>{item.name}</Button>
               </Link>
             ))}
+
             {isAuthenticated && (
               <>
                 <Tooltip title={`Hello ${user?.name || user?.email}`}>

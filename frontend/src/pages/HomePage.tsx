@@ -1,8 +1,16 @@
 import { Box, Button, Typography } from '@mui/material';
 import bgImg from '../assets/school.jpg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    await axios.post('/api/users/logout');
+
+    navigate('/login');
+  };
   return (
     <Box>
       <Box
@@ -54,6 +62,7 @@ const HomePage = () => {
           >
             Browse courses
           </Button>
+          <Button onClick={logout}>Logout</Button>
         </Box>
       </Box>
     </Box>

@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const Cookies = require('js-cookie');
 
 const User = require('../models/user');
 const CustomError = require('../utils/CustomError');
@@ -42,6 +43,11 @@ const login = asyncHandler(async (req, res, next) => {
 
   res.cookie('token', token, { httpOnly: true, maxAge: 3600 * 10000 });
   res.status(200).json(user);
+});
+
+const logout = asyncHandler(async (req, res, next) => {
+  res.clearCookie('token');
+  res.status(200).json({ message: 'Logout OK' });
 });
 
 const getCurrentUser = asyncHandler(async (req, res, next) => {
@@ -116,6 +122,7 @@ const getCurrentUserCourses = asyncHandler(async (req, res, next) => {
 module.exports = {
   signup,
   login,
+  logout,
   getCurrentUser,
   updateProfile,
   changePassword,

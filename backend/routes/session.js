@@ -5,6 +5,7 @@ const isInstructor = require('../middlewares/isInstructor');
 const {
   createSesstion,
   getAllSessionsByCourseId,
+  updateStudents,
 } = require('../controllers/session');
 
 const router = express.Router();
@@ -16,5 +17,7 @@ router.get(
   isInstructor,
   getAllSessionsByCourseId
 );
+
+router.put('/:sessionId', isAuthenticated, isInstructor, updateStudents);
 
 module.exports = router;
