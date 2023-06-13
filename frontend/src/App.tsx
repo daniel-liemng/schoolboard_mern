@@ -16,6 +16,8 @@ import {
   UserCoursesPage,
   AttendancePage,
   CourseSummaryPage,
+  DashboardPage,
+  SettingsPage,
 } from './pages';
 import Layout from './compnents/Layout';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -23,6 +25,7 @@ import { createContext, useMemo, useState } from 'react';
 import { createTheme, PaletteMode, ThemeProvider } from '@mui/material';
 import { amber, deepOrange, grey } from '@mui/material/colors';
 import { Toaster } from 'react-hot-toast';
+import AdminLayout from './compnents/admin/AdminLayout';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 axios.defaults.withCredentials = true;
@@ -77,11 +80,51 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/instructor-courses',
+    path: '/instructor/courses',
     element: (
       <Layout>
         <InstructorCoursesPage />
       </Layout>
+    ),
+  },
+  {
+    path: '/admin',
+    element: (
+      <AdminLayout>
+        <DashboardPage />
+      </AdminLayout>
+    ),
+  },
+  {
+    path: '/admin/users',
+    element: (
+      <AdminLayout>
+        <UsersPage />
+      </AdminLayout>
+    ),
+  },
+  {
+    path: '/admin/categories',
+    element: (
+      <AdminLayout>
+        <CategoryPage />
+      </AdminLayout>
+    ),
+  },
+  {
+    path: '/admin/courses',
+    element: (
+      <AdminLayout>
+        <InstructorCoursesPage />
+      </AdminLayout>
+    ),
+  },
+  {
+    path: '/admin/settings',
+    element: (
+      <AdminLayout>
+        <SettingsPage />
+      </AdminLayout>
     ),
   },
   {
@@ -116,14 +159,7 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
-  {
-    path: '/admin/users',
-    element: (
-      <Layout>
-        <UsersPage />
-      </Layout>
-    ),
-  },
+
   {
     path: '/admin/attendance/:courseId',
     element: (

@@ -7,13 +7,15 @@ import SignupPage from './SignupPage';
 import CourseDetailsPage from './CourseDetailsPage';
 import UserCoursesPage from './UserCoursesPage';
 
-import InstructorCoursesPage from './admin/InstructorCoursesPage';
+import InstructorCoursesPage from './instructor/InstructorCoursesPage';
 import CategoryPage from './admin/CategoryPage';
-import CreateCoursePage from './admin/CreateCoursePage';
-import UpdateCoursePage from './admin/UpdateCoursePage';
+import CreateCoursePage from './instructor/CreateCoursePage';
+import UpdateCoursePage from './instructor/UpdateCoursePage';
 import UsersPage from './admin/UsersPage';
-import AttendancePage from './admin/AttendancePage';
-import CourseSummaryPage from './admin/CourseSummaryPage';
+import AttendancePage from './instructor/AttendancePage';
+import CourseSummaryPage from './instructor/CourseSummaryPage';
+import DashboardPage from './admin/DashboardPage';
+import SettingsPage from './admin/SettingsPage';
 
 export {
   HomePage,
@@ -31,4 +33,6 @@ export {
   UserCoursesPage,
   AttendancePage,
   CourseSummaryPage,
+  DashboardPage,
+  SettingsPage,
 };

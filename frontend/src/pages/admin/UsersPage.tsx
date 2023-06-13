@@ -21,8 +21,8 @@ const UsersPage = () => {
   };
 
   return (
-    <Paper sx={{ m: '2rem', p: '2rem', height: '100%' }}>
-      <Typography variant='h5' align='center' sx={{ my: '1.5rem' }}>
+    <Box sx={{ p: '2rem', height: '100%' }}>
+      <Typography variant='h4' align='center' sx={{ mt: '0.5rem', mb: '2rem' }}>
         Manage accounts
       </Typography>
 
@@ -46,7 +46,7 @@ const UsersPage = () => {
           </TabPanel>
         </TabContext>
       </Box>
-    </Paper>
+    </Box>
   );
 };
 

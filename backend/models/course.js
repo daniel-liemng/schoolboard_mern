@@ -46,11 +46,11 @@ const courseSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'Total student is required'],
     },
-    // status: {
-    //   type: String,
-    //   required: [true, 'Course status is required'],
-    //   enum: ['Register', 'Active', 'Expired'],
-    // },
+    status: {
+      type: String,
+      required: [true, 'Course status is required'],
+      enum: ['upcoming', 'active', 'expired'],
+    },
     registeredUserIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     sessionIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session' }],
   },

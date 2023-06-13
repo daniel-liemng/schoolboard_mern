@@ -6,8 +6,10 @@ const isInstructor = async (req, res, next) => {
 
   const user = await User.findOne({ email });
 
-  if (user.role !== 'instructor') {
-    return next(new CustomError('Not an instructor. Unauthorized', 401));
+  if (user.role !== 'instructor' || user.role !== 'admin') {
+    return next(
+      new CustomError('Not an instructor or admin. Unauthorized', 401)
+    );
   }
   next();
 };
