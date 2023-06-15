@@ -27,7 +27,7 @@ const CourseSummaryPage = () => {
   const studentCount = course?.registeredUserIds.length;
 
   return (
-    <Paper sx={{ m: '2rem', p: '2rem' }}>
+    <Box sx={{ p: '3rem' }}>
       <Typography variant='h4' align='center' fontWeight='bold'>
         Course Summary
       </Typography>
@@ -156,7 +156,7 @@ const CourseSummaryPage = () => {
           </TableContainer>
         </Grid>
       </Grid>
-    </Paper>
+    </Box>
   );
 };
 

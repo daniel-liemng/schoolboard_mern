@@ -1,5 +1,5 @@
 export type Course = {
-  _id: string;
+  _id?: string;
   title: string;
   course_code: string;
   instructor: string;

@@ -16,6 +16,7 @@ import AttendancePage from './instructor/AttendancePage';
 import CourseSummaryPage from './instructor/CourseSummaryPage';
 import DashboardPage from './admin/DashboardPage';
 import SettingsPage from './admin/SettingsPage';
+import StudentsPage from './instructor/StudentsPage';
 
 export {
   HomePage,
@@ -35,4 +36,5 @@ export {
   CourseSummaryPage,
   DashboardPage,
   SettingsPage,
+  StudentsPage,
 };

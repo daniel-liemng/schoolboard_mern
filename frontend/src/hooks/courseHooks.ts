@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { CourseData } from '../types/CourseInfo';
+import { Course } from '../types/Course';
 import { queryClient } from '../main';
 
 export const useGetAllCoursesQuery = () =>
@@ -36,7 +36,7 @@ export const useUpdateCourseMutation = () =>
       courseData,
     }: {
       courseId: string;
-      courseData: CourseData;
+      courseData: Course;
     }) => (await axios.put(`/api/courses/${courseId}`, courseData)).data,
     onSuccess: () => queryClient.invalidateQueries('user-courses'),
   });

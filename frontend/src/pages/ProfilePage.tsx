@@ -59,9 +59,9 @@ const ProfilePage = () => {
                   }}
                 >
                   <Box sx={{ position: 'absolute' }}>
-                    {user?.photo ? (
+                    {user?.avatar ? (
                       <img
-                        src={user?.photo}
+                        src={user?.avatar}
                         alt='profile'
                         style={{ width: 100, height: 100 }}
                       />
@@ -85,7 +85,7 @@ const ProfilePage = () => {
                             bgcolor: 'grey',
                             padding: '5px',
                             '&:hover': {
-                              bgcolor: 'blue',
+                              bgcolor: '#90ee90',
                             },
                           }}
                         >

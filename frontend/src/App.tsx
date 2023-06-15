@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+  useNavigate,
+} from 'react-router-dom';
 import {
   CategoryPage,
   CourseDetailsPage,
@@ -18,14 +23,19 @@ import {
   CourseSummaryPage,
   DashboardPage,
   SettingsPage,
+  StudentsPage,
 } from './pages';
 import Layout from './compnents/Layout';
 import CssBaseline from '@mui/material/CssBaseline';
-import { createContext, useMemo, useState } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import { createTheme, PaletteMode, ThemeProvider } from '@mui/material';
 import { amber, deepOrange, grey } from '@mui/material/colors';
 import { Toaster } from 'react-hot-toast';
 import AdminLayout from './compnents/admin/AdminLayout';
+import InstructorLayout from './compnents/instructor/InstructorLayout';
+import { useAppDispatch } from './hooks/hooks';
+import { useGetCurrentUserQuery } from './hooks/userHooks';
+import { setAuth, setCurrentUser } from './redux/userSlice';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 axios.defaults.withCredentials = true;
@@ -72,7 +82,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/profile',
+    path: '/user/profile',
     element: (
       <Layout>
         <ProfilePage />
@@ -82,9 +92,41 @@ const router = createBrowserRouter([
   {
     path: '/instructor/courses',
     element: (
-      <Layout>
+      <InstructorLayout>
         <InstructorCoursesPage />
-      </Layout>
+      </InstructorLayout>
+    ),
+  },
+  {
+    path: '/instructor/course/:courseId',
+    element: (
+      <InstructorLayout>
+        <CourseSummaryPage />
+      </InstructorLayout>
+    ),
+  },
+  {
+    path: '/instructor/course/update/:courseId',
+    element: (
+      <InstructorLayout>
+        <UpdateCoursePage />
+      </InstructorLayout>
+    ),
+  },
+  {
+    path: '/instructor/course/attendance/:courseId',
+    element: (
+      <InstructorLayout>
+        <AttendancePage />
+      </InstructorLayout>
+    ),
+  },
+  {
+    path: '/instructor/students',
+    element: (
+      <InstructorLayout>
+        <StudentsPage />
+      </InstructorLayout>
     ),
   },
   {
@@ -169,11 +211,11 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/admin/summary/:courseId',
+    path: '/instructor/course/:courseId',
     element: (
-      <Layout>
+      <InstructorLayout>
         <CourseSummaryPage />
-      </Layout>
+      </InstructorLayout>
     ),
   },
   {
@@ -219,7 +261,42 @@ const getDesignTokens = (mode: PaletteMode) => ({
 });
 
 const App = () => {
+  const dispatch = useAppDispatch();
+
   const [mode, setMode] = useState<PaletteMode>('light');
+
+  const { data: currentUser } = useGetCurrentUserQuery();
+
+  console.log('7474', currentUser);
+
+  useEffect(() => {
+    if (currentUser) {
+      dispatch(setAuth());
+      const {
+        _id,
+        name,
+        email,
+        phone,
+        gender,
+        dob,
+        role,
+        registeredCourseIds,
+      } = currentUser;
+      dispatch(
+        setCurrentUser({
+          _id,
+          name,
+          email,
+          phone,
+          gender,
+          dob,
+          role,
+          registeredCourseIds,
+        })
+      );
+    }
+  }, [dispatch, currentUser]);
+  ``;
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -230,16 +307,6 @@ const App = () => {
     }),
     []
   );
-
-  // const theme = useMemo(
-  //   () =>
-  //     createTheme({
-  //       palette: {
-  //         mode,
-  //       },
-  //     }),
-  //   [mode]
-  // );
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 

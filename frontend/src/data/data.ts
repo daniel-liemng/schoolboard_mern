@@ -27,18 +27,6 @@ export const userMenu = [
     link: '/profile',
   },
   {
-    name: 'Courses',
-    link: '/instructor-courses',
-  },
-  {
-    name: 'Category',
-    link: '/admin/category',
-  },
-  {
-    name: 'Users',
-    link: '/admin/users',
-  },
-  {
     name: 'Logout',
     link: '/',
   },

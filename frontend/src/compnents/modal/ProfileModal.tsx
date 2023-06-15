@@ -19,7 +19,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/ja';
-import { UserInfo } from '../../types/UserInfo';
+import { User } from '../../types/User';
 import { useUpdateProfileMutation } from '../../hooks/userHooks';
 import { toast } from 'react-hot-toast';
 
@@ -28,7 +28,7 @@ import { toast } from 'react-hot-toast';
 interface ProfileModalProps {
   isModalOpen: boolean;
   handleClose: () => void;
-  user: UserInfo;
+  user: User;
 }
 
 const style = {
@@ -120,8 +120,6 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
     toast.success('Profile Updated');
     handleClose();
   };
-
-  console.log('USER7788', user);
 
   return (
     <Modal

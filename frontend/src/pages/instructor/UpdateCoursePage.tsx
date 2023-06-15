@@ -159,8 +159,8 @@ const UpdateCoursePage = () => {
   }
 
   return (
-    <Paper sx={{ margin: '2rem', padding: '1rem' }}>
-      <Typography variant='h5' align='center' sx={{ my: '1.5rem' }}>
+    <Box sx={{ padding: '3rem' }}>
+      <Typography variant='h4' align='center' sx={{ mb: '3rem' }}>
         Update course
       </Typography>
 
@@ -457,8 +457,9 @@ const UpdateCoursePage = () => {
           }}
         >
           <Button
-            component={Link}
-            to='/user-courses'
+            // component={Link}
+            // to='/user-courses'
+            onClick={() => navigate(-1)}
             variant='contained'
             // fullWidth
             disableElevation
@@ -480,7 +481,7 @@ const UpdateCoursePage = () => {
           </Button>
         </Box>
       </form>
-    </Paper>
+    </Box>
   );
 };
 

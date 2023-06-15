@@ -17,9 +17,8 @@ const style = {
 interface DeleteCourseModalProps {
   isModalOpen: boolean;
   handleClose: () => void;
-  course: Course;
+  course: Course | undefined;
   handleDeleteCourse: () => void;
-  // handleDeleteCourse: Promise<void>;
 }
 
 const DeleteCourseModal: React.FC<DeleteCourseModalProps> = ({
@@ -71,7 +70,7 @@ const DeleteCourseModal: React.FC<DeleteCourseModalProps> = ({
             </Button>
             <Button
               variant='contained'
-              onClick={() => handleDeleteCourse(course._id)}
+              onClick={() => handleDeleteCourse(course?._id)}
             >
               Yes, delete course
             </Button>

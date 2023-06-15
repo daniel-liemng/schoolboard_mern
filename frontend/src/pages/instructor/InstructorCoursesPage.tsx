@@ -27,9 +27,11 @@ const InstructorCoursesPage = () => {
   const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
+  const [deleteCourse, setDeleteCourse] = useState<Course>();
+
   const { data: courses, isLoading } = useGetInstructorCoursesQuery();
 
-  const { mutateAsync: deleteCourse } = useDeleteCourseMutation();
+  const { mutateAsync: deleteCourseHandler } = useDeleteCourseMutation();
 
   const handleCourseModalClose = () => {
     setIsCourseModalOpen(false);
@@ -39,11 +41,10 @@ const InstructorCoursesPage = () => {
     setIsCategoryModalOpen(false);
   };
 
-  const handleDeleteCourse = async (courseId) => {
-    await deleteCourse(courseId);
+  const handleDeleteCourse = async (courseId: string) => {
+    await deleteCourseHandler(courseId);
     toast.success('Course Deleted');
     handleCourseModalClose();
-    window.location.reload();
   };
 
   console.log('Course', courses);
@@ -54,7 +55,7 @@ const InstructorCoursesPage = () => {
 
   return (
     <Container sx={{ mt: '1rem' }}>
-      <Typography variant='h5' align='center' my='1.5rem'>
+      <Typography variant='h4' align='center' my='2rem'>
         All Courses (Instructor)
       </Typography>
 
@@ -121,16 +122,16 @@ const InstructorCoursesPage = () => {
                     sx={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}
                   >
                     <Button
-                      to={`/admin/summary/${course._id}`}
+                      to={`/instructor/course/${course._id}`}
                       component={Link}
                       variant='contained'
                       size='small'
                       color='info'
                     >
-                      Summary
+                      Details
                     </Button>
                     <Button
-                      to={`/admin/course/update-course/${course._id}`}
+                      to={`/instructor/course/update/${course._id}`}
                       component={Link}
                       variant='contained'
                       size='small'
@@ -139,7 +140,10 @@ const InstructorCoursesPage = () => {
                       Update
                     </Button>
                     <Button
-                      onClick={() => setIsCourseModalOpen(true)}
+                      onClick={() => {
+                        setDeleteCourse(course);
+                        setIsCourseModalOpen(true);
+                      }}
                       variant='contained'
                       size='small'
                       color='error'
@@ -147,13 +151,13 @@ const InstructorCoursesPage = () => {
                       Delete
                     </Button>
                     <DeleteCourseModal
-                      course={course}
+                      course={deleteCourse}
                       isModalOpen={isCourseModalOpen}
                       handleClose={handleCourseModalClose}
                       handleDeleteCourse={handleDeleteCourse}
                     />
                     <Button
-                      to={`/admin/attendance/${course._id}`}
+                      to={`/instructor/course/attendance/${course._id}`}
                       component={Link}
                       variant='contained'
                       size='small'

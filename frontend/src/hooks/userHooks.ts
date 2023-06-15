@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { queryClient } from '../main';
 
 export const useLoginUserMutation = () =>
   useMutation({
@@ -23,6 +24,7 @@ export const useUpdateProfileMutation = () =>
   useMutation({
     mutationFn: async (profileData) =>
       (await axios.put('/api/users/update-profile', profileData)).data,
+    onSuccess: () => queryClient.invalidateQueries('current-user'),
   });
 
 export const useChangePasswordMutation = () =>

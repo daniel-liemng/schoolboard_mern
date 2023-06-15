@@ -1,10 +1,10 @@
 export type User = {
-  _id: string;
+  _id?: string;
   name: string;
   email: string;
   token?: string;
   role?: string;
-  photo?: string;
+  avatar?: string;
   phone?: string;
   gender?: string;
   dob?: string;

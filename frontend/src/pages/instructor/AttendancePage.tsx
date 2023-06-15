@@ -29,6 +29,7 @@ import CreateSessionModal from '../../compnents/modal/CreateSessionModal';
 import { useParams } from 'react-router-dom';
 import { useGetCourseQuery } from '../../hooks/courseHooks';
 import { toast } from 'react-hot-toast';
+import { User } from '../../types/User';
 
 const AttendancePage = () => {
   const { courseId } = useParams();
@@ -81,28 +82,21 @@ const AttendancePage = () => {
   console.log('**99**', course);
 
   return (
-    <Paper sx={{ m: '2rem', p: '2rem' }}>
-      <Typography variant='h5' color='primary' align='center'>
+    <Box sx={{ p: '3rem' }}>
+      <Typography variant='h4' align='center' sx={{ mb: '3rem' }}>
         Check attendance
       </Typography>
 
-      <Grid container spacing={2} sx={{ mt: '1.5rem' }}>
-        <Grid item xs={4}>
-          <Button
-            onClick={() => setIsSessionModalOpen(true)}
-            variant='contained'
-            size='small'
-            sx={{ my: '1rem' }}
-          >
-            Create session
-          </Button>
-          <CreateSessionModal
-            isModalOpen={isSessionModalOpen}
-            handleClose={() => setIsSessionModalOpen(false)}
-            courseId={courseId}
-          />
-
-          <FormControl fullWidth sx={{ mt: '1.5rem' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '2rem',
+          width: '100%',
+          alignItems: 'center',
+        }}
+      >
+        <Box sx={{ flex: '1' }}>
+          <FormControl fullWidth>
             <InputLabel id='session'>Select Session</InputLabel>
             <Select
               labelId='session'
@@ -118,45 +112,54 @@ const AttendancePage = () => {
               ))}
             </Select>
           </FormControl>
-        </Grid>
+        </Box>
 
-        <Grid item xs={8}>
-          <Typography variant='h6' align='center'>
-            Check attendance
-          </Typography>
-          {/* List all registered students */}
-          <List dense sx={{ width: '100%' }}>
-            {studentList?.map((student, index) => (
-              <ListItem
-                key={index}
-                secondaryAction={
-                  <Checkbox
-                    edge='end'
-                    onChange={handleToggle(student._id)}
-                    checked={selectedStudentIds.indexOf(student._id) !== -1}
-                    // checked={shortAttendList?.includes(student._id)}
-                  />
-                }
-                disablePadding
-              >
-                <ListItemButton>
-                  <ListItemAvatar>
-                    <Avatar alt='avatar' src={``} />
-                  </ListItemAvatar>
-                  <ListItemText>{student.name}</ListItemText>
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+        <Box sx={{ flex: '1' }}>
+          <Button
+            onClick={() => setIsSessionModalOpen(true)}
+            variant='contained'
+          >
+            Create session
+          </Button>
+          <CreateSessionModal
+            isModalOpen={isSessionModalOpen}
+            handleClose={() => setIsSessionModalOpen(false)}
+            courseId={courseId}
+          />
+        </Box>
+      </Box>
 
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button onClick={handleUpdateStudents} variant='contained'>
-              Save
-            </Button>
-          </Box>
-        </Grid>
-      </Grid>
-    </Paper>
+      <Box sx={{ width: '50%', minWidth: '300px', my: '2rem' }}>
+        <List>
+          {studentList?.map((student: User, index: number) => (
+            <ListItem
+              key={index}
+              secondaryAction={
+                <Checkbox
+                  edge='end'
+                  onChange={handleToggle(student._id)}
+                  checked={selectedStudentIds.indexOf(student._id) !== -1}
+                  // checked={shortAttendList?.includes(student._id)}
+                />
+              }
+              disablePadding
+            >
+              <ListItemButton>
+                <ListItemAvatar>
+                  <Avatar alt='avatar' src={``} />
+                </ListItemAvatar>
+                <ListItemText>{student.name}</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button onClick={handleUpdateStudents} variant='contained'>
+            Save
+          </Button>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

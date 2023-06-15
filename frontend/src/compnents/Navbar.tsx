@@ -12,15 +12,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import { menu, userMenu } from '../data/data';
-import {
-  Avatar,
-  Menu,
-  MenuItem,
-  Paper,
-  Tooltip,
-  useTheme,
-} from '@mui/material';
+import { menu } from '../data/data';
+import { Menu, MenuItem, Tooltip, useTheme } from '@mui/material';
 import { ColorModeContext } from '../App';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -58,6 +51,57 @@ const Navbar = (props: NavbarProps) => {
     setMobileOpen((prevState: boolean) => !prevState);
   };
 
+  const isAdmin = user?.role === 'admin';
+  const isInstructor = user?.role === 'instructor';
+
+  const logout = () => {
+    console.log('OUT');
+  };
+
+  const AccountMenu = () => (
+    <Menu
+      sx={{ mt: '45px' }}
+      id='menu-appbar'
+      anchorEl={anchorElUser}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={Boolean(anchorElUser)}
+      onClose={handleCloseUserMenu}
+    >
+      {isAdmin && (
+        <MenuItem component={Link} to='/admin' onClick={handleCloseUserMenu}>
+          <Typography textAlign='center'>Dashboard</Typography>
+        </MenuItem>
+      )}
+      {isInstructor && (
+        <MenuItem
+          component={Link}
+          to='/instructor/courses'
+          onClick={handleCloseUserMenu}
+        >
+          <Typography textAlign='center'>I Dashboard</Typography>
+        </MenuItem>
+      )}
+      <MenuItem
+        component={Link}
+        to='/user/profile'
+        onClick={handleCloseUserMenu}
+      >
+        <Typography textAlign='center'>Profile</Typography>
+      </MenuItem>
+      <MenuItem onClick={logout}>
+        <Typography textAlign='center'>Logout</Typography>
+      </MenuItem>
+    </Menu>
+  );
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant='h6' sx={{ my: 2 }}>
@@ -87,30 +131,7 @@ const Navbar = (props: NavbarProps) => {
                 <AccountCircleIcon />
               </IconButton>
             </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id='menu-appbar'
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {userMenu.map((item) => (
-                <MenuItem key={item.name} onClick={handleCloseUserMenu}>
-                  <Link to={item.link}>
-                    <Typography textAlign='center'>{item.name}</Typography>
-                  </Link>
-                </MenuItem>
-              ))}
-            </Menu>
+            <AccountMenu />
           </ListItem>
         )}
 
@@ -169,30 +190,7 @@ const Navbar = (props: NavbarProps) => {
                     <AccountCircleIcon fontSize='large' />
                   </IconButton>
                 </Tooltip>
-                <Menu
-                  sx={{ mt: '45px' }}
-                  id='menu-appbar'
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {userMenu.map((item) => (
-                    <MenuItem key={item.name} onClick={handleCloseUserMenu}>
-                      <Link to={item.link}>
-                        <Typography textAlign='center'>{item.name}</Typography>
-                      </Link>
-                    </MenuItem>
-                  ))}
-                </Menu>
+                <AccountMenu />
               </>
             )}
             <IconButton onClick={colorMode.toggleColorMode}>

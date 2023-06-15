@@ -14,22 +14,22 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  const { data, error } = useGetCurrentUserQuery();
+  // const { data, error } = useGetCurrentUserQuery();
 
-  useEffect(() => {
-    if (data) {
-      dispatch(setAuth());
-      const { _id, name, email, phone, gender, dob } = data;
-      dispatch(setCurrentUser({ _id, name, email, phone, gender, dob }));
-    }
-    if (error) {
-      navigate('/login');
-    }
-  }, [dispatch, data, navigate]);
+  // useEffect(() => {
+  //   if (data) {
+  //     dispatch(setAuth());
+  //     const { _id, name, email, phone, gender, dob } = data;
+  //     dispatch(setCurrentUser({ _id, name, email, phone, gender, dob }));
+  //   }
+  //   if (error) {
+  //     navigate('/login');
+  //   }
+  // }, [dispatch, data, navigate]);
 
   // if (error instanceof AxiosError) {
   //   toast.error(error?.response?.data?.message || 'Something went wrong');

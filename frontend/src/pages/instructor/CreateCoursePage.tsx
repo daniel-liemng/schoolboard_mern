@@ -25,7 +25,7 @@ import { useGetAllCategoriesQuery } from '../../hooks/categoryHooks';
 import { useAppSelector } from '../../hooks/hooks';
 import { Category } from '../../types/Category';
 import { useCreateCourseMutation } from '../../hooks/courseHooks';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 type FormValues = {
   title: string;
@@ -100,6 +100,8 @@ const validationRules = {
 };
 
 const CreateCoursePage = () => {
+  const navigate = useNavigate();
+
   const { data: categories } = useGetAllCategoriesQuery();
 
   const { user } = useAppSelector((state) => state.user);
@@ -136,6 +138,7 @@ const CreateCoursePage = () => {
 
     await createCourse(courseData);
     toast.success('Course Created');
+    navigate('/instructor/courses');
   };
 
   // console.log('UUser', dayjs(data.time_to));

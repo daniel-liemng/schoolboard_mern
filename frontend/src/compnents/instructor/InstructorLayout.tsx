@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import React from 'react';
-import AdminSidebar from './InstructorSidebar';
 import Navbar from '../Navbar';
+import InstructorSidebar from './InstructorSidebar';
 
 interface InstructorLayoutProps {
   children: React.ReactNode;
@@ -28,7 +28,7 @@ const InstructorLayout: React.FC<InstructorLayoutProps> = ({ children }) => {
               pl: '1rem',
             }}
           >
-            <AdminSidebar />
+            <InstructorSidebar />
           </Box>
           <Box sx={{ bgcolor: 'white', flex: '1', padding: '1rem' }}>
             {children}

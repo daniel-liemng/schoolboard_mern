@@ -1,31 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 // import type { RootState } from '../redux/store';
-import { UserInfo } from '../types/UserInfo';
 import { User } from '../types/User';
 
 interface UserState {
   isAuthenticated: boolean;
-  user: UserInfo;
+  user: User;
 }
 const initialState: UserState = {
   isAuthenticated: false,
-  // user: {
-  //   name: '',
-  //   email: '',
-  //   token: '',
-  //   role: '',
-  // },
   user: localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user') || '')
     : {
+        _id: '',
         name: '',
         email: '',
-        token: '',
         role: '',
         gender: '',
         phobe: '',
         dob: '',
+        registeredCourseIds: [],
       },
 };
 
@@ -37,6 +31,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = true;
     },
     setCurrentUser: (state: UserState, action: PayloadAction<User>) => {
+      localStorage.setItem('user', JSON.stringify(action.payload));
       state.user = action.payload;
     },
   },
