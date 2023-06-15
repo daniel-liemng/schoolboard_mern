@@ -6,16 +6,12 @@ import {
   Backdrop,
   Fade,
   TextField,
-  FormHelperText,
 } from '@mui/material';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
 import { useCreateSessionMutation } from '../../hooks/sessionHooks';
-import dayjs, { Dayjs } from 'dayjs';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 const style = {
   position: 'absolute',
@@ -34,21 +30,6 @@ type FormValues = {
   date: string;
 };
 
-const validationRules = {
-  start_date: {
-    validate: (val: Dayjs | null) => {
-      if (val === null) {
-        return 'Please select the start date';
-      }
-
-      if (!val.format('MMDDYYYY').match(/^\d{8}$/g)) {
-        return 'Invalid date formats';
-      }
-
-      return true;
-    },
-  },
-};
 interface CreateSessionProps {
   isModalOpen: boolean;
   handleClose: () => void;
@@ -66,15 +47,19 @@ const CreateSessionModal: React.FC<CreateSessionProps> = ({
     error,
   } = useCreateSessionMutation();
 
-  const { control, handleSubmit, reset } = useForm<FormValues>({
-    mode: 'onChange',
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormValues>({
+    defaultValues: {
+      date: '',
+    },
   });
 
-  const onSubmit = async (data: FormValues) => {
-    await createSession({
-      courseId,
-      date: dayjs(data.date).format('MM/DD/YYYY'),
-    });
+  const onSubmit = async (data: { date: string }) => {
+    await createSession({ courseId, date: data?.date });
     reset();
     toast.success('Session Created');
     handleClose();
@@ -110,38 +95,23 @@ const CreateSessionModal: React.FC<CreateSessionProps> = ({
           </Typography>
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <Controller
-              name='date'
-              control={control}
-              defaultValue={dayjs(new Date())}
-              // rules={validationRules.dob}
-              render={({ field, fieldState }) => (
-                <LocalizationProvider
-                  dateAdapter={AdapterDayjs}
-                  adapterLocale='en'
-                >
-                  <DatePicker
-                    {...field}
-                    label='Date'
-                    slotProps={{
-                      textField: {
-                        variant: 'outlined',
-                        fullWidth: true,
-                      },
-                    }}
-                    onChange={(date) => field.onChange(date)}
-                  />
-                  <FormHelperText
-                    sx={{
-                      color: 'red',
-                      marginLeft: '1rem',
-                    }}
-                  >
-                    {fieldState.error?.message}
-                  </FormHelperText>
-                </LocalizationProvider>
-              )}
+            <TextField
+              id='date'
+              label='Date'
+              {...register('date', { required: true })}
+              variant='outlined'
+              fullWidth
+              error={!!errors.date}
+              sx={{ marginY: '2rem' }}
             />
+            {errors.date?.type === 'required' && (
+              <Box
+                sx={{ marginBottom: '1rem', color: 'red', textAlign: 'left' }}
+              >
+                Date is required
+              </Box>
+            )}
+
             <Box
               sx={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}
             >

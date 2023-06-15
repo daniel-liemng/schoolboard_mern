@@ -18,6 +18,8 @@ import Loading from '../../compnents/Loading';
 import { User } from '../../types/User';
 import UserInfoModal from '../../compnents/modal/UserInfoModal';
 import UserRegisteredCourseModal from '../../compnents/modal/UserRegisteredCourseModal';
+import { toast } from 'react-hot-toast';
+import { AxiosError } from 'axios';
 
 const StudentsPage = () => {
   const {
@@ -27,16 +29,15 @@ const StudentsPage = () => {
   } = useGetInstructorAllStudentsQuery();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [tempList, setTempList] = useState<User[]>();
 
   const [userModalOpen, setUserModalOpen] = useState(false);
   const [registeredCourseModalOpen, setRegisteredCourseModalOpen] =
     useState(false);
   const [selectedUser, setSelectedUser] = useState<User>();
 
-  console.log('AALL', allMyStudents);
-
-  console.log('search', searchTerm);
+  if (error instanceof AxiosError) {
+    toast.error(error?.response?.data?.message || 'Something went wrong');
+  }
 
   return (
     <Box sx={{ p: '3rem' }}>

@@ -109,13 +109,6 @@ const CreateCoursePage = () => {
   const { mutateAsync: createCourse } = useCreateCourseMutation();
 
   const { control, handleSubmit } = useForm<FormValues>({
-    // defaultValues: {
-    //   name: user?.name,
-    //   dob: user?.dob || dayjs(new Date()),
-    //   gender: user?.gender || '',
-    //   email: user?.email || '',
-    //   phone: user?.phone || '',
-    // },
     mode: 'onChange',
   });
 
