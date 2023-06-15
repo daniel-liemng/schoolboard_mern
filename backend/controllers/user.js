@@ -81,6 +81,19 @@ const updateProfile = asyncHandler(async (req, res, next) => {
   res.status(200).json(updatedUser);
 });
 
+const saveAvatar = asyncHandler(async (req, res, next) => {
+  const { _id } = req.user;
+  const { avatar } = req.body;
+
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    { avatar },
+    { new: true }
+  );
+
+  res.status(200).json(updatedUser);
+});
+
 const changePassword = asyncHandler(async (req, res, next) => {
   const { currentPassword, password } = req.body;
 
@@ -125,6 +138,7 @@ module.exports = {
   logout,
   getCurrentUser,
   updateProfile,
+  saveAvatar,
   changePassword,
   getCurrentUserCourses,
 };

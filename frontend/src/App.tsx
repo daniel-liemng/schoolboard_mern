@@ -281,6 +281,7 @@ const App = () => {
         dob,
         role,
         registeredCourseIds,
+        avatar,
       } = currentUser;
       dispatch(
         setCurrentUser({
@@ -292,6 +293,7 @@ const App = () => {
           dob,
           role,
           registeredCourseIds,
+          avatar,
         })
       );
     }

@@ -20,6 +20,7 @@ const initialState: UserState = {
         phobe: '',
         dob: '',
         registeredCourseIds: [],
+        avatar: '',
       },
 };
 

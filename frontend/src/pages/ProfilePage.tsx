@@ -15,15 +15,59 @@ import { useAppSelector } from '../hooks/hooks';
 import { PhotoCamera } from '@mui/icons-material';
 import ProfileModal from '../compnents/modal/ProfileModal';
 import ChangePasswordModal from '../compnents/modal/ChangePasswordModal';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import {
+  useSaveAvatarMutation,
+  useUpdateProfileMutation,
+} from '../hooks/userHooks';
 
 const ProfilePage = () => {
   const { user } = useAppSelector((state) => state.user);
 
+  const { mutateAsync: saveAvatar } = useSaveAvatarMutation();
+
   const [profileModalOpen, setProfileModalOpen] = useState(false);
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
 
-  const handleUpload = () => {
-    console.log('Upload');
+  const [profileImg, setProfileImg] = useState('');
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInptElement>) => {
+    if (!e.target.files) {
+      return;
+    }
+
+    const file = e.target.files[0];
+
+    if (!file) {
+      toast.error('Pick an image to upload');
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append(
+      'upload_preset',
+      import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET as string
+    );
+    formData.append(
+      'cloud_name',
+      import.meta.env.VITE_CLOUDINARY_NAME as string
+    );
+
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/${
+        import.meta.env.VITE_CLOUDINARY_NAME as string
+      }/image/upload`,
+      {
+        method: 'POST',
+        body: formData,
+      }
+    );
+    const data = await res.json();
+
+    setProfileImg(data?.secure_url);
+    await saveAvatar(data?.secure_url);
+    toast.success('Avatar uploaded');
   };
 
   const handleProfileModalClose = () => {
@@ -33,6 +77,7 @@ const ProfilePage = () => {
   const handlePasswordModalClose = () => {
     setPasswordModalOpen(false);
   };
+  console.log('1212', user);
 
   return (
     <Box sx={{ marginTop: '2rem', padding: '2rem' }}>
@@ -63,16 +108,33 @@ const ProfilePage = () => {
                       <img
                         src={user?.avatar}
                         alt='profile'
-                        style={{ width: 100, height: 100 }}
+                        style={{
+                          width: 120,
+                          height: 120,
+                          border: '3px solid #817777',
+                          borderRadius: '50%',
+                        }}
                       />
                     ) : (
-                      <Avatar sx={{ width: 100, height: 100 }} />
+                      <img
+                        src={
+                          profileImg ||
+                          'https://res.cloudinary.com/danhln/image/upload/v1686861462/eoy7udp1m82afzamam2q.png'
+                        }
+                        alt=''
+                        style={{
+                          width: 120,
+                          height: 120,
+                          borderRadius: '50%',
+                          border: '3px solid #817777',
+                        }}
+                      />
                     )}
                     <Box
                       sx={{
                         position: 'absolute',
-                        bottom: -5,
-                        right: -5,
+                        bottom: 0,
+                        right: 0,
                       }}
                     >
                       <Tooltip title='Upload avatar'>
@@ -89,7 +151,12 @@ const ProfilePage = () => {
                             },
                           }}
                         >
-                          <input hidden accept='image/*' type='file' />
+                          <input
+                            hidden
+                            accept='image/*'
+                            type='file'
+                            onChange={handleUpload}
+                          />
                           <PhotoCamera sx={{ width: 25, height: 25 }} />
                         </IconButton>
                       </Tooltip>

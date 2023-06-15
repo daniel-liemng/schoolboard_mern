@@ -27,6 +27,13 @@ export const useUpdateProfileMutation = () =>
     onSuccess: () => queryClient.invalidateQueries('current-user'),
   });
 
+export const useSaveAvatarMutation = () =>
+  useMutation({
+    mutationFn: async (avatar) =>
+      (await axios.put('/api/users/save-avatar', { avatar })).data,
+    onSuccess: () => queryClient.invalidateQueries('current-user'),
+  });
+
 export const useChangePasswordMutation = () =>
   useMutation({
     mutationFn: async (passwordData) =>
