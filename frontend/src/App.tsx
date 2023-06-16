@@ -35,7 +35,7 @@ import AdminLayout from './compnents/admin/AdminLayout';
 import InstructorLayout from './compnents/instructor/InstructorLayout';
 import { useAppDispatch } from './hooks/hooks';
 import { useGetCurrentUserQuery } from './hooks/userHooks';
-import { setAuth, setCurrentUser } from './redux/userSlice';
+import { setCurrentUser } from './redux/userSlice';
 import AdminProtectedRoute from './routes/AdminProtectedRoute';
 import InstructorProtectedRoute from './routes/InstructorProtectedRoute';
 
@@ -289,11 +289,10 @@ const App = () => {
 
   const { data: currentUser } = useGetCurrentUserQuery();
 
-  console.log('7474', currentUser);
+  console.log('CURRENT-APP', currentUser);
 
   useEffect(() => {
     if (currentUser) {
-      dispatch(setAuth());
       const {
         _id,
         name,

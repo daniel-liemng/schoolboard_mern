@@ -9,13 +9,19 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { useLoginUserMutation } from '../hooks/userHooks.js';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import {
+  useGetCurrentUserQuery,
+  useLoginUserMutation,
+} from '../hooks/userHooks.js';
 import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks.js';
+import { setCurrentUser } from '../redux/userSlice.js';
+import Loading from '../compnents/Loading.js';
 
 type FormValues = {
   email: string;
@@ -24,6 +30,9 @@ type FormValues = {
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
+  const { isAuthenticated, user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -38,11 +47,45 @@ const LoginPage = () => {
   });
 
   const { mutateAsync: login, isLoading, error } = useLoginUserMutation();
-
+  const {
+    data: currentUser,
+    isLoading: isUserLoading,
+    error: userError,
+  } = useGetCurrentUserQuery();
   const [showPassword, setshowPassword] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated || user) {
+      navigate('/');
+    }
+  }, [isAuthenticated, user, navigate]);
 
   const onSubmit = async (data: { email: string; password: string }) => {
     await login(data);
+    const {
+      _id,
+      name,
+      email,
+      phone,
+      gender,
+      dob,
+      role,
+      registeredCourseIds,
+      avatar,
+    } = currentUser;
+    dispatch(
+      setCurrentUser({
+        _id,
+        name,
+        email,
+        phone,
+        gender,
+        dob,
+        role,
+        registeredCourseIds,
+        avatar,
+      })
+    );
 
     reset();
     toast.success('Logged in successfully');
@@ -55,6 +98,10 @@ const LoginPage = () => {
 
   if (error instanceof AxiosError) {
     toast.error(error?.response?.data?.message || 'Something went wrong');
+  }
+
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (

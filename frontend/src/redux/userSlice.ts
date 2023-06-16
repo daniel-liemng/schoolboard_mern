@@ -11,36 +11,37 @@ const initialState: UserState = {
   isAuthenticated: false,
   user: localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user') || '')
-    : {
-        _id: '',
-        name: '',
-        email: '',
-        role: '',
-        gender: '',
-        phobe: '',
-        dob: '',
-        registeredCourseIds: [],
-        avatar: '',
-      },
+    : null,
+  // {
+  //   _id: '',
+  //   name: '',
+  //   email: '',
+  //   role: '',
+  //   gender: '',
+  //   phone: '',
+  //   dob: '',
+  //   registeredCourseIds: [],
+  //   avatar: '',
+  // },
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setAuth: (state) => {
-      state.isAuthenticated = true;
-    },
     setCurrentUser: (state: UserState, action: PayloadAction<User>) => {
       localStorage.setItem('user', JSON.stringify(action.payload));
       state.user = action.payload;
+      state.isAuthenticated = action.payload ? true : false;
     },
-    logout: () => {
+    logout: (state) => {
       localStorage.removeItem('user');
+      state.isAuthenticated = false;
+      state.user = null;
     },
   },
 });
 
-export const { setAuth, setCurrentUser, logout } = userSlice.actions;
+export const { setCurrentUser, logout } = userSlice.actions;
 
 export default userSlice.reducer;

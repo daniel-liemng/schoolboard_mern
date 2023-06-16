@@ -8,6 +8,11 @@ export const useLoginUserMutation = () =>
       (await axios.post('/api/users/login', loginData)).data,
   });
 
+export const useLogoutUserMutation = () =>
+  useMutation({
+    mutationFn: async () => (await axios.post('/api/users/logout')).data,
+  });
+
 export const useSignupUserMutation = () =>
   useMutation({
     mutationFn: async (signupData) =>

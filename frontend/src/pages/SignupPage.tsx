@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -13,9 +13,14 @@ import {
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSignupUserMutation } from '../hooks/userHooks';
+import {
+  useGetCurrentUserQuery,
+  useSignupUserMutation,
+} from '../hooks/userHooks';
 import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { setCurrentUser } from '../redux/userSlice';
 
 type FormValues = {
   name: string;
@@ -26,6 +31,9 @@ type FormValues = {
 
 const SignupPage = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const { isAuthenticated, user } = useAppSelector((state) => state.user);
 
   const {
     register,
@@ -43,9 +51,16 @@ const SignupPage = () => {
   });
 
   const { mutateAsync: signup, isLoading, error } = useSignupUserMutation();
+  const { data: currentUser } = useGetCurrentUserQuery();
 
   const [showPassword, setshowPassword] = useState(false);
   const [showPassword2, setshowPassword2] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated || user) {
+      navigate('/');
+    }
+  }, [isAuthenticated, user, navigate]);
 
   const onSubmit = async (data: {
     name: string;
@@ -62,6 +77,31 @@ const SignupPage = () => {
       email: data.email,
       password: data.password,
     });
+
+    const {
+      _id,
+      name,
+      email,
+      phone,
+      gender,
+      dob,
+      role,
+      registeredCourseIds,
+      avatar,
+    } = currentUser;
+    dispatch(
+      setCurrentUser({
+        _id,
+        name,
+        email,
+        phone,
+        gender,
+        dob,
+        role,
+        registeredCourseIds,
+        avatar,
+      })
+    );
 
     reset();
     toast.success('Created new account successfully');

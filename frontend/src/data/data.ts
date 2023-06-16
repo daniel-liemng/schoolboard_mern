@@ -27,8 +27,8 @@ export const userMenu = [
     link: '/profile',
   },
   {
-    name: 'Logout',
-    link: '/',
+    name: 'Courses',
+    link: '/user/courses',
   },
 ];
 

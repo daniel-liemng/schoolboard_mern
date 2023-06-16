@@ -11,14 +11,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { menu } from '../data/data';
 import { Menu, MenuItem, Tooltip, useTheme } from '@mui/material';
 import { ColorModeContext } from '../App';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { useAppSelector } from '../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+import { setCurrentUser } from '../redux/userSlice';
+import { useLogoutUserMutation } from '../hooks/userHooks';
 
 const drawerWidth = 240;
 
@@ -27,13 +30,18 @@ interface NavbarProps {
 }
 
 const Navbar = (props: NavbarProps) => {
+  const navigate = useNavigate();
+
+  const { isAuthenticated, user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const { mutateAsync: logout } = useLogoutUserMutation();
+
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
-
-  const { isAuthenticated, user } = useAppSelector((state) => state.user);
 
   const appMenu = isAuthenticated ? menu.slice(0, 3) : menu;
 
@@ -54,8 +62,12 @@ const Navbar = (props: NavbarProps) => {
   const isAdmin = user?.role === 'admin';
   const isInstructor = user?.role === 'instructor';
 
-  const logout = () => {
-    console.log('OUT');
+  const logoutHandler = async () => {
+    await logout();
+    localStorage.removeItem('user');
+    dispatch(setCurrentUser(null));
+
+    navigate('/');
   };
 
   const AccountMenu = () => (
@@ -96,7 +108,7 @@ const Navbar = (props: NavbarProps) => {
       >
         <Typography textAlign='center'>Profile</Typography>
       </MenuItem>
-      <MenuItem onClick={logout}>
+      <MenuItem onClick={logoutHandler}>
         <Typography textAlign='center'>Logout</Typography>
       </MenuItem>
     </Menu>
