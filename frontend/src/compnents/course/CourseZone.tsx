@@ -4,10 +4,12 @@ import CourseItem from './CourseItem';
 
 interface CourseZoneProps {
   courses: Course[];
-  setFetchAgain: () => boolean;
+  // setFetchAgain: () => boolean;
 }
 
-const CourseZone: React.FC<CourseZoneProps> = ({ courses, setFetchAgain }) => {
+const CourseZone: React.FC<CourseZoneProps> = ({ courses }) => {
+  console.log('course', courses);
+
   return (
     <Box
       sx={{
@@ -17,7 +19,7 @@ const CourseZone: React.FC<CourseZoneProps> = ({ courses, setFetchAgain }) => {
       }}
     >
       {courses?.map((course, index) => (
-        <CourseItem key={index} course={course} setFetchAgain={setFetchAgain} />
+        <CourseItem key={index} course={course} />
       ))}
     </Box>
   );

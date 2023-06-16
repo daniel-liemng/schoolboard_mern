@@ -5,24 +5,13 @@ import { User } from '../types/User';
 
 interface UserState {
   isAuthenticated: boolean;
-  user: User;
+  user: User | undefined;
 }
 const initialState: UserState = {
   isAuthenticated: false,
   user: localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user') || '')
-    : null,
-  // {
-  //   _id: '',
-  //   name: '',
-  //   email: '',
-  //   role: '',
-  //   gender: '',
-  //   phone: '',
-  //   dob: '',
-  //   registeredCourseIds: [],
-  //   avatar: '',
-  // },
+    : undefined,
 };
 
 export const userSlice = createSlice({

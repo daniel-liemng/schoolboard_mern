@@ -9,19 +9,19 @@ import { setCourses } from '../redux/courseSlice';
 import { useEffect, useState } from 'react';
 
 const CoursesPage = () => {
-  const { data: categories } = useGetAllCategoriesQuery();
-  const { data, isLoading, error } = useGetAllCoursesQuery();
+  // const { data: categories } = useGetAllCategoriesQuery();
+  // const { data, isLoading, error } = useGetAllCoursesQuery();
 
-  const [fetchAgain, setFetchAgain] = useState(false);
+  // const [fetchAgain, setFetchAgain] = useState(false);
 
-  const { courses } = useAppSelector((state) => state.course);
-  const dispatch = useAppDispatch();
+  const { courses, categories } = useAppSelector((state) => state.course);
+  // const dispatch = useAppDispatch();
 
   const allCategories = categories && ['All', ...convertCategory(categories)];
 
-  useEffect(() => {
-    dispatch(setCourses(data));
-  }, [dispatch, data, fetchAgain]);
+  // useEffect(() => {
+  //   dispatch(setCourses(data));
+  // }, [dispatch, data, fetchAgain]);
 
   return (
     <Box
@@ -36,7 +36,7 @@ const CoursesPage = () => {
         <CategoryZone allCategories={allCategories} />
       </Box>
       <Box sx={{ bgcolor: 'white', flex: '1', padding: '1rem' }}>
-        <CourseZone courses={courses} setFetchAgain={setFetchAgain} />
+        <CourseZone courses={courses} />
       </Box>
     </Box>
   );

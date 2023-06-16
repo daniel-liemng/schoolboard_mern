@@ -43,7 +43,7 @@ const Navbar = (props: NavbarProps) => {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
 
-  const appMenu = isAuthenticated ? menu.slice(0, 3) : menu;
+  const appMenu = isAuthenticated ? menu.slice(0, 2) : menu;
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -61,6 +61,7 @@ const Navbar = (props: NavbarProps) => {
 
   const isAdmin = user?.role === 'admin';
   const isInstructor = user?.role === 'instructor';
+  const isStudent = user?.role === 'user';
 
   const logoutHandler = async () => {
     await logout();
@@ -99,6 +100,15 @@ const Navbar = (props: NavbarProps) => {
           onClick={handleCloseUserMenu}
         >
           <Typography textAlign='center'>I Dashboard</Typography>
+        </MenuItem>
+      )}
+      {isStudent && (
+        <MenuItem
+          component={Link}
+          to='/user/courses'
+          onClick={handleCloseUserMenu}
+        >
+          <Typography textAlign='center'>My courses</Typography>
         </MenuItem>
       )}
       <MenuItem

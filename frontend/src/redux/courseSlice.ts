@@ -13,7 +13,7 @@ export const courseSlice = createSlice({
   name: 'course',
   initialState,
   reducers: {
-    setCourses: (state: CourseState, action: PayloadAction<Course>) => {
+    setCourses: (state: CourseState, action: PayloadAction<Course[]>) => {
       state.courses = action.payload;
     },
   },

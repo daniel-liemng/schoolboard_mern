@@ -8,20 +8,16 @@ export const menu = [
     link: '/courses',
   },
   {
-    name: 'UserCourses',
-    link: '/user-courses',
-  },
-  {
     name: 'Login',
     link: '/login',
   },
-  {
-    name: 'Sign up',
-    link: '/signup',
-  },
+  // {
+  //   name: 'Sign up',
+  //   link: '/signup',
+  // },
 ];
 
-export const userMenu = [
+export const userNav = [
   {
     name: 'Profile',
     link: '/profile',

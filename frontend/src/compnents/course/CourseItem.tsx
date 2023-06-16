@@ -6,6 +6,7 @@ import {
   CardActions,
   CardContent,
   Divider,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { Course } from '../../types/Course';
@@ -13,13 +14,13 @@ import CourseDetailsModal from '../modal/CourseDetailsModal';
 import { useRegisterCourseMutation } from '../../hooks/courseHooks';
 import { toast } from 'react-hot-toast';
 import { useAppSelector } from '../../hooks/hooks';
+import { AxiosError } from 'axios';
 
 interface CourseItemProps {
   course: Course;
-  setFetchAgain: () => boolean;
 }
 
-const CourseItem: React.FC<CourseItemProps> = ({ course, setFetchAgain }) => {
+const CourseItem: React.FC<CourseItemProps> = ({ course }) => {
   const [courseDetailsOpen, setCourseDetailsOpen] = useState(false);
 
   const { user } = useAppSelector((state) => state.user);
@@ -36,13 +37,13 @@ const CourseItem: React.FC<CourseItemProps> = ({ course, setFetchAgain }) => {
 
   const handleRegister = async (courseId: string) => {
     await registerCourse(courseId);
-    setFetchAgain((val: any) => !val);
+    // setFetchAgain((val: any) => !val);
 
     toast.success('The course is registered successfully');
   };
 
-  if (error) {
-    toast.error(error?.response?.data?.message);
+  if (error instanceof AxiosError) {
+    toast.error(error?.response?.data?.message || 'Something went wrong');
   }
 
   return (
@@ -93,15 +94,23 @@ const CourseItem: React.FC<CourseItemProps> = ({ course, setFetchAgain }) => {
             handleClose={handleCloseDetailsModal}
             course={course}
           />
-          <Button
-            variant='contained'
-            disabled={isLoading || course.registeredUserIds.includes(user._id)}
-            onClick={() => handleRegister(course._id)}
-          >
-            {course.registeredUserIds.includes(user._id)
-              ? 'Registered'
-              : 'Register'}
-          </Button>
+          {user ? (
+            <Button
+              variant='contained'
+              disabled={
+                isLoading || course.registeredUserIds.includes(user._id)
+              }
+              onClick={() => handleRegister(course._id as string)}
+            >
+              {course.registeredUserIds.includes(user._id as string)
+                ? 'Registered'
+                : 'Register'}
+            </Button>
+          ) : (
+            <Tooltip title='Login to register' placement='bottom-start'>
+              <Button variant='contained'>Register</Button>
+            </Tooltip>
+          )}
         </CardActions>
       </CardContent>
     </Card>

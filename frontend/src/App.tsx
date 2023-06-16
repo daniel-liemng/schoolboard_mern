@@ -38,6 +38,8 @@ import { useGetCurrentUserQuery } from './hooks/userHooks';
 import { setCurrentUser } from './redux/userSlice';
 import AdminProtectedRoute from './routes/AdminProtectedRoute';
 import InstructorProtectedRoute from './routes/InstructorProtectedRoute';
+import { useGetAllCoursesQuery } from './hooks/courseHooks';
+import { setCourses } from './redux/courseSlice';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 axios.defaults.withCredentials = true;
@@ -76,7 +78,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/user-courses',
+    path: '/user/courses',
     element: (
       <Layout>
         <UserCoursesPage />
@@ -288,6 +290,7 @@ const App = () => {
   const [mode, setMode] = useState<PaletteMode>('light');
 
   const { data: currentUser } = useGetCurrentUserQuery();
+  const { data: allCourses } = useGetAllCoursesQuery();
 
   console.log('CURRENT-APP', currentUser);
 
@@ -319,6 +322,10 @@ const App = () => {
       );
     }
   }, [dispatch, currentUser]);
+
+  useEffect(() => {
+    dispatch(setCourses(allCourses));
+  }, [allCourses]);
 
   const colorMode = useMemo(
     () => ({
