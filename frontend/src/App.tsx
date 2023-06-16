@@ -36,6 +36,8 @@ import InstructorLayout from './compnents/instructor/InstructorLayout';
 import { useAppDispatch } from './hooks/hooks';
 import { useGetCurrentUserQuery } from './hooks/userHooks';
 import { setAuth, setCurrentUser } from './redux/userSlice';
+import AdminProtectedRoute from './routes/AdminProtectedRoute';
+import InstructorProtectedRoute from './routes/InstructorProtectedRoute';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 axios.defaults.withCredentials = true;
@@ -92,81 +94,101 @@ const router = createBrowserRouter([
   {
     path: '/instructor/courses',
     element: (
-      <InstructorLayout>
-        <InstructorCoursesPage />
-      </InstructorLayout>
+      <InstructorProtectedRoute>
+        <InstructorLayout>
+          <InstructorCoursesPage />
+        </InstructorLayout>
+      </InstructorProtectedRoute>
     ),
   },
   {
     path: '/instructor/course/:courseId',
     element: (
-      <InstructorLayout>
-        <CourseSummaryPage />
-      </InstructorLayout>
+      <InstructorProtectedRoute>
+        <InstructorLayout>
+          <CourseSummaryPage />
+        </InstructorLayout>
+      </InstructorProtectedRoute>
     ),
   },
   {
     path: '/instructor/course/update/:courseId',
     element: (
-      <InstructorLayout>
-        <UpdateCoursePage />
-      </InstructorLayout>
+      <InstructorProtectedRoute>
+        <InstructorLayout>
+          <UpdateCoursePage />
+        </InstructorLayout>
+      </InstructorProtectedRoute>
     ),
   },
   {
     path: '/instructor/course/attendance/:courseId',
     element: (
-      <InstructorLayout>
-        <AttendancePage />
-      </InstructorLayout>
+      <InstructorProtectedRoute>
+        <InstructorLayout>
+          <AttendancePage />
+        </InstructorLayout>
+      </InstructorProtectedRoute>
     ),
   },
   {
     path: '/instructor/students',
     element: (
-      <InstructorLayout>
-        <StudentsPage />
-      </InstructorLayout>
+      <InstructorProtectedRoute>
+        <InstructorLayout>
+          <StudentsPage />
+        </InstructorLayout>
+      </InstructorProtectedRoute>
     ),
   },
   {
     path: '/admin',
     element: (
-      <AdminLayout>
-        <DashboardPage />
-      </AdminLayout>
+      <AdminProtectedRoute>
+        <AdminLayout>
+          <DashboardPage />
+        </AdminLayout>
+      </AdminProtectedRoute>
     ),
   },
   {
     path: '/admin/users',
     element: (
-      <AdminLayout>
-        <UsersPage />
-      </AdminLayout>
+      <AdminProtectedRoute>
+        <AdminLayout>
+          <UsersPage />
+        </AdminLayout>
+      </AdminProtectedRoute>
     ),
   },
   {
     path: '/admin/categories',
     element: (
-      <AdminLayout>
-        <CategoryPage />
-      </AdminLayout>
+      <AdminProtectedRoute>
+        <AdminLayout>
+          <CategoryPage />
+        </AdminLayout>
+      </AdminProtectedRoute>
     ),
   },
   {
     path: '/admin/courses',
     element: (
-      <AdminLayout>
-        <InstructorCoursesPage />
-      </AdminLayout>
+      <AdminProtectedRoute>
+        <AdminLayout>
+          <InstructorCoursesPage />
+        </AdminLayout>
+      </AdminProtectedRoute>
     ),
   },
   {
     path: '/admin/settings',
     element: (
-      <AdminLayout>
-        <SettingsPage />
-      </AdminLayout>
+      <AdminProtectedRoute>
+        <AdminLayout>
+          <SettingsPage />
+        </AdminLayout>
+      </AdminProtectedRoute>
     ),
   },
   {
@@ -298,7 +320,7 @@ const App = () => {
       );
     }
   }, [dispatch, currentUser]);
-  ``;
+
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
