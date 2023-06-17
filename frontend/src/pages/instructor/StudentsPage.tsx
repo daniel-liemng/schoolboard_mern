@@ -70,8 +70,8 @@ const StudentsPage = () => {
             {allMyStudents
               ?.filter(
                 (stu: User) =>
-                  stu.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                  stu.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  stu?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  stu?.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
                   searchTerm === ''
               )
               .map((student: User, index: number) => (
@@ -90,8 +90,8 @@ const StudentsPage = () => {
                       <Avatar sx={{ width: 30, height: 30 }} />
                     )}
                   </TableCell>
-                  <TableCell align='left'>{student.name}</TableCell>
-                  <TableCell align='left'>{student.email}</TableCell>
+                  <TableCell align='left'>{student?.name}</TableCell>
+                  <TableCell align='left'>{student?.email}</TableCell>
                   <TableCell align='left'>
                     <Box
                       sx={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}

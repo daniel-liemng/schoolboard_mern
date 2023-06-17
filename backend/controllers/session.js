@@ -53,9 +53,27 @@ const updateStudents = asyncHandler(async (req, res, next) => {
   res.status(200).json(updatedSession);
 });
 
+const deleteSession = asyncHandler(async (req, res, next) => {
+  const { sessionId } = req.params;
+
+  // Meantime, delete it in sessionIds of Course
+  const session = await Session.findById(sessionId);
+  const course = await Course.findById(session.courseId);
+  const newSessionIds = course.sessionIds.filter(
+    (sessId) => sessId.toString() !== sessionId
+  );
+  course.sessionIds = newSessionIds;
+  await course.save();
+
+  await Session.findByIdAndDelete(sessionId);
+
+  res.status(200).json({ message: 'Session Deleted' });
+});
+
 module.exports = {
   createSesstion,
   getAllSessionsByCourseId,
   updateStudents,
   getSessionBySessionId,
+  deleteSession,
 };

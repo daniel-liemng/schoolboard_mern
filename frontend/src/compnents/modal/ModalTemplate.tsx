@@ -42,12 +42,7 @@ const ModalTemplate: React.FC<ModalTemplateProps> = ({
     >
       <Fade in={isModalOpen}>
         <Box sx={style}>
-          <Typography
-            id='modal-modal-title'
-            variant='h5'
-            component='h3'
-            align='center'
-          >
+          <Typography id='modal-modal-title' variant='h4' align='center'>
             {title}
           </Typography>
           {children}

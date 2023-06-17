@@ -13,8 +13,8 @@ const isInstructor = require('../middlewares/isInstructor');
 const router = express.Router();
 
 router.post('/', isAuthenticated, isInstructor, addCategory);
-router.get('/', isAuthenticated, getAllCategories);
-router.get('/:catId', isAuthenticated, getCategory);
+router.get('/', getAllCategories);
+router.get('/:catId', getCategory);
 router.put('/:catId', isAuthenticated, isInstructor, updateCategory);
 router.delete('/:catId', isAuthenticated, isInstructor, deleteCategory);
 

@@ -21,18 +21,19 @@ import {
 } from '@mui/material';
 import {
   useGetAllSessionsByCourseIdQuery,
-  useGetSessionQuery,
   useUpdateStudentIdsMutation,
 } from '../../hooks/sessionHooks';
 import { useState } from 'react';
 import CreateSessionModal from '../../compnents/modal/CreateSessionModal';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetCourseQuery } from '../../hooks/courseHooks';
 import { toast } from 'react-hot-toast';
 import { User } from '../../types/User';
 
 const AttendancePage = () => {
   const { courseId } = useParams();
+
+  const navigate = useNavigate();
 
   const [isSessionModalOpen, setIsSessionModalOpen] = useState(false);
 
@@ -44,13 +45,8 @@ const AttendancePage = () => {
   );
   const { data: course } = useGetCourseQuery(courseId as string);
   const { mutateAsync: updateStudents } = useUpdateStudentIdsMutation();
-  const { data: session } = useGetSessionQuery(selectedSessionId);
 
   const studentList = course?.registeredUserIds;
-  // const allStudentId = studentList?.map()
-
-  const fullAttendList = session?.attendedStudentIds;
-  const shortAttendList = fullAttendList?.map((item) => item._id);
 
   const handleToggle = (value: string) => () => {
     const currentIndex = selectedStudentIds.indexOf(value);
@@ -66,20 +62,18 @@ const AttendancePage = () => {
   };
 
   const handleUpdateStudents = async () => {
+    if (!selectedSessionId) {
+      toast.error('Please select the session');
+    }
+
     await updateStudents({
       sessionId: selectedSessionId,
       studentData: selectedStudentIds,
     });
 
     toast.success('Saved attendance');
+    navigate('/instructor/courses');
   };
-
-  // console.log('999', studentList);
-  // console.log('SESS', selectedSessionId);
-  // console.log('ALL', selectedStudentIds);
-  // console.log('ONE_SESSION', session);
-  // console.log('ATT_LIST', shortAttendList);
-  console.log('**99**', course);
 
   return (
     <Box sx={{ p: '3rem' }}>

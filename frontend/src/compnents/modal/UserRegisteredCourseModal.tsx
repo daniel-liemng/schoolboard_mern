@@ -1,5 +1,6 @@
 import {
-  Paper,
+  Box,
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -10,6 +11,7 @@ import {
 
 import ModalTemplate from './ModalTemplate';
 import { User } from '../../types/User';
+import { Course } from '../../types/Course';
 
 interface UserRegisteredCourseModalProps {
   isModalOpen: boolean;
@@ -24,7 +26,7 @@ const UserRegisteredCourseModal: React.FC<UserRegisteredCourseModalProps> = ({
 }) => {
   return (
     <ModalTemplate
-      title='Registerd courses'
+      title='Registered courses'
       isModalOpen={isModalOpen}
       handleClose={handleClose}
     >
@@ -59,6 +61,12 @@ const UserRegisteredCourseModal: React.FC<UserRegisteredCourseModalProps> = ({
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Box sx={{ mt: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
+        <Button variant='contained' onClick={handleClose}>
+          Close
+        </Button>
+      </Box>
     </ModalTemplate>
   );
 };

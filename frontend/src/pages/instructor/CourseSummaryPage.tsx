@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -14,6 +15,9 @@ import {
 import { useGetCourseQuery } from '../../hooks/courseHooks';
 import { useParams } from 'react-router-dom';
 import { useGetAllSessionsByCourseIdQuery } from '../../hooks/sessionHooks';
+import SessionDetailsModal from '../../compnents/modal/SessionDetailsModal';
+import { Session } from '../../types/Session';
+import DeleteSessionModal from '../../compnents/modal/DeleteSessionModal';
 
 const CourseSummaryPage = () => {
   const { courseId } = useParams();
@@ -23,8 +27,16 @@ const CourseSummaryPage = () => {
     courseId as string
   );
 
-  const sessionCount = course?.sessionIds.length;
-  const studentCount = course?.registeredUserIds.length;
+  const [isSessionModalOpen, setIsSessionModalOpen] = useState(false);
+  const [isDeleteSessionModalOpen, setIsDeleteSessionModalOpen] =
+    useState(false);
+  const [selectedSession, setSelectedSession] = useState<Session>();
+
+  const sessionCount = course?.sessionIds?.length;
+  const studentCount = course?.registeredUserIds?.length;
+
+  console.log('CO-1', course);
+  console.log('CO-2', sessions);
 
   return (
     <Box sx={{ p: '3rem' }}>
@@ -115,7 +127,7 @@ const CourseSummaryPage = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {sessions?.map((session, index: number) => (
+                {sessions?.map((session: Session, index: number) => (
                   <TableRow
                     key={index}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -134,9 +146,22 @@ const CourseSummaryPage = () => {
                           gap: '0.5rem',
                         }}
                       >
-                        <Button variant='contained' size='small'>
+                        <Button
+                          type='button'
+                          onClick={() => {
+                            setSelectedSession(session);
+                            setIsSessionModalOpen(true);
+                          }}
+                          variant='contained'
+                          size='small'
+                        >
                           Details
                         </Button>
+                        <SessionDetailsModal
+                          session={selectedSession}
+                          isModalOpen={isSessionModalOpen}
+                          handleClose={() => setIsSessionModalOpen(false)}
+                        />
                         <Button
                           variant='contained'
                           size='small'
@@ -144,9 +169,24 @@ const CourseSummaryPage = () => {
                         >
                           Update
                         </Button>
-                        <Button variant='contained' size='small' color='error'>
+                        <Button
+                          type='button'
+                          onClick={() => {
+                            setSelectedSession(session);
+                            setIsDeleteSessionModalOpen(true);
+                          }}
+                          variant='contained'
+                          size='small'
+                          color='error'
+                        >
                           Delete
                         </Button>
+                        <DeleteSessionModal
+                          session={selectedSession}
+                          courseId={courseId}
+                          isModalOpen={isDeleteSessionModalOpen}
+                          handleClose={() => setIsDeleteSessionModalOpen(false)}
+                        />
                       </Box>
                     </TableCell>
                   </TableRow>

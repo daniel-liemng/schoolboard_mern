@@ -41,3 +41,14 @@ export const useGetSessionQuery = (sessionId: string) =>
     queryFn: async () => (await axios.get(`/api/sessions/${sessionId}`)).data,
     enabled: !!sessionId,
   });
+
+export const useDeleteSessionMutation = (courseId: string) =>
+  useMutation({
+    mutationFn: async (sessionId: string) =>
+      (await axios.delete(`/api/sessions/${sessionId}`)).data,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['all-sessions']);
+      queryClient.invalidateQueries(['course-detail', courseId]);
+      queryClient.invalidateQueries(['all-courses']);
+    },
+  });

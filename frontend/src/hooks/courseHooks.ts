@@ -38,7 +38,7 @@ export const useUpdateCourseMutation = () =>
       courseId: string;
       courseData: Course;
     }) => (await axios.put(`/api/courses/${courseId}`, courseData)).data,
-    onSuccess: () => queryClient.invalidateQueries('user-courses'),
+    onSuccess: () => queryClient.invalidateQueries(['user-courses']),
   });
 
 export const useDeleteCourseMutation = () =>

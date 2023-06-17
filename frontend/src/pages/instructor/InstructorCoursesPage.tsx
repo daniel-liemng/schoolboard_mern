@@ -10,6 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Typography,
 } from '@mui/material';
 import { Course } from '../../types/Course';
@@ -28,6 +29,8 @@ const InstructorCoursesPage = () => {
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   const [deleteCourse, setDeleteCourse] = useState<Course>();
+
+  const [searchTerm, setSearchTerm] = useState('');
 
   const { data: courses, isLoading } = useGetInstructorCoursesQuery();
 
@@ -90,6 +93,17 @@ const InstructorCoursesPage = () => {
         </Button>
       </Box>
 
+      <Box>
+        <TextField
+          fullWidth
+          size='small'
+          label='Search Course'
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          sx={{ mb: '1.5rem' }}
+        />
+      </Box>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label='simple table'>
           <TableHead>
@@ -104,71 +118,75 @@ const InstructorCoursesPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {courses?.map((course: Course, index: number) => (
-              <TableRow
-                key={index}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component='th' scope='row'>
-                  {course.course_code}
-                </TableCell>
-                <TableCell align='left'>{course.title}</TableCell>
-                <TableCell align='left'>{course.category.title}</TableCell>
-                <TableCell align='left'>{course.instructor?.name}</TableCell>
-                <TableCell align='left'>{course.day}</TableCell>
-                <TableCell align='left'>{course.time}</TableCell>
-                <TableCell align='left'>
-                  <Box
-                    sx={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}
-                  >
-                    <Button
-                      to={`/instructor/course/${course._id}`}
-                      component={Link}
-                      variant='contained'
-                      size='small'
-                      color='info'
+            {courses
+              ?.filter((course) =>
+                course.title.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              ?.map((course: Course, index: number) => (
+                <TableRow
+                  key={index}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component='th' scope='row'>
+                    {course.course_code}
+                  </TableCell>
+                  <TableCell align='left'>{course.title}</TableCell>
+                  <TableCell align='left'>{course.category.title}</TableCell>
+                  <TableCell align='left'>{course.instructor?.name}</TableCell>
+                  <TableCell align='left'>{course.day}</TableCell>
+                  <TableCell align='left'>{course.time}</TableCell>
+                  <TableCell align='left'>
+                    <Box
+                      sx={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}
                     >
-                      Details
-                    </Button>
-                    <Button
-                      to={`/instructor/course/update/${course._id}`}
-                      component={Link}
-                      variant='contained'
-                      size='small'
-                      color='secondary'
-                    >
-                      Update
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setDeleteCourse(course);
-                        setIsCourseModalOpen(true);
-                      }}
-                      variant='contained'
-                      size='small'
-                      color='error'
-                    >
-                      Delete
-                    </Button>
-                    <DeleteCourseModal
-                      course={deleteCourse}
-                      isModalOpen={isCourseModalOpen}
-                      handleClose={handleCourseModalClose}
-                      handleDeleteCourse={handleDeleteCourse}
-                    />
-                    <Button
-                      to={`/instructor/course/attendance/${course._id}`}
-                      component={Link}
-                      variant='contained'
-                      size='small'
-                      color='success'
-                    >
-                      Attendance
-                    </Button>
-                  </Box>
-                </TableCell>
-              </TableRow>
-            ))}
+                      <Button
+                        to={`/instructor/course/${course._id}`}
+                        component={Link}
+                        variant='contained'
+                        size='small'
+                        color='info'
+                      >
+                        Details
+                      </Button>
+                      <Button
+                        to={`/instructor/course/update/${course._id}`}
+                        component={Link}
+                        variant='contained'
+                        size='small'
+                        color='secondary'
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setDeleteCourse(course);
+                          setIsCourseModalOpen(true);
+                        }}
+                        variant='contained'
+                        size='small'
+                        color='error'
+                      >
+                        Delete
+                      </Button>
+                      <DeleteCourseModal
+                        course={deleteCourse}
+                        isModalOpen={isCourseModalOpen}
+                        handleClose={handleCourseModalClose}
+                        handleDeleteCourse={handleDeleteCourse}
+                      />
+                      <Button
+                        to={`/instructor/course/attendance/${course._id}`}
+                        component={Link}
+                        variant='contained'
+                        size='small'
+                        color='success'
+                      >
+                        Attendance
+                      </Button>
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
