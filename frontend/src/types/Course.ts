@@ -11,5 +11,7 @@ export type Course = {
   period: string;
   fee: string;
   total_student: number;
+  status: string;
   registeredUserIds: string[];
+  sessionIds?: string[];
 };

@@ -17,6 +17,7 @@ import { toast } from 'react-hot-toast';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { useChangePasswordMutation } from '../../hooks/userHooks';
+import { AxiosError } from 'axios';
 
 const style = {
   position: 'absolute',
@@ -88,8 +89,8 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({
     toast.success('New password updated');
   };
 
-  if (error) {
-    return toast.error(error?.response?.data?.message);
+  if (error instanceof AxiosError) {
+    toast.error(error?.response?.data?.message || 'Something went wrong');
   }
 
   return (

@@ -32,14 +32,14 @@ export const useUpdateProfileMutation = () =>
   useMutation({
     mutationFn: async (profileData) =>
       (await axios.put('/api/users/update-profile', profileData)).data,
-    onSuccess: () => queryClient.invalidateQueries('current-user'),
+    onSuccess: () => queryClient.invalidateQueries(['current-user']),
   });
 
 export const useSaveAvatarMutation = () =>
   useMutation({
     mutationFn: async (avatar) =>
       (await axios.put('/api/users/save-avatar', { avatar })).data,
-    onSuccess: () => queryClient.invalidateQueries('current-user'),
+    onSuccess: () => queryClient.invalidateQueries(['current-user']),
   });
 
 export const useChangePasswordMutation = () =>

@@ -22,6 +22,7 @@ router.get('/get-current-user', isAuthenticated, getCurrentUser);
 
 router.put('/update-profile', isAuthenticated, updateProfile);
 router.put('/save-avatar', isAuthenticated, saveAvatar);
+
 router.patch('/change-password', isAuthenticated, changePassword);
 
 router.get('/courses', isAuthenticated, getCurrentUserCourses);

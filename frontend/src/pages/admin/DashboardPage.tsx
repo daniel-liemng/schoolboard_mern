@@ -3,6 +3,7 @@ import { useGetAllUsersQuery } from '../../hooks/adminHooks';
 import { User } from '../../types/User';
 import { useGetAllCoursesQuery } from '../../hooks/courseHooks';
 import SmallCountBox from '../../compnents/SmallCountBox';
+import { Course } from '../../types/Course';
 
 const DashboardPage = () => {
   const { data: users } = useGetAllUsersQuery();
@@ -18,9 +19,16 @@ const DashboardPage = () => {
 
   const courseCount = courses?.length;
 
+  const activeCourseCount = courses?.filter(
+    (course: Course) => course?.status === 'active'
+  ).length;
+  const inactiveCourseCount = courses?.filter(
+    (course: Course) => course?.status === 'inactive'
+  ).length;
+
   console.log(instructorCount);
   console.log(studentCount);
-  console.log(courseCount);
+  // console.log(courseCount);
 
   return (
     <Box>
@@ -48,13 +56,21 @@ const DashboardPage = () => {
             />
           </Grid>
           <Grid item xs={12} md={6} lg={4} xl={3}>
-            <SmallCountBox bgcolor='#adf7b6' count='5' text='upcoming course' />
+            <SmallCountBox
+              bgcolor='#adf7b6'
+              count={activeCourseCount}
+              text='active course'
+            />
           </Grid>
           <Grid item xs={12} md={6} lg={4} xl={3}>
-            <SmallCountBox bgcolor='#d4afb9' count='5' text='active course' />
+            <SmallCountBox
+              bgcolor='#d4afb9'
+              count={inactiveCourseCount}
+              text='inactive course'
+            />
           </Grid>
           <Grid item xs={12} md={6} lg={4} xl={3}>
-            <SmallCountBox bgcolor='#9cadce' count='5' text='expired course' />
+            <SmallCountBox bgcolor='#9cadce' count='5' text='dummy' />
           </Grid>
         </Grid>
       </Box>

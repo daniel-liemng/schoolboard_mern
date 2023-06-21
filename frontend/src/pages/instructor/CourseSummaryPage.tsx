@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {
+  Avatar,
   Box,
   Button,
   Grid,
@@ -18,6 +19,7 @@ import { useGetAllSessionsByCourseIdQuery } from '../../hooks/sessionHooks';
 import SessionDetailsModal from '../../compnents/modal/SessionDetailsModal';
 import { Session } from '../../types/Session';
 import DeleteSessionModal from '../../compnents/modal/DeleteSessionModal';
+import { User } from '../../types/User';
 
 const CourseSummaryPage = () => {
   const { courseId } = useParams();
@@ -122,7 +124,8 @@ const CourseSummaryPage = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Date</TableCell>
-                  <TableCell align='left'>Attended Students</TableCell>
+                  <TableCell align='left'>Attended</TableCell>
+                  <TableCell align='left'>Unattended</TableCell>
                   <TableCell align='left'>Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -135,9 +138,16 @@ const CourseSummaryPage = () => {
                     <TableCell component='th' scope='row'>
                       {session?.date}
                     </TableCell>
-                    <TableCell align='left'>
+                    <TableCell align='center'>
                       {session?.attendedStudentIds.length}
                     </TableCell>
+
+                    <TableCell align='center'>
+                      {parseInt(course?.registeredUserIds?.length) -
+                        // @ts-expect-error ignore type error
+                        parseInt(session?.attendedStudentIds?.length)}
+                    </TableCell>
+
                     <TableCell align='left'>
                       <Box
                         sx={{
@@ -189,6 +199,45 @@ const CourseSummaryPage = () => {
                         />
                       </Box>
                     </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+          <Typography sx={{ mt: '1rem' }}>
+            <strong>Students</strong>
+          </Typography>
+
+          <TableContainer component={Paper} sx={{ mt: '1rem' }}>
+            <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Avatar</TableCell>
+                  <TableCell align='left'>Name</TableCell>
+                  <TableCell align='left'>Email</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {course?.registeredUserIds?.map((user: User, index: number) => (
+                  <TableRow
+                    key={index}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component='th' scope='row'>
+                      {user?.avatar ? (
+                        <img
+                          src={user?.avatar}
+                          alt='profile'
+                          style={{ width: 50, height: 50, borderRadius: '50%' }}
+                        />
+                      ) : (
+                        <Avatar sx={{ width: 30, height: 30 }} />
+                      )}
+                    </TableCell>
+                    <TableCell align='center'>{user?.name}</TableCell>
+
+                    <TableCell align='center'>{user?.email}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
