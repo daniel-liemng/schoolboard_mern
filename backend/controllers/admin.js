@@ -62,10 +62,30 @@ const changeUserRole = asyncHandler(async (req, res, next) => {
   res.status(200).json(updatedUser);
 });
 
+const updateUserProfile = asyncHandler(async (req, res, next) => {
+  const { name, email, phone, gender, dob } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return next(new CustomError('User Not Found', 404));
+  }
+
+  user.name = name;
+  user.phone = phone;
+  user.gender = gender;
+  user.dob = dob;
+
+  const updatedUser = await user.save();
+
+  res.status(200).json(updatedUser);
+});
+
 module.exports = {
   getAllUsers,
   getAllCourses,
   resetPassword,
   deleteUser,
   changeUserRole,
+  updateUserProfile,
 };

@@ -23,6 +23,7 @@ import { Delete } from '@mui/icons-material';
 import DeleteModal from '../modal/DeleteModal';
 import ResetPasswordModal from '../modal/ResetPasswordModal';
 import ChangeRoleModal from '../modal/ChangeRoleModal';
+import ProfileModal from '../modal/ProfileModal';
 
 interface UserTableProps {
   data: User[];
@@ -35,6 +36,8 @@ const UserTable: React.FC<UserTableProps> = ({ data }) => {
   const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] = useState(false);
   const [isResetPassModalOpen, setIsResetPassModalOpen] = useState(false);
   const [isChangeRoleModalOpen, setIsChangeRoleModalOpen] = useState(false);
+  const [isUpdateProfileModalOpen, setIsUpdateProfileModalOpen] =
+    useState(false);
 
   const {
     mutateAsync: resetPassword,
@@ -120,13 +123,24 @@ const UserTable: React.FC<UserTableProps> = ({ data }) => {
                   />
 
                   <Button
+                    type='button'
+                    onClick={() => {
+                      setSelectedUser(user);
+                      setIsUpdateProfileModalOpen(true);
+                    }}
                     variant='contained'
                     size='small'
                     color='secondary'
                     sx={{ mr: '0.5rem' }}
                   >
-                    Update
+                    Update Profile
                   </Button>
+                  <ProfileModal
+                    isModalOpen={isUpdateProfileModalOpen}
+                    handleClose={() => setIsUpdateProfileModalOpen(false)}
+                    user={selectedUser}
+                    role='admin'
+                  />
 
                   <Button
                     onClick={() => {

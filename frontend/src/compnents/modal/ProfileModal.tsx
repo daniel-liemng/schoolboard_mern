@@ -22,13 +22,15 @@ import 'dayjs/locale/ja';
 import { User } from '../../types/User';
 import { useUpdateProfileMutation } from '../../hooks/userHooks';
 import { toast } from 'react-hot-toast';
-
-// import { useAppSelector } from '../../hooks/hooks';
+import { useUpdateUserProfileMutation } from '../../hooks/adminHooks';
+import { AxiosError } from 'axios';
+import Loading from '../Loading';
 
 interface ProfileModalProps {
   isModalOpen: boolean;
   handleClose: () => void;
-  user: User;
+  user: User | undefined;
+  role?: string;
 }
 
 const style = {
@@ -84,30 +86,25 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
   isModalOpen,
   handleClose,
   user,
+  role,
 }) => {
   const { control, handleSubmit } = useForm<FormValues>({
     mode: 'onChange',
   });
 
   const {
-    mutateAsync: updateProfileFunc,
+    mutateAsync: updateProfile,
     isLoading,
     error,
   } = useUpdateProfileMutation();
 
-  // useEffect(() => {
-  //   const defaultValues: { name: string; email: string } = {
-  //     name: '',
-  //     email: '',
-  //   };
-
-  //   defaultValues.name = user?.name;
-  //   defaultValues.email = user?.email;
-  //   // reset({ ...defaultValues });
-  // }, []);
+  const {
+    mutateAsync: updateUserProfile,
+    isLoading: isUpdateLoading,
+    error: updateError,
+  } = useUpdateUserProfileMutation();
 
   const onSubmit = async (data: FormValues) => {
-    // console.log(dayjs(data.dob).format('MM/DD/YYYY'));
     const profileData = {
       name: data.name,
       email: data.email,
@@ -116,10 +113,27 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
       dob: dayjs(data.dob).format('MM/DD/YYYY'),
     };
 
-    await updateProfileFunc(profileData);
+    if (role === 'admin') {
+      await updateUserProfile(profileData);
+    } else {
+      await updateProfile(profileData);
+    }
+
     toast.success('Profile Updated');
     handleClose();
   };
+
+  if (error instanceof AxiosError) {
+    toast.error(error?.response?.data?.message || 'Something went wrong');
+  }
+
+  if (updateError instanceof AxiosError) {
+    toast.error(updateError?.response?.data?.message || 'Something went wrong');
+  }
+
+  if (isLoading || isUpdateLoading) {
+    return <Loading />;
+  }
 
   return (
     <Modal
@@ -143,7 +157,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
             component='h3'
             align='center'
           >
-            Update profile info
+            Update profile info {role === 'admin' && `of ${user?.name}`}
           </Typography>
 
           <Box sx={{ mt: '2rem' }}>

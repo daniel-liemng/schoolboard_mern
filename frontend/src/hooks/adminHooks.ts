@@ -26,6 +26,18 @@ export const useChangeRoleMutation = () =>
     onSuccess: () => queryClient.invalidateQueries(['all-users']),
   });
 
+export const useUpdateUserProfileMutation = () =>
+  useMutation({
+    mutationFn: async (userData: {
+      name: string;
+      email: string;
+      phone: string | undefined;
+      gender: string | undefined;
+      dob: string;
+    }) => (await axios.put('/api/admin/update-user-profile', userData)).data,
+    onSuccess: () => queryClient.invalidateQueries(['all-users']),
+  });
+
 export const useDeleteUserMutation = () =>
   useMutation({
     mutationFn: async (userId: string) =>

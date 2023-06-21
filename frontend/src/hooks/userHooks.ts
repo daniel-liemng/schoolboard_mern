@@ -30,8 +30,13 @@ export const useGetCurrentUserQuery = () =>
 
 export const useUpdateProfileMutation = () =>
   useMutation({
-    mutationFn: async (profileData) =>
-      (await axios.put('/api/users/update-profile', profileData)).data,
+    mutationFn: async (profileData: {
+      name: string;
+      email: string;
+      phone: string | undefined;
+      gender: string | undefined;
+      dob: string;
+    }) => (await axios.put('/api/users/update-profile', profileData)).data,
     onSuccess: () => queryClient.invalidateQueries(['current-user']),
   });
 

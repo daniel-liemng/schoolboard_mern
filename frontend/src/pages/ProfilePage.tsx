@@ -190,7 +190,7 @@ const ProfilePage = () => {
               </Grid>
               <Grid item xs={8} sx={{ mt: '1rem' }}>
                 <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
-                  {user.name}
+                  {user?.name}
                 </Typography>
               </Grid>
 
@@ -201,7 +201,7 @@ const ProfilePage = () => {
               </Grid>
               <Grid item xs={8} sx={{ mt: '1rem' }}>
                 <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
-                  {user.email}
+                  {user?.email}
                 </Typography>
               </Grid>
 
@@ -212,7 +212,7 @@ const ProfilePage = () => {
               </Grid>
               <Grid item xs={8} sx={{ mt: '1rem' }}>
                 <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
-                  {user.phone || 'N/A'}
+                  {user?.phone || 'N/A'}
                 </Typography>
               </Grid>
 
@@ -226,7 +226,7 @@ const ProfilePage = () => {
                   variant='body1'
                   sx={{ fontWeight: 'bold', textTransform: 'capitalize' }}
                 >
-                  {user.gender || 'N/A'}
+                  {user?.gender || 'N/A'}
                 </Typography>
               </Grid>
 
@@ -237,7 +237,7 @@ const ProfilePage = () => {
               </Grid>
               <Grid item xs={8} sx={{ mt: '1rem' }}>
                 <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
-                  {user.dob || 'N/A'}
+                  {user?.dob || 'N/A'}
                 </Typography>
               </Grid>
             </Grid>

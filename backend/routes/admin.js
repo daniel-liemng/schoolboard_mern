@@ -8,6 +8,7 @@ const {
   resetPassword,
   deleteUser,
   changeUserRole,
+  updateUserProfile,
 } = require('../controllers/admin');
 
 const router = express.Router();
@@ -15,6 +16,7 @@ const router = express.Router();
 router.get('/all-users', isAuthenticated, isAdmin, getAllUsers);
 router.get('/all-courses', isAuthenticated, isAdmin, getAllCourses);
 
+router.put('/update-user-profile', isAuthenticated, isAdmin, updateUserProfile);
 router.post('/reset-password', isAuthenticated, isAdmin, resetPassword);
 router.put('/change-role', isAuthenticated, isAdmin, changeUserRole);
 
