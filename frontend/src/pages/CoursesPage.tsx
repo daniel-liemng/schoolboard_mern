@@ -20,6 +20,8 @@ import { toast } from 'react-hot-toast';
 import CourseItem from '../compnents/course/CourseItem';
 import DoneIcon from '@mui/icons-material/Done';
 import { SignalWifiStatusbarNullSharp } from '@mui/icons-material';
+import { Category } from '../types/Category';
+import { Course } from '../types/Course';
 
 const CoursesPage = () => {
   const dispatch = useAppDispatch();
@@ -54,7 +56,7 @@ const CoursesPage = () => {
   }
 
   if (catError instanceof AxiosError) {
-    toast.error(error?.response?.data?.message || 'Something went wrong');
+    toast.error(catError?.response?.data?.message || 'Something went wrong');
   }
 
   console.log('7788', coursesData);
@@ -85,7 +87,7 @@ const CoursesPage = () => {
           }}
         >
           <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-            {allCategories?.map((cat, index) => (
+            {allCategories?.map((cat: string, index: number) => (
               <Chip
                 label={cat}
                 onClick={() => setSelectedCat(cat.toLowerCase())}
@@ -129,28 +131,28 @@ const CoursesPage = () => {
       >
         {coursesData
           ?.filter(
-            (item) =>
+            (item: Course) =>
               item.category.title.toLowerCase() === selectedCat.toLowerCase() ||
               selectedCat === 'all'
           )
           ?.filter(
-            (item) =>
+            (item: Course) =>
               item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
               searchTerm === ''
           )
-          ?.sort((item1, item2) =>
+          ?.sort((item1: Course, item2: Course) =>
             sortTerm === 'z-a' && item1.title > item2.title ? 1 : -1
           )
-          ?.sort((item1, item2) =>
+          ?.sort((item1: Course, item2: Course) =>
             sortTerm === 'a-z' && item1.title > item2.title ? -1 : 1
           )
-          ?.sort((item1, item2) =>
+          ?.sort((item1: Course, item2: Course) =>
             sortTerm === 'old' && item1.createdAt > item2.createdAt ? 1 : -1
           )
-          ?.sort((item1, item2) =>
+          ?.sort((item1: Course, item2: Course) =>
             sortTerm === 'new' && item1.createdAt > item2.createdAt ? -1 : 1
           )
-          ?.map((course, index) => (
+          ?.map((course: Course, index: number) => (
             <CourseItem key={index} course={course} />
           ))}
       </Box>

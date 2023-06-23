@@ -17,6 +17,7 @@ import CourseSummaryPage from './instructor/CourseSummaryPage';
 import DashboardPage from './admin/DashboardPage';
 import SettingsPage from './admin/SettingsPage';
 import StudentsPage from './instructor/StudentsPage';
+import AdminCoursesPage from './admin/AdminCoursesPage';
 
 export {
   HomePage,
@@ -37,4 +38,5 @@ export {
   DashboardPage,
   SettingsPage,
   StudentsPage,
+  AdminCoursesPage,
 };

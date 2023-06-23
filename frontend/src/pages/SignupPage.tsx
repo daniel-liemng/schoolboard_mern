@@ -13,10 +13,7 @@ import {
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  useGetCurrentUserQuery,
-  useSignupUserMutation,
-} from '../hooks/userHooks';
+import { useSignupUserMutation } from '../hooks/userHooks';
 import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
@@ -51,7 +48,6 @@ const SignupPage = () => {
   });
 
   const { mutateAsync: signup, isLoading, error } = useSignupUserMutation();
-  const { data: currentUser } = useGetCurrentUserQuery();
 
   const [showPassword, setshowPassword] = useState(false);
   const [showPassword2, setshowPassword2] = useState(false);
@@ -72,7 +68,7 @@ const SignupPage = () => {
       return;
     }
 
-    await signup({
+    const result = await signup({
       name: data.name,
       email: data.email,
       password: data.password,
@@ -88,7 +84,7 @@ const SignupPage = () => {
       role,
       registeredCourseIds,
       avatar,
-    } = currentUser;
+    } = result;
     dispatch(
       setCurrentUser({
         _id,

@@ -9,7 +9,9 @@ const {
   deleteUser,
   changeUserRole,
   updateUserProfile,
+  changeCourseStatus,
 } = require('../controllers/admin');
+const { updateCourse } = require('../controllers/course');
 
 const router = express.Router();
 
@@ -19,6 +21,15 @@ router.get('/all-courses', isAuthenticated, isAdmin, getAllCourses);
 router.put('/update-user-profile', isAuthenticated, isAdmin, updateUserProfile);
 router.post('/reset-password', isAuthenticated, isAdmin, resetPassword);
 router.put('/change-role', isAuthenticated, isAdmin, changeUserRole);
+
+router.put(
+  '/course/change-status',
+  isAuthenticated,
+  isAdmin,
+  changeCourseStatus
+);
+
+router.put('/course/update/:courseId', isAuthenticated, isAdmin, updateCourse);
 
 router.delete('/users/:userId', isAuthenticated, isAdmin, deleteUser);
 module.exports = router;

@@ -24,6 +24,7 @@ import {
   DashboardPage,
   SettingsPage,
   StudentsPage,
+  AdminCoursesPage,
 } from './pages';
 import Layout from './compnents/Layout';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -40,6 +41,7 @@ import AdminProtectedRoute from './routes/AdminProtectedRoute';
 import InstructorProtectedRoute from './routes/InstructorProtectedRoute';
 import { useGetAllCoursesQuery } from './hooks/courseHooks';
 import { setCourses } from './redux/courseSlice';
+import AdminUpdateCoursePage from './pages/admin/AdminUpdateCoursePage';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 axios.defaults.withCredentials = true;
@@ -178,7 +180,7 @@ const router = createBrowserRouter([
     element: (
       <AdminProtectedRoute>
         <AdminLayout>
-          <InstructorCoursesPage />
+          <AdminCoursesPage />
         </AdminLayout>
       </AdminProtectedRoute>
     ),
@@ -194,11 +196,31 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/admin/course/:courseId',
+    element: (
+      <AdminProtectedRoute>
+        <AdminLayout>
+          <CourseDetailsPage />
+        </AdminLayout>
+      </AdminProtectedRoute>
+    ),
+  },
+  {
     path: '/admin/course/create-course',
     element: (
       <Layout>
         <CreateCoursePage />
       </Layout>
+    ),
+  },
+  {
+    path: '/admin/course/update/:courseId',
+    element: (
+      <AdminProtectedRoute>
+        <AdminLayout>
+          <AdminUpdateCoursePage />
+        </AdminLayout>
+      </AdminProtectedRoute>
     ),
   },
   {

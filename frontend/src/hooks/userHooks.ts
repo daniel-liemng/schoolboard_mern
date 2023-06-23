@@ -4,7 +4,7 @@ import { queryClient } from '../main';
 
 export const useLoginUserMutation = () =>
   useMutation({
-    mutationFn: async (loginData) =>
+    mutationFn: async (loginData: { email: string; password: string }) =>
       (await axios.post('/api/users/login', loginData)).data,
   });
 
@@ -15,8 +15,11 @@ export const useLogoutUserMutation = () =>
 
 export const useSignupUserMutation = () =>
   useMutation({
-    mutationFn: async (signupData) =>
-      (await axios.post('/api/users/signup', signupData)).data,
+    mutationFn: async (signupData: {
+      name: string;
+      email: string;
+      password: string;
+    }) => (await axios.post('/api/users/signup', signupData)).data,
   });
 
 export const useGetCurrentUserQuery = () =>

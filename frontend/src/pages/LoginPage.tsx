@@ -12,11 +12,8 @@ import {
 import { useEffect, useState } from 'react';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import {
-  useGetCurrentUserQuery,
-  useLoginUserMutation,
-} from '../hooks/userHooks.js';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLoginUserMutation } from '../hooks/userHooks.js';
 import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks.js';
@@ -47,11 +44,7 @@ const LoginPage = () => {
   });
 
   const { mutateAsync: login, isLoading, error } = useLoginUserMutation();
-  const {
-    data: currentUser,
-    isLoading: isUserLoading,
-    error: userError,
-  } = useGetCurrentUserQuery();
+
   const [showPassword, setshowPassword] = useState(false);
 
   useEffect(() => {
@@ -61,7 +54,8 @@ const LoginPage = () => {
   }, [isAuthenticated, user, navigate]);
 
   const onSubmit = async (data: { email: string; password: string }) => {
-    await login(data);
+    const result = await login(data);
+
     const {
       _id,
       name,
@@ -72,7 +66,8 @@ const LoginPage = () => {
       role,
       registeredCourseIds,
       avatar,
-    } = currentUser;
+    } = result;
+
     dispatch(
       setCurrentUser({
         _id,

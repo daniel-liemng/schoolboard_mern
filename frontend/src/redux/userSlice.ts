@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-// import type { RootState } from '../redux/store';
 import { User } from '../types/User';
 
 interface UserState {
@@ -11,7 +10,7 @@ const initialState: UserState = {
   isAuthenticated: false,
   user: localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user') || '')
-    : undefined,
+    : null,
 };
 
 export const userSlice = createSlice({
@@ -25,6 +24,7 @@ export const userSlice = createSlice({
     },
     logout: (state) => {
       localStorage.removeItem('user');
+      // localStorage.clear();
       state.isAuthenticated = false;
       state.user = null;
     },

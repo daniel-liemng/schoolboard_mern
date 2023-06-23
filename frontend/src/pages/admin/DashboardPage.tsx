@@ -22,13 +22,10 @@ const DashboardPage = () => {
   const activeCourseCount = courses?.filter(
     (course: Course) => course?.status === 'active'
   ).length;
+
   const inactiveCourseCount = courses?.filter(
     (course: Course) => course?.status === 'inactive'
   ).length;
-
-  console.log(instructorCount);
-  console.log(studentCount);
-  // console.log(courseCount);
 
   return (
     <Box>
@@ -69,10 +66,9 @@ const DashboardPage = () => {
               text='inactive course'
             />
           </Grid>
-          <Grid item xs={12} md={6} lg={4} xl={3}>
-            <SmallCountBox bgcolor='#9cadce' count='5' text='dummy' />
-          </Grid>
         </Grid>
+
+        <Typography>Instructors</Typography>
       </Box>
     </Box>
   );

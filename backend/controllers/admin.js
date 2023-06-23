@@ -81,6 +81,19 @@ const updateUserProfile = asyncHandler(async (req, res, next) => {
   res.status(200).json(updatedUser);
 });
 
+const changeCourseStatus = asyncHandler(async (req, res, next) => {
+  const { courseId, status } = req.body;
+
+  const course = await Course.findByIdAndUpdate(
+    { _id: courseId },
+    { status },
+    { new: true }
+  );
+
+  console.log(course);
+  res.status(200).json(course);
+});
+
 module.exports = {
   getAllUsers,
   getAllCourses,
@@ -88,4 +101,5 @@ module.exports = {
   deleteUser,
   changeUserRole,
   updateUserProfile,
+  changeCourseStatus,
 };

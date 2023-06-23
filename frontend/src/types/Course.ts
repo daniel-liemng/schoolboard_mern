@@ -14,4 +14,5 @@ export type Course = {
   status: string;
   registeredUserIds: string[];
   sessionIds?: string[];
+  createdAt?: string;
 };

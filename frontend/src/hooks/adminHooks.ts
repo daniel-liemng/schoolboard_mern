@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { queryClient } from '../main';
+import { Course } from '../types/Course';
 
 export const useGetAllUsersQuery = () =>
   useQuery({
@@ -47,4 +48,34 @@ export const useDeleteUserMutation = () =>
       queryClient.invalidateQueries(['all-users']);
       queryClient.invalidateQueries(['all-courses']);
     },
+  });
+
+export const useChangeCourseStatusMutation = () =>
+  useMutation({
+    mutationFn: async ({
+      courseId,
+      status,
+    }: {
+      courseId: string | undefined;
+      status: string;
+    }) =>
+      (await axios.put(`/api/admin/course/change-status`, { courseId, status }))
+        .data,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['all-courses']);
+    },
+  });
+
+export const useAdminUpdateCourseMutation = () =>
+  useMutation({
+    mutationFn: async ({
+      courseId,
+      courseData,
+    }: {
+      courseId: string | undefined;
+      courseData: Course;
+    }) =>
+      (await axios.put(`/api/admin/course/update/${courseId}`, courseData))
+        .data,
+    onSuccess: () => queryClient.invalidateQueries(['all-courses']),
   });

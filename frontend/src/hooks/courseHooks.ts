@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Course } from '../types/Course';
 import { queryClient } from '../main';
@@ -35,7 +35,7 @@ export const useUpdateCourseMutation = () =>
       courseId,
       courseData,
     }: {
-      courseId: string;
+      courseId: string | undefined;
       courseData: Course;
     }) => (await axios.put(`/api/courses/${courseId}`, courseData)).data,
     onSuccess: () => queryClient.invalidateQueries(['user-courses']),

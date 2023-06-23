@@ -104,10 +104,10 @@ const validationRules = {
   },
 };
 
-const UpdateCoursePage = () => {
+const AdminUpdateCoursePage = () => {
   const { courseId } = useParams();
 
-  const { user } = useAppSelector((state) => state.user);
+  // const { user } = useAppSelector((state) => state.user);
 
   const navigate = useNavigate();
 
@@ -136,7 +136,7 @@ const UpdateCoursePage = () => {
     const courseData = {
       title: data.title,
       course_code: data.course_code,
-      instructor: user?._id,
+      instructor: course?.instructor?._id,
       category: data.category,
       desc: data.desc,
       start_date: dayjs(data.start_date).format('MM/DD/YYYY'),
@@ -154,6 +154,8 @@ const UpdateCoursePage = () => {
     navigate(-1);
     // navigate('/user-courses');
   };
+
+  console.log('CCOOUURRSE', course);
 
   if (isCourseLoading || isCatLoading) {
     return <Loading />;
@@ -486,4 +488,4 @@ const UpdateCoursePage = () => {
   );
 };
 
-export default UpdateCoursePage;
+export default AdminUpdateCoursePage;

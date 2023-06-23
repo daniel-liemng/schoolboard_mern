@@ -1,26 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
-  Avatar,
   Box,
   Button,
   Card,
   Grid,
   IconButton,
   Tooltip,
-  Paper,
   Typography,
 } from '@mui/material';
+import { PhotoCamera } from '@mui/icons-material';
+import { toast } from 'react-hot-toast';
 
 import { useAppSelector } from '../hooks/hooks';
-import { PhotoCamera } from '@mui/icons-material';
 import ProfileModal from '../compnents/modal/ProfileModal';
 import ChangePasswordModal from '../compnents/modal/ChangePasswordModal';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
-import {
-  useSaveAvatarMutation,
-  useUpdateProfileMutation,
-} from '../hooks/userHooks';
+import { useSaveAvatarMutation } from '../hooks/userHooks';
 
 const ProfilePage = () => {
   const { user } = useAppSelector((state) => state.user);
@@ -77,7 +71,6 @@ const ProfilePage = () => {
   const handlePasswordModalClose = () => {
     setPasswordModalOpen(false);
   };
-  console.log('1212', user);
 
   return (
     <Box sx={{ marginTop: '2rem', padding: '2rem' }}>

@@ -8,32 +8,36 @@ import {
   Select,
   Typography,
 } from '@mui/material';
-import { User } from '../../types/User';
 import ModalTemplate from './ModalTemplate';
-import { useChangeRoleMutation } from '../../hooks/adminHooks';
+import { useChangeCourseStatusMutation } from '../../hooks/adminHooks';
 import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
+import { Course } from '../../types/Course';
 
-interface ChangeRoleModalProps {
+interface ChangeCourseStatusModalProps {
   isModalOpen: boolean;
   handleClose: () => void;
-  user: User | undefined;
+  course: Course | undefined;
 }
 
-const ChangeRoleModal: React.FC<ChangeRoleModalProps> = ({
+const ChangeCourseStatusModal: React.FC<ChangeCourseStatusModalProps> = ({
   isModalOpen,
   handleClose,
-  user,
+  course,
 }) => {
-  const [selectedRole, setSelectedRole] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('');
 
-  const { mutateAsync: changeRole, isLoading, error } = useChangeRoleMutation();
+  const {
+    mutateAsync: changeStatus,
+    isLoading,
+    error,
+  } = useChangeCourseStatusMutation();
 
-  const handleChangeRole = async () => {
-    await changeRole({ userId: user?._id, role: selectedRole });
-    setSelectedRole('');
+  const handleChangeStatus = async () => {
+    await changeStatus({ courseId: course?._id, status: selectedStatus });
+    setSelectedStatus('');
 
-    toast.success('Role changed!');
+    toast.success('Status changed!');
     handleClose();
   };
 
@@ -43,37 +47,33 @@ const ChangeRoleModal: React.FC<ChangeRoleModalProps> = ({
 
   return (
     <ModalTemplate
-      title='Change user role'
+      title='Change course status'
       isModalOpen={isModalOpen}
       handleClose={handleClose}
     >
       <Box sx={{ mt: '1.5rem' }}>
         <Typography variant='body1' sx={{ mb: '1.5rem' }}>
-          Change role for user: {user?.name} from <strong>{user?.role}</strong>{' '}
-          to <strong>{selectedRole}</strong>
+          Change status for course: {course?.title} from{' '}
+          <strong>{course?.status}</strong> to <strong>{selectedStatus}</strong>
         </Typography>
         <FormControl fullWidth>
-          <InputLabel id='role'>Select Role</InputLabel>
+          <InputLabel id='role'>Select status</InputLabel>
           <Select
             labelId='role'
             label='Select Role'
-            value={selectedRole}
-            onChange={(e) => setSelectedRole(e.target.value)}
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value)}
           >
             <MenuItem disabled>Select a user role</MenuItem>
-            <MenuItem value='admin'>Admin</MenuItem>
-            <MenuItem value='instructor'>Instructor</MenuItem>
-            <MenuItem value='user'>User</MenuItem>
+            <MenuItem value='active'>Active</MenuItem>
+            <MenuItem value='inactive'>Inactive</MenuItem>
           </Select>
         </FormControl>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
           <Button
             type='button'
-            onClick={() => {
-              setSelectedRole('');
-              handleClose();
-            }}
+            onClick={handleClose}
             variant='contained'
             color='secondary'
             disableElevation
@@ -84,7 +84,7 @@ const ChangeRoleModal: React.FC<ChangeRoleModalProps> = ({
           </Button>
           <Button
             type='button'
-            onClick={handleChangeRole}
+            onClick={handleChangeStatus}
             variant='contained'
             disableElevation
             size='large'
@@ -99,4 +99,4 @@ const ChangeRoleModal: React.FC<ChangeRoleModalProps> = ({
   );
 };
 
-export default ChangeRoleModal;
+export default ChangeCourseStatusModal;

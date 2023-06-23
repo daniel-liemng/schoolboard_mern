@@ -2,20 +2,15 @@ import {
   Avatar,
   Box,
   Button,
-  Card,
   Checkbox,
   FormControl,
-  Grid,
   InputLabel,
   List,
   ListItem,
   ListItemAvatar,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
-  Menu,
   MenuItem,
-  Paper,
   Select,
   Typography,
 } from '@mui/material';
@@ -29,6 +24,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useGetCourseQuery } from '../../hooks/courseHooks';
 import { toast } from 'react-hot-toast';
 import { User } from '../../types/User';
+import { Session } from '../../types/Session';
 
 const AttendancePage = () => {
   const { courseId } = useParams();
@@ -99,9 +95,9 @@ const AttendancePage = () => {
               onChange={(e) => setSelectedSessionId(e.target.value)}
             >
               <MenuItem disabled>Select a session</MenuItem>
-              {sessions?.map((sess, index) => (
-                <MenuItem key={index} value={sess._id}>
-                  Session {index + 1}: {sess.date}
+              {sessions?.map((sess: Session, index: number) => (
+                <MenuItem key={index} value={sess?._id}>
+                  Session {index + 1}: {sess?.date}
                 </MenuItem>
               ))}
             </Select>
@@ -131,8 +127,8 @@ const AttendancePage = () => {
               secondaryAction={
                 <Checkbox
                   edge='end'
-                  onChange={handleToggle(student._id)}
-                  checked={selectedStudentIds.indexOf(student._id) !== -1}
+                  onChange={handleToggle(student?._id)}
+                  checked={selectedStudentIds.indexOf(student?._id) !== -1}
                   // checked={shortAttendList?.includes(student._id)}
                 />
               }
@@ -142,7 +138,7 @@ const AttendancePage = () => {
                 <ListItemAvatar>
                   <Avatar alt='avatar' src={``} />
                 </ListItemAvatar>
-                <ListItemText>{student.name}</ListItemText>
+                <ListItemText>{student?.name}</ListItemText>
               </ListItemButton>
             </ListItem>
           ))}

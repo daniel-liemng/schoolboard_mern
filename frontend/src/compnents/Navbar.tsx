@@ -65,7 +65,7 @@ const Navbar = (props: NavbarProps) => {
 
   const logoutHandler = async () => {
     await logout();
-    localStorage.removeItem('user');
+    localStorage.clear();
     dispatch(setCurrentUser(null));
 
     navigate('/');
