@@ -36,7 +36,7 @@ const UserCoursesPage = () => {
   return (
     <Container sx={{ mt: '1rem' }}>
       <Typography variant='h5' align='center' my='1.5rem'>
-        All Courses (User)
+        All Registered Courses (User)
       </Typography>
 
       <TableContainer component={Paper}>
@@ -49,7 +49,6 @@ const UserCoursesPage = () => {
               <TableCell align='left'>Instructor</TableCell>
               <TableCell align='left'>Day</TableCell>
               <TableCell align='left'>Time</TableCell>
-              <TableCell align='left'>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -66,16 +65,6 @@ const UserCoursesPage = () => {
                 <TableCell align='left'>{course.instructor?.name}</TableCell>
                 <TableCell align='left'>{course.day}</TableCell>
                 <TableCell align='left'>{course.time}</TableCell>
-                <TableCell align='left'>
-                  <Button
-                    to={`/admin/course/${course._id}`}
-                    component={Link}
-                    variant='contained'
-                    size='small'
-                  >
-                    Details
-                  </Button>
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>

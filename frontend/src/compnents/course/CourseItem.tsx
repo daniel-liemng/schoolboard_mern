@@ -94,11 +94,12 @@ const CourseItem: React.FC<CourseItemProps> = ({ course }) => {
             handleClose={handleCloseDetailsModal}
             course={course}
           />
-          {user ? (
+          {user && user.role !== 'admin' && user.role !== 'instructor' ? (
             <Button
               variant='contained'
               disabled={
-                isLoading || course.registeredUserIds.includes(user._id)
+                isLoading ||
+                course.registeredUserIds.includes(user._id as string)
               }
               onClick={() => handleRegister(course._id as string)}
             >
@@ -106,6 +107,13 @@ const CourseItem: React.FC<CourseItemProps> = ({ course }) => {
                 ? 'Registered'
                 : 'Register'}
             </Button>
+          ) : user?.role === 'admin' || user?.role === 'instructor' ? (
+            <Tooltip
+              title='Admin or instructor is not allowed to register'
+              placement='bottom-start'
+            >
+              <Button variant='contained'>Register</Button>
+            </Tooltip>
           ) : (
             <Tooltip title='Login to register' placement='bottom-start'>
               <Button variant='contained'>Register</Button>

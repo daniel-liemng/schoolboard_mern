@@ -8,4 +8,5 @@ export type User = {
   gender?: string;
   dob?: string;
   registeredCourseIds?: string[];
+  createdCourseIds?: string[];
 } | null;

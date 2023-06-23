@@ -94,6 +94,14 @@ const changeCourseStatus = asyncHandler(async (req, res, next) => {
   res.status(200).json(course);
 });
 
+const getInstructorCoursesAdmin = asyncHandler(async (req, res, next) => {
+  const users = await User.find({ role: 'instructor' }).populate(
+    'createdCourseIds'
+  );
+
+  res.status(200).json(users);
+});
+
 module.exports = {
   getAllUsers,
   getAllCourses,
@@ -102,4 +110,5 @@ module.exports = {
   changeUserRole,
   updateUserProfile,
   changeCourseStatus,
+  getInstructorCoursesAdmin,
 };

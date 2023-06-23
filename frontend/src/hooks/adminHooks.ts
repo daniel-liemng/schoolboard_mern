@@ -79,3 +79,10 @@ export const useAdminUpdateCourseMutation = () =>
         .data,
     onSuccess: () => queryClient.invalidateQueries(['all-courses']),
   });
+
+export const useAdminGetInstructorCourses = () =>
+  useQuery({
+    queryKey: ['admin-instructor-courses'],
+    queryFn: async () =>
+      (await axios.get('/api/admin/instructor-courses')).data,
+  });

@@ -10,11 +10,13 @@ const UsersPage = () => {
 
   const [value, setValue] = useState('1');
 
-  const adminList = users?.filter((user: User) => user.role === 'admin').sort();
+  const adminList = users
+    ?.filter((user: User) => user?.role === 'admin')
+    .sort();
   const instructorList = users
     ?.filter((user: User) => user.role === 'instructor')
     .sort();
-  const userList = users?.filter((user: User) => user.role === 'user').sort();
+  const userList = users?.filter((user: User) => user?.role === 'user').sort();
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);

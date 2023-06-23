@@ -7,6 +7,11 @@ const { default: mongoose } = require('mongoose');
 const addCourse = asyncHandler(async (req, res, next) => {
   const course = await Course.create(req.body);
 
+  // Meantime, add courseId to createdCourseIds - User
+  const user = await User.findById(req.user._id);
+  user.createdCourseIds.push(course._id.toString());
+  await user.save();
+
   res.status(201).json(course);
 });
 

@@ -11,13 +11,14 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   return (
     <Box sx={{ width: '100%', height: '100%', minHeight: '100vh' }}>
       <Navbar />
-      <main style={{ height: '100vh', paddingTop: '65px' }}>
+      <main style={{ height: '100%', minHeight: '100vh', paddingTop: '65px' }}>
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
             gap: '1rem',
             height: '100%',
+            minHeight: '100vh',
           }}
         >
           <Box

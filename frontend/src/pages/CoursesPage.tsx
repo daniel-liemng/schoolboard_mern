@@ -18,9 +18,6 @@ import Loading from '../compnents/Loading';
 import { AxiosError } from 'axios';
 import { toast } from 'react-hot-toast';
 import CourseItem from '../compnents/course/CourseItem';
-import DoneIcon from '@mui/icons-material/Done';
-import { SignalWifiStatusbarNullSharp } from '@mui/icons-material';
-import { Category } from '../types/Category';
 import { Course } from '../types/Course';
 
 const CoursesPage = () => {
@@ -83,10 +80,19 @@ const CoursesPage = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '1rem',
             mb: '1.5rem',
           }}
         >
-          <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              gap: '1rem',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
             {allCategories?.map((cat: string, index: number) => (
               <Chip
                 label={cat}
@@ -130,6 +136,7 @@ const CoursesPage = () => {
         }}
       >
         {coursesData
+          ?.filter((item: Course) => item.status !== 'inactive')
           ?.filter(
             (item: Course) =>
               item.category.title.toLowerCase() === selectedCat.toLowerCase() ||
@@ -147,10 +154,10 @@ const CoursesPage = () => {
             sortTerm === 'a-z' && item1.title > item2.title ? -1 : 1
           )
           ?.sort((item1: Course, item2: Course) =>
-            sortTerm === 'old' && item1.createdAt > item2.createdAt ? 1 : -1
+            sortTerm === 'old' && item1.start_date > item2.start_date ? 1 : -1
           )
           ?.sort((item1: Course, item2: Course) =>
-            sortTerm === 'new' && item1.createdAt > item2.createdAt ? -1 : 1
+            sortTerm === 'new' && item1.start_date > item2.start_date ? -1 : 1
           )
           ?.map((course: Course, index: number) => (
             <CourseItem key={index} course={course} />
