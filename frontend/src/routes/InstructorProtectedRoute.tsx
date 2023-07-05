@@ -13,7 +13,7 @@ const InstructorProtectedRoute = ({
   } else if (user?.role !== 'instructor') {
     return <Navigate to='/' replace />;
   }
-  return children;
+  return <>{children}</>;
 };
 
 export default InstructorProtectedRoute;

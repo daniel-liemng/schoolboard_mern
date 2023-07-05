@@ -191,7 +191,7 @@ const Navbar = (props: NavbarProps) => {
                 textTransform: 'uppercase',
               }}
             >
-              Tech School
+              School Board
             </Typography>
           </Link>
 

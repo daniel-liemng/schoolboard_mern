@@ -8,6 +8,7 @@ import {
   OutlinedInput,
   TextField,
   Typography,
+  useTheme,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
@@ -19,6 +20,7 @@ import { AxiosError } from 'axios';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks.js';
 import { setCurrentUser } from '../redux/userSlice.js';
 import Loading from '../compnents/Loading.js';
+import { grey } from '@mui/material/colors';
 
 type FormValues = {
   email: string;
@@ -27,6 +29,7 @@ type FormValues = {
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const { isAuthenticated, user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
@@ -91,12 +94,12 @@ const LoginPage = () => {
     setshowPassword((val) => !val);
   };
 
-  if (error instanceof AxiosError) {
-    toast.error(error?.response?.data?.message || 'Something went wrong');
-  }
-
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (error instanceof AxiosError) {
+    toast.error(error?.response?.data?.message || 'Something went wrong');
   }
 
   return (
@@ -114,8 +117,9 @@ const LoginPage = () => {
           textAlign: 'center',
           paddingX: '4rem',
           paddingY: '2rem',
-          bgcolor: 'white',
           borderRadius: '1rem',
+          boxShadow: '5px 10px 10px 10px rgba(0,0,0,0.1)',
+          bgcolor: theme.palette.mode === 'dark' ? grey[600] : '',
         }}
       >
         <Typography variant='h4' marginBottom='2rem'>

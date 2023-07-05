@@ -9,7 +9,7 @@ const AdminProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   } else if (user?.role !== 'admin') {
     return <Navigate to='/' replace />;
   }
-  return children;
+  return <>{children}</>;
 };
 
 export default AdminProtectedRoute;

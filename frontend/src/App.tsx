@@ -25,7 +25,16 @@ import Layout from './compnents/Layout';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { createTheme, PaletteMode, ThemeProvider } from '@mui/material';
-import { amber, blueGrey, grey } from '@mui/material/colors';
+import {
+  amber,
+  blue,
+  blueGrey,
+  cyan,
+  grey,
+  lightGreen,
+  lime,
+  teal,
+} from '@mui/material/colors';
 import { Toaster } from 'react-hot-toast';
 import AdminLayout from './compnents/admin/AdminLayout';
 import InstructorLayout from './compnents/instructor/InstructorLayout';
@@ -42,6 +51,7 @@ axios.defaults.baseURL = 'http://localhost:5000';
 axios.defaults.withCredentials = true;
 
 const router = createBrowserRouter([
+  // SHARED
   {
     path: '/',
     element: (
@@ -74,6 +84,9 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+  // END SHARED
+
+  // USER
   {
     path: '/user/courses',
     element: (
@@ -90,6 +103,9 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+  // END USER
+
+  // INSTRUCTOR
   {
     path: '/instructor/courses',
     element: (
@@ -140,6 +156,9 @@ const router = createBrowserRouter([
       </InstructorProtectedRoute>
     ),
   },
+  // END INSTRUCTOR
+
+  // ADMIN
   {
     path: '/admin',
     element: (
@@ -226,22 +245,22 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
-  {
-    path: '/admin/course/:courseId',
-    element: (
-      <Layout>
-        <CourseDetailsPage />
-      </Layout>
-    ),
-  },
-  {
-    path: '/admin/category',
-    element: (
-      <Layout>
-        <CategoryPage />
-      </Layout>
-    ),
-  },
+  // {
+  //   path: '/admin/course/:courseId',
+  //   element: (
+  //     <Layout>
+  //       <CourseDetailsPage />
+  //     </Layout>
+  //   ),
+  // },
+  // {
+  //   path: '/admin/category',
+  //   element: (
+  //     <Layout>
+  //       <CategoryPage />
+  //     </Layout>
+  //   ),
+  // },
 
   {
     path: '/admin/attendance/:courseId',
@@ -251,14 +270,16 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
-  {
-    path: '/instructor/course/:courseId',
-    element: (
-      <InstructorLayout>
-        <CourseSummaryPage />
-      </InstructorLayout>
-    ),
-  },
+  // END ADMIN
+
+  // {
+  //   path: '/instructor/course/:courseId',
+  //   element: (
+  //     <InstructorLayout>
+  //       <CourseSummaryPage />
+  //     </InstructorLayout>
+  //   ),
+  // },
   {
     path: '*',
     element: (
@@ -276,7 +297,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
   palette: {
     mode,
     primary: {
-      ...amber,
+      ...blue,
       ...(mode === 'dark' && {
         main: blueGrey[700],
       }),
@@ -291,11 +312,9 @@ const getDesignTokens = (mode: PaletteMode) => ({
       ...(mode === 'light'
         ? {
             primary: grey[900],
-            // secondary: grey[800],
           }
         : {
             primary: '#fff',
-            // secondary: grey[500],
           }),
     },
   },

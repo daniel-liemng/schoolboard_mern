@@ -9,6 +9,7 @@ import {
   OutlinedInput,
   TextField,
   Typography,
+  useTheme,
 } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
@@ -18,6 +19,7 @@ import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { setCurrentUser } from '../redux/userSlice';
+import { grey } from '@mui/material/colors';
 
 type FormValues = {
   name: string;
@@ -29,6 +31,7 @@ type FormValues = {
 const SignupPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const theme = useTheme();
 
   const { isAuthenticated, user } = useAppSelector((state) => state.user);
 
@@ -123,8 +126,9 @@ const SignupPage = () => {
           textAlign: 'center',
           paddingX: '4rem',
           paddingY: '2rem',
-          bgcolor: 'white',
           borderRadius: '1rem',
+          boxShadow: '5px 10px 10px 10px rgba(0,0,0,0.1)',
+          bgcolor: theme.palette.mode === 'dark' ? grey[600] : '',
         }}
       >
         <Typography variant='h4' marginBottom='2rem'>

@@ -28,6 +28,17 @@ export const userNav = [
   },
 ];
 
+export const instructorNav = [
+  {
+    name: 'Courses',
+    link: '/instructor/courses',
+  },
+  {
+    name: 'Students',
+    link: '/instructor/students',
+  },
+];
+
 export const adminNav = [
   {
     name: 'Dashboard',
@@ -48,16 +59,5 @@ export const adminNav = [
   {
     name: 'Settings',
     link: '/admin/settings',
-  },
-];
-
-export const instructorNav = [
-  {
-    name: 'Courses',
-    link: '/instructor/courses',
-  },
-  {
-    name: 'Students',
-    link: '/instructor/students',
   },
 ];
