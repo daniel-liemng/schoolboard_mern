@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TabContext, TabPanel, TabList } from '@mui/lab';
-import { Box, Paper, Tab, Typography } from '@mui/material';
+import { Box, Tab, Typography } from '@mui/material';
 import UserTable from '../../compnents/admin/UserTable';
 import { useGetAllUsersQuery } from '../../hooks/adminHooks';
 import { User } from '../../types/User';
@@ -14,11 +14,11 @@ const UsersPage = () => {
     ?.filter((user: User) => user?.role === 'admin')
     .sort();
   const instructorList = users
-    ?.filter((user: User) => user.role === 'instructor')
+    ?.filter((user: User) => user?.role === 'instructor')
     .sort();
   const userList = users?.filter((user: User) => user?.role === 'user').sort();
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 

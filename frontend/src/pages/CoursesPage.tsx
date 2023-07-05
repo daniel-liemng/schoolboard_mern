@@ -56,8 +56,6 @@ const CoursesPage = () => {
     toast.error(catError?.response?.data?.message || 'Something went wrong');
   }
 
-  console.log('7788', coursesData);
-
   return (
     <Box
       sx={{

@@ -38,10 +38,6 @@ const AdminCoursesPage = () => {
 
   const { data: courses, isLoading, error } = useGetAllCoursesQuery();
 
-  // const { data: courses, isLoading } = useGetInstructorCoursesQuery();
-
-  // const { mutateAsync: deleteCourseHandler } = useDeleteCourseMutation();
-
   const handleCourseModalClose = () => {
     setIsCourseModalOpen(false);
   };
@@ -51,12 +47,10 @@ const AdminCoursesPage = () => {
   };
 
   const handleDeleteCourse = async (courseId: string) => {
-    await deleteCourseHandler(courseId);
+    // await deleteCourseHandler(courseId as string);
     toast.success('Course Deleted');
     handleCourseModalClose();
   };
-
-  console.log('Course', courses);
 
   if (isLoading) {
     return <Loading />;

@@ -1,10 +1,5 @@
 import axios from 'axios';
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-  useNavigate,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   CategoryPage,
   CourseDetailsPage,
@@ -30,7 +25,7 @@ import Layout from './compnents/Layout';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { createTheme, PaletteMode, ThemeProvider } from '@mui/material';
-import { amber, deepOrange, grey } from '@mui/material/colors';
+import { amber, blueGrey, grey } from '@mui/material/colors';
 import { Toaster } from 'react-hot-toast';
 import AdminLayout from './compnents/admin/AdminLayout';
 import InstructorLayout from './compnents/instructor/InstructorLayout';
@@ -283,53 +278,27 @@ const getDesignTokens = (mode: PaletteMode) => ({
     primary: {
       ...amber,
       ...(mode === 'dark' && {
-        main: amber[300],
+        main: blueGrey[700],
       }),
     },
     ...(mode === 'dark' && {
       background: {
-        default: deepOrange[900],
-        paper: deepOrange[900],
+        default: grey[700],
+        paper: grey[700],
       },
     }),
     text: {
       ...(mode === 'light'
         ? {
             primary: grey[900],
-            secondary: grey[800],
+            // secondary: grey[800],
           }
         : {
             primary: '#fff',
-            secondary: grey[500],
+            // secondary: grey[500],
           }),
     },
   },
-  // palette: {
-  //   mode,
-  //   ...(mode === 'light'
-  //     ? {
-  //         // palette values for light mode
-  //         primary: amber,
-  //         divider: amber[200],
-  //         text: {
-  //           primary: grey[900],
-  //           secondary: grey[800],
-  //         },
-  //       }
-  //     : {
-  //         // palette values for dark mode
-  //         primary: deepOrange,
-  //         divider: deepOrange[700],
-  //         // background: {
-  //         //   default: deepOrange[900],
-  //         //   paper: deepOrange[900],
-  //         // },
-  //         text: {
-  //           primary: '#000',
-  //           secondary: grey[500],
-  //         },
-  //       }),
-  // },
 });
 
 const App = () => {
@@ -339,8 +308,6 @@ const App = () => {
 
   const { data: currentUser } = useGetCurrentUserQuery();
   const { data: allCourses } = useGetAllCoursesQuery();
-
-  console.log('CURRENT-APP', currentUser);
 
   useEffect(() => {
     if (currentUser) {
