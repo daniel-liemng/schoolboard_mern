@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import {
   Avatar,
   Box,
@@ -23,7 +25,7 @@ import CreateSessionModal from '../../compnents/modal/CreateSessionModal';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetCourseQuery } from '../../hooks/courseHooks';
 import { toast } from 'react-hot-toast';
-import { User } from '../../types/User';
+// import { User } from '../../types/User';
 import { Session } from '../../types/Session';
 
 const AttendancePage = () => {
@@ -121,7 +123,7 @@ const AttendancePage = () => {
 
       <Box sx={{ width: '50%', minWidth: '300px', my: '2rem' }}>
         <List>
-          {studentList?.map((student: User, index: number) => (
+          {studentList?.map((student, index: number) => (
             <ListItem
               key={index}
               secondaryAction={

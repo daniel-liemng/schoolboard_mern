@@ -43,7 +43,7 @@ export const useUpdateCourseMutation = () =>
 
 export const useDeleteCourseMutation = () =>
   useMutation({
-    mutationFn: async (courseId) =>
+    mutationFn: async (courseId: string) =>
       (await axios.delete(`/api/courses/${courseId}`)).data,
   });
 

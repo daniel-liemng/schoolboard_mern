@@ -26,7 +26,7 @@ const ProfilePage = () => {
 
   const [profileImg, setProfileImg] = useState('');
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInptElement>) => {
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
       return;
     }

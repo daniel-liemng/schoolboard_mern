@@ -3,7 +3,6 @@ import {
   Avatar,
   Box,
   Button,
-  Paper,
   Table,
   TableBody,
   TableCell,

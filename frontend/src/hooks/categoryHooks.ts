@@ -10,7 +10,7 @@ export const useGetAllCategoriesQuery = () =>
 
 export const useCreateCategoryMutation = () =>
   useMutation({
-    mutationFn: async (catData) =>
+    mutationFn: async (catData: { title: string }) =>
       (await axios.post('/api/categories', catData)).data,
     onSuccess: () => queryClient.invalidateQueries(['all-cat']),
   });

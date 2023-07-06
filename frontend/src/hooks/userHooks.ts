@@ -49,8 +49,10 @@ export const useSaveAvatarMutation = () =>
 
 export const useChangePasswordMutation = () =>
   useMutation({
-    mutationFn: async (passwordData) =>
-      (await axios.patch('/api/users/change-password', passwordData)).data,
+    mutationFn: async (passwordData: {
+      currentPassword: string;
+      password: string;
+    }) => (await axios.patch('/api/users/change-password', passwordData)).data,
   });
 
 export const useGetUserCoursesQuery = () =>
