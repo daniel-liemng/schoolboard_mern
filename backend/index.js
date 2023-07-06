@@ -29,6 +29,8 @@ app.use(
     // origin: 'http://localhost:5173',
     origin: 'https://schoolboard-3vmnq0q5l-daniel-liemng.vercel.app',
     credentials: true,
+    sameSite: 'none',
+    secure: true,
   })
 );
 
