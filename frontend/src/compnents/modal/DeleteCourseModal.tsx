@@ -59,7 +59,7 @@ const DeleteCourseModal: React.FC<DeleteCourseModalProps> = ({
             }}
           >
             <ReportOutlinedIcon fontSize='large' color='error' />
-            Confirm delete category
+            Confirm delete course
           </Typography>
 
           <Typography variant='body1' sx={{ marginY: '2rem' }}>

@@ -74,6 +74,9 @@ const ProfilePage = () => {
 
   return (
     <Box sx={{ marginTop: '2rem', padding: '2rem' }}>
+      <Typography variant='h3' align='center' mb='2rem'>
+        Profile
+      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={5}>
           <Card
