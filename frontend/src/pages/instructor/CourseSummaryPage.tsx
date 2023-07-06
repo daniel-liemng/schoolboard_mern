@@ -37,9 +37,6 @@ const CourseSummaryPage = () => {
   const sessionCount = course?.sessionIds?.length;
   const studentCount = course?.registeredUserIds?.length;
 
-  console.log('CO-1', course);
-  console.log('CO-2', sessions);
-
   return (
     <Box sx={{ p: '3rem' }}>
       <Typography variant='h4' align='center' fontWeight='bold'>
@@ -95,7 +92,7 @@ const CourseSummaryPage = () => {
             <Box
               width='10rem'
               height='6rem'
-              sx={{ bgcolor: '#e1f8dc', p: '0.5rem', borderRadius: '10px' }}
+              sx={{ bgcolor: '#f4bfbe', p: '0.5rem', borderRadius: '10px' }}
             >
               <Typography variant='h4' fontWeight='bold' align='center'>
                 {studentCount}

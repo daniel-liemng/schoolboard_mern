@@ -90,7 +90,6 @@ const changeCourseStatus = asyncHandler(async (req, res, next) => {
     { new: true }
   );
 
-  console.log(course);
   res.status(200).json(course);
 });
 

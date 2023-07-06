@@ -33,7 +33,7 @@ const CategoryPage = () => {
   const [isDeleteCatModalOpen, setIsDeleteCatModalOpen] = useState(false);
 
   // update
-  const [selectedIndex, setSelectedIndex] = useState();
+  const [selectedIndex, setSelectedIndex] = useState<number>();
   const [catTitle, setCatTitle] = useState('');
 
   //delete

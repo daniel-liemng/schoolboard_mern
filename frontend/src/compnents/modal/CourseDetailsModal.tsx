@@ -25,8 +25,6 @@ const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({
   isModalOpen,
   handleClose,
 }) => {
-  console.log('MODAL COURSE', course);
-
   return (
     <Modal
       open={isModalOpen}

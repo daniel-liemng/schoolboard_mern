@@ -148,14 +148,13 @@ const AdminUpdateCoursePage = () => {
       fee: data.fee,
       total_student: data.total_student,
     };
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     await updateCourse({ courseId, courseData });
     toast.success('Course Updated');
     navigate(-1);
     // navigate('/user-courses');
   };
-
-  console.log('CCOOUURRSE', course);
 
   if (isCourseLoading || isCatLoading) {
     return <Loading />;

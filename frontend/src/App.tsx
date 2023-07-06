@@ -25,16 +25,7 @@ import Layout from './compnents/Layout';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { createTheme, PaletteMode, ThemeProvider } from '@mui/material';
-import {
-  amber,
-  blue,
-  blueGrey,
-  cyan,
-  grey,
-  lightGreen,
-  lime,
-  teal,
-} from '@mui/material/colors';
+import { blue, blueGrey, grey } from '@mui/material/colors';
 import { Toaster } from 'react-hot-toast';
 import AdminLayout from './compnents/admin/AdminLayout';
 import InstructorLayout from './compnents/instructor/InstructorLayout';
@@ -237,31 +228,14 @@ const router = createBrowserRouter([
       </AdminProtectedRoute>
     ),
   },
-  {
-    path: '/admin/course/update-course/:courseId',
-    element: (
-      <Layout>
-        <UpdateCoursePage />
-      </Layout>
-    ),
-  },
   // {
-  //   path: '/admin/course/:courseId',
+  //   path: '/admin/course/update-course/:courseId',
   //   element: (
   //     <Layout>
-  //       <CourseDetailsPage />
+  //       <UpdateCoursePage />
   //     </Layout>
   //   ),
   // },
-  // {
-  //   path: '/admin/category',
-  //   element: (
-  //     <Layout>
-  //       <CategoryPage />
-  //     </Layout>
-  //   ),
-  // },
-
   {
     path: '/admin/attendance/:courseId',
     element: (
@@ -359,7 +333,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(setCourses(allCourses));
-  }, [allCourses]);
+  }, [allCourses, dispatch]);
 
   const colorMode = useMemo(
     () => ({

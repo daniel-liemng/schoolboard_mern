@@ -25,8 +25,6 @@ export const useUpdateStudentIdsMutation = () =>
       sessionId: string;
       studentData: string[];
     }) => {
-      console.log(sessionId);
-
       return (
         await axios.put(`/api/sessions/${sessionId}`, {
           studentIds: studentData,

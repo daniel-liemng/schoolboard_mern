@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import {
-  Box,
-  Button,
   Container,
   Paper,
   Table,
@@ -12,22 +10,13 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+
 import { useGetUserCoursesQuery } from '../hooks/userHooks';
 import Loading from '../compnents/Loading';
 import { Course } from '../types/Course';
 
 const UserCoursesPage = () => {
-  const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
-
   const { data: courses, isLoading } = useGetUserCoursesQuery();
-
-  const handleCourseModalClose = () => {
-    setIsCourseModalOpen(false);
-  };
-
-  console.log('Course', courses);
 
   if (isLoading) {
     return <Loading />;

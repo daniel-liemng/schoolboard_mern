@@ -11,10 +11,6 @@ export const menu = [
     name: 'Login',
     link: '/login',
   },
-  // {
-  //   name: 'Sign up',
-  //   link: '/signup',
-  // },
 ];
 
 export const userNav = [

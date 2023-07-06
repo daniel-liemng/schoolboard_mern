@@ -134,8 +134,6 @@ const CreateCoursePage = () => {
     navigate('/instructor/courses');
   };
 
-  // console.log('UUser', dayjs(data.time_to));
-
   return (
     <Paper sx={{ margin: '2rem', padding: '1rem' }}>
       <Typography variant='h5' align='center' sx={{ my: '1.5rem' }}>

@@ -26,9 +26,6 @@ export const useGetCurrentUserQuery = () =>
   useQuery({
     queryKey: ['current-user'],
     queryFn: async () => (await axios.get('/api/users/get-current-user')).data,
-    // refetchOnMount: false,
-    // refetchOnWindowFocus: false,
-    // refetchOnReconnect: false,
   });
 
 export const useUpdateProfileMutation = () =>

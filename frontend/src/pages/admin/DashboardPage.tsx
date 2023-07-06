@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import {
   Box,
   Card,
@@ -16,7 +18,7 @@ import {
 } from '../../hooks/adminHooks';
 import { User } from '../../types/User';
 import { useGetAllCoursesQuery } from '../../hooks/courseHooks';
-import SmallCountBox from '../../compnents/SmallCountBox';
+import SmallCountBox from '../../compnents/admin/SmallCountBox';
 import { Course } from '../../types/Course';
 
 const DashboardPage = () => {

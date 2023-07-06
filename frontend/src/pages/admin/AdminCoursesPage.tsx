@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import { useState } from 'react';
 import {
   Box,
@@ -46,7 +48,7 @@ const AdminCoursesPage = () => {
     setIsCategoryModalOpen(false);
   };
 
-  const handleDeleteCourse = async (courseId: string) => {
+  const handleDeleteCourse = async () => {
     // await deleteCourseHandler(courseId as string);
     toast.success('Course Deleted');
     handleCourseModalClose();

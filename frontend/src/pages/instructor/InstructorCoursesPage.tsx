@@ -50,8 +50,6 @@ const InstructorCoursesPage = () => {
     handleCourseModalClose();
   };
 
-  console.log('Course', courses);
-
   if (isLoading) {
     return <Loading />;
   }
