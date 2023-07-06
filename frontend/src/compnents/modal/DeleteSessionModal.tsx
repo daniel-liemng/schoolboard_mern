@@ -61,6 +61,7 @@ const DeleteSessionModal: React.FC<DeleteSessionModalProps> = ({
           variant='contained'
           onClick={handleDeleteSession}
           disabled={isLoading}
+          color='error'
         >
           Yes, delete session
         </Button>

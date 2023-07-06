@@ -65,7 +65,7 @@ const AdminCoursesPage = () => {
   return (
     <Container sx={{ mt: '1rem' }}>
       <Typography variant='h4' align='center' my='2rem'>
-        All Courses (Admin)
+        All Courses
       </Typography>
 
       <Box

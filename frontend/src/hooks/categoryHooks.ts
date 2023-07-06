@@ -29,7 +29,7 @@ export const useUpdateCategoryMutation = () =>
 
 export const useDeleteCategoryMutation = () =>
   useMutation({
-    mutationFn: async (catId) =>
+    mutationFn: async (catId: string) =>
       (await axios.delete(`/api/categories/${catId}`)).data,
     onSuccess: () => queryClient.invalidateQueries(['all-cat']),
   });

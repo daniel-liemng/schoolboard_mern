@@ -53,7 +53,10 @@ const UserInfoModal: React.FC<UserInfoModalProps> = ({
           <Typography variant='body2' sx={{ mb: '0.2rem' }}>
             <strong>DOB:</strong> {user?.dob}
           </Typography>
-          <Typography variant='body2' sx={{ mb: '0.2rem' }}>
+          <Typography
+            variant='body2'
+            sx={{ mb: '0.2rem', textTransform: 'capitalize' }}
+          >
             <strong>Gender:</strong> {user?.gender}
           </Typography>
         </Grid>

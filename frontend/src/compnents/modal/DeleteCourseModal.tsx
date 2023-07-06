@@ -1,4 +1,6 @@
 import { Box, Button, Modal, Typography, Backdrop, Fade } from '@mui/material';
+import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
+
 import { Course } from '../../types/Course';
 
 const style = {
@@ -18,7 +20,7 @@ interface DeleteCourseModalProps {
   isModalOpen: boolean;
   handleClose: () => void;
   course: Course | undefined;
-  handleDeleteCourse: () => void;
+  handleDeleteCourse: (string) => void;
 }
 
 const DeleteCourseModal: React.FC<DeleteCourseModalProps> = ({
@@ -47,9 +49,15 @@ const DeleteCourseModal: React.FC<DeleteCourseModalProps> = ({
             id='modal-modal-title'
             variant='h5'
             component='h3'
-            align='center'
+            sx={{
+              display: 'flex',
+              gap: '1rem',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
           >
-            Confirm delete course
+            <ReportOutlinedIcon fontSize='large' color='error' />
+            Confirm delete category
           </Typography>
 
           <Typography variant='body1' sx={{ marginY: '2rem' }}>
@@ -71,6 +79,7 @@ const DeleteCourseModal: React.FC<DeleteCourseModalProps> = ({
             <Button
               variant='contained'
               onClick={() => handleDeleteCourse(course?._id)}
+              color='error'
             >
               Yes, delete course
             </Button>

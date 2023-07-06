@@ -23,7 +23,7 @@ const HomePage = () => {
       <img
         src={bgImg}
         alt='image'
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        style={{ width: '100vw', height: '100vh', objectFit: 'cover' }}
       />
       <Box
         sx={{

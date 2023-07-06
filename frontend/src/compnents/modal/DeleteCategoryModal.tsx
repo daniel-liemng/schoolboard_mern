@@ -1,4 +1,5 @@
 import { Box, Button, Modal, Typography, Backdrop, Fade } from '@mui/material';
+import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
 
 import { useDeleteCategoryMutation } from '../../hooks/categoryHooks';
 import { toast } from 'react-hot-toast';
@@ -36,7 +37,7 @@ const DeleteCategoryModal: React.FC<DeleteCategoryModalProps> = ({
   } = useDeleteCategoryMutation();
 
   const handleDeleteCategory = async (catId: string) => {
-    await deleteCategory(catId);
+    await deleteCategory(catId as string);
     toast.success('Category Deleted');
     handleClose();
   };
@@ -65,8 +66,14 @@ const DeleteCategoryModal: React.FC<DeleteCategoryModalProps> = ({
             id='modal-modal-title'
             variant='h5'
             component='h3'
-            align='center'
+            sx={{
+              display: 'flex',
+              gap: '1rem',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
           >
+            <ReportOutlinedIcon fontSize='large' color='error' />
             Confirm delete category
           </Typography>
 
@@ -88,8 +95,9 @@ const DeleteCategoryModal: React.FC<DeleteCategoryModalProps> = ({
             </Button>
             <Button
               variant='contained'
-              onClick={() => handleDeleteCategory(cat._id)}
+              onClick={() => handleDeleteCategory(cat?._id as string)}
               disabled={isLoading}
+              color='error'
             >
               Yes, delete category
             </Button>

@@ -6,6 +6,13 @@ const SettingsPage = () => {
       <Typography variant='h4' align='center' sx={{ mt: '0.5rem' }}>
         Settings
       </Typography>
+      <Typography
+        variant='h6'
+        align='center'
+        sx={{ mt: '2rem', color: 'grey' }}
+      >
+        Under maintenance
+      </Typography>
     </Box>
   );
 };

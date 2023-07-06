@@ -1,4 +1,5 @@
 import { Box, Button, Modal, Typography, Backdrop, Fade } from '@mui/material';
+import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
 
 const style = {
   position: 'absolute',
@@ -50,8 +51,14 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
             id='modal-modal-title'
             variant='h5'
             component='h3'
-            align='center'
+            sx={{
+              display: 'flex',
+              gap: '1rem',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
           >
+            <ReportOutlinedIcon fontSize='large' color='error' />
             Confirm delete {type}
           </Typography>
 
@@ -75,6 +82,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
               variant='contained'
               onClick={handleDelete}
               disabled={isLoading}
+              color='error'
             >
               Yes, delete it
             </Button>

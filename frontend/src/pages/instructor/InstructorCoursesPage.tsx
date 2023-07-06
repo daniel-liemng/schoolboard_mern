@@ -57,7 +57,7 @@ const InstructorCoursesPage = () => {
   return (
     <Container sx={{ mt: '1rem' }}>
       <Typography variant='h4' align='center' my='2rem'>
-        All Courses (Instructor)
+        All Courses
       </Typography>
 
       <Box

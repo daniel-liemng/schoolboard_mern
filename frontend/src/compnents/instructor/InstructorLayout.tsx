@@ -26,7 +26,7 @@ const InstructorLayout: React.FC<InstructorLayoutProps> = ({ children }) => {
         >
           <Box
             sx={{
-              minWidth: '180px',
+              minWidth: '200px',
               pt: '2rem',
               pl: '1rem',
               backgroundColor:

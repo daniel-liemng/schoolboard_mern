@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { menu } from '../data/data';
-import { Menu, MenuItem, Tooltip, useTheme } from '@mui/material';
+import { Avatar, Menu, MenuItem, Tooltip, useTheme } from '@mui/material';
 import { ColorModeContext } from '../App';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -89,7 +89,11 @@ const Navbar = (props: NavbarProps) => {
       onClose={handleCloseUserMenu}
     >
       {isAdmin && (
-        <MenuItem component={Link} to='/admin' onClick={handleCloseUserMenu}>
+        <MenuItem
+          component={Link}
+          to='/admin/dashboard'
+          onClick={handleCloseUserMenu}
+        >
           <Typography textAlign='center'>Dashboard</Typography>
         </MenuItem>
       )}
@@ -131,6 +135,45 @@ const Navbar = (props: NavbarProps) => {
       </Typography>
       <Divider />
       <List>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          }}
+        >
+          {isAuthenticated && (
+            <ListItem>
+              <Tooltip title={`Hello ${user?.name || user?.email}`}>
+                {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <AccountCircleIcon />
+              </IconButton> */}
+                {user?.avatar ? (
+                  <img
+                    src={user?.avatar}
+                    alt='profile'
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: '50%',
+                      border: '1px solid #fff',
+                    }}
+                  />
+                ) : (
+                  <Avatar sx={{ width: 50, height: 50 }} />
+                )}
+              </Tooltip>
+            </ListItem>
+          )}
+          <ListItem onClick={colorMode.toggleColorMode}>
+            {theme.palette.mode === 'dark' ? (
+              <DarkModeIcon fontSize='large' />
+            ) : (
+              <LightModeIcon fontSize='large' />
+            )}
+          </ListItem>
+        </Box>
+
         {appMenu.map((item) => (
           <ListItem
             key={item.name}
@@ -145,21 +188,49 @@ const Navbar = (props: NavbarProps) => {
             </Link>
           </ListItem>
         ))}
-        {isAuthenticated && (
-          <ListItem>
-            <Tooltip title={`Hello ${user?.name || user?.email}`}>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' /> */}
-                <AccountCircleIcon />
-              </IconButton>
-            </Tooltip>
-            <AccountMenu />
+
+        {isAdmin && (
+          <ListItem
+            component={Link}
+            to='/admin/dashboard'
+            onClick={handleCloseUserMenu}
+          >
+            <Typography textAlign='center'>Dashboard</Typography>
+          </ListItem>
+        )}
+        {isInstructor && (
+          <ListItem
+            component={Link}
+            to='/instructor/courses'
+            onClick={handleCloseUserMenu}
+          >
+            <Typography textAlign='center'>I Dashboard</Typography>
+          </ListItem>
+        )}
+        {isStudent && (
+          <ListItem
+            component={Link}
+            to='/user/courses'
+            onClick={handleCloseUserMenu}
+          >
+            <Typography textAlign='center'>My courses</Typography>
           </ListItem>
         )}
 
-        <ListItem onClick={colorMode.toggleColorMode}>
-          {theme.palette.mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
-        </ListItem>
+        {isAuthenticated && (
+          <>
+            <ListItem
+              component={Link}
+              to='/user/profile'
+              onClick={handleCloseUserMenu}
+            >
+              <Typography textAlign='center'>Profile</Typography>
+            </ListItem>
+            <ListItem onClick={logoutHandler} sx={{ cursor: 'pointer' }}>
+              <Typography textAlign='center'>Logout</Typography>
+            </ListItem>
+          </>
+        )}
       </List>
     </Box>
   );
@@ -197,7 +268,13 @@ const Navbar = (props: NavbarProps) => {
 
           <Box sx={{ flexGrow: 1 }} />
 
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box
+            sx={{
+              display: { xs: 'none', sm: 'flex' },
+              alignItems: { sm: 'center' },
+              gap: { sm: '1rem' },
+            }}
+          >
             {appMenu.map((item) => (
               <Link to={item.link} key={item.name}>
                 <Button sx={{ color: '#fff' }}>{item.name}</Button>
@@ -207,10 +284,27 @@ const Navbar = (props: NavbarProps) => {
             {isAuthenticated && (
               <>
                 <Tooltip title={`Hello ${user?.name || user?.email}`}>
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 1 }}>
-                    {/* <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' /> */}
+                  {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 1 }}>
                     <AccountCircleIcon fontSize='large' />
-                  </IconButton>
+                  </IconButton> */}
+                  {user?.avatar ? (
+                    <img
+                      src={user?.avatar}
+                      alt='profile'
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: '50%',
+                        border: '1px solid #fff',
+                      }}
+                      onClick={handleOpenUserMenu}
+                    />
+                  ) : (
+                    <Avatar
+                      sx={{ width: 35, height: 35 }}
+                      onClick={handleOpenUserMenu}
+                    />
+                  )}
                 </Tooltip>
                 <AccountMenu />
               </>

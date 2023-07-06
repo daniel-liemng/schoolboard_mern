@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Box, useTheme } from '@mui/material';
+import { Box, Divider, Typography, useTheme } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 import { instructorNav } from '../../data/data';
 
@@ -21,9 +22,28 @@ const InstructorSidebar = () => {
         mt: '5rem',
       }}
     >
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '0.5rem',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <DashboardIcon fontSize='large' />
+        <Box>
+          <Typography variant='h6'>Dashboard</Typography>
+          <Typography variant='subtitle2' align='center' sx={{ color: 'grey' }}>
+            Instructor
+          </Typography>
+        </Box>
+      </Box>
+
+      <Divider sx={{ width: '200px', mt: '1rem' }} />
+
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         {instructorNav?.map((item) => {
-          const isActive = active === item.link;
+          const isActive = active.includes(item.link);
           const isDark = theme.palette.mode === 'dark';
           return (
             <Link to={item.link} key={item.name}>
@@ -44,7 +64,16 @@ const InstructorSidebar = () => {
                       : '',
                 }}
               >
-                {item.name}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    gap: '0.5rem',
+                    alignItems: 'center',
+                  }}
+                >
+                  {item.icon}
+                  {item.name}
+                </Box>
               </Box>
             </Link>
           );

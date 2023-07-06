@@ -24,8 +24,8 @@ const UserCoursesPage = () => {
 
   return (
     <Container sx={{ mt: '1rem' }}>
-      <Typography variant='h5' align='center' my='1.5rem'>
-        All Registered Courses (User)
+      <Typography variant='h5' align='center' my='2rem'>
+        All Registered Courses
       </Typography>
 
       <TableContainer component={Paper}>
