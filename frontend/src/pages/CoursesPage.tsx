@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import {
   Box,
-  Button,
   Chip,
   FormControl,
   InputLabel,

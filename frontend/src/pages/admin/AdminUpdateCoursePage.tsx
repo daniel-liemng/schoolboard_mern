@@ -6,7 +6,6 @@ import {
   Grid,
   InputLabel,
   MenuItem,
-  Paper,
   Select,
   TextField,
   Typography,
@@ -20,10 +19,10 @@ import {
 } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { toast } from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useGetAllCategoriesQuery } from '../../hooks/categoryHooks';
-import { useAppSelector } from '../../hooks/hooks';
+
 import { Category } from '../../types/Category';
 import {
   useGetCourseQuery,

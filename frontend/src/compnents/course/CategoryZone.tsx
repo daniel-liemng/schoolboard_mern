@@ -1,5 +1,4 @@
 import { Box, Button } from '@mui/material';
-import { Category } from '../../types/Category';
 
 interface CategoryProps {
   allCategories: string[];

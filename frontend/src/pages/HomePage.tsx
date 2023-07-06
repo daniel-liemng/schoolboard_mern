@@ -11,8 +11,6 @@ const HomePage = () => {
         '&::before': {
           position: 'absolute',
           display: 'block',
-          // transform: 'translateX(-50%)',
-          // left: '50%',
           width: '100%',
           height: '100%',
           background: 'rgba(0, 0, 0, 0.5)',

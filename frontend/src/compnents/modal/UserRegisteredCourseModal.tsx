@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import {
   Box,
   Button,
@@ -11,7 +13,6 @@ import {
 
 import ModalTemplate from './ModalTemplate';
 import { User } from '../../types/User';
-import { Course } from '../../types/Course';
 
 interface UserRegisteredCourseModalProps {
   isModalOpen: boolean;

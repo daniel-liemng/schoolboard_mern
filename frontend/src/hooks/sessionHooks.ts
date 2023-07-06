@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { queryClient } from '../main';
 
@@ -11,8 +11,10 @@ export const useGetAllSessionsByCourseIdQuery = (courseId: string) =>
 
 export const useCreateSessionMutation = () =>
   useMutation({
-    mutationFn: async (sesData) =>
-      (await axios.post('/api/sessions', sesData)).data,
+    mutationFn: async (sesData: {
+      courseId: string | undefined;
+      date: string;
+    }) => (await axios.post('/api/sessions', sesData)).data,
     onSuccess: () => queryClient.invalidateQueries(['all-sessions']),
   });
 

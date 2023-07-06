@@ -18,7 +18,6 @@ import { ColorModeContext } from '../App';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import { setCurrentUser } from '../redux/userSlice';
 import { useLogoutUserMutation } from '../hooks/userHooks';

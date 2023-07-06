@@ -9,7 +9,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
 } from '@mui/material';
 import { User } from '../../types/User';
 import UserInfoModal from '../modal/UserInfoModal';
@@ -19,7 +18,6 @@ import {
 } from '../../hooks/adminHooks';
 import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
-import { Delete } from '@mui/icons-material';
 import DeleteModal from '../modal/DeleteModal';
 import ResetPasswordModal from '../modal/ResetPasswordModal';
 import ChangeRoleModal from '../modal/ChangeRoleModal';

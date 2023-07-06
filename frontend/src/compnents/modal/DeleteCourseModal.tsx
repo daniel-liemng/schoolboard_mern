@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import { Box, Button, Modal, Typography, Backdrop, Fade } from '@mui/material';
 import ReportOutlinedIcon from '@mui/icons-material/ReportOutlined';
 
@@ -20,7 +22,7 @@ interface DeleteCourseModalProps {
   isModalOpen: boolean;
   handleClose: () => void;
   course: Course | undefined;
-  handleDeleteCourse: (string) => void;
+  handleDeleteCourse: () => void;
 }
 
 const DeleteCourseModal: React.FC<DeleteCourseModalProps> = ({

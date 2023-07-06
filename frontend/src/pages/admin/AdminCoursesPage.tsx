@@ -197,7 +197,7 @@ const AdminCoursesPage = () => {
                         handleClose={handleCourseModalClose}
                         handleDeleteCourse={handleDeleteCourse}
                       />
-                      <Button
+                      {/* <Button
                         to={`/instructor/course/attendance/${course._id}`}
                         component={Link}
                         variant='contained'
@@ -205,7 +205,7 @@ const AdminCoursesPage = () => {
                         color='success'
                       >
                         Attendance
-                      </Button>
+                      </Button> */}
                       <Button
                         type='button'
                         onClick={() => {

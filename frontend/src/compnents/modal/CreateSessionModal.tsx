@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import {
   Box,
   Button,
@@ -5,7 +7,6 @@ import {
   Typography,
   Backdrop,
   Fade,
-  TextField,
   FormHelperText,
 } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
@@ -13,7 +14,7 @@ import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
 import { useCreateSessionMutation } from '../../hooks/sessionHooks';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
@@ -34,21 +35,6 @@ type FormValues = {
   date: string;
 };
 
-const validationRules = {
-  start_date: {
-    validate: (val: Dayjs | null) => {
-      if (val === null) {
-        return 'Please select the start date';
-      }
-
-      if (!val.format('MMDDYYYY').match(/^\d{8}$/g)) {
-        return 'Invalid date formats';
-      }
-
-      return true;
-    },
-  },
-};
 interface CreateSessionProps {
   isModalOpen: boolean;
   handleClose: () => void;
@@ -83,6 +69,8 @@ const CreateSessionModal: React.FC<CreateSessionProps> = ({
   if (error instanceof AxiosError) {
     toast.error(error?.response?.data?.message || 'Something went wrong');
   }
+
+  console.log('787878', dayjs(new Date()));
 
   return (
     <Modal

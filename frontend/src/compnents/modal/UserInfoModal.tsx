@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Grid, Modal, Typography } from '@mui/material';
+import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
 
 import ModalTemplate from './ModalTemplate';
 import { User } from '../../types/User';

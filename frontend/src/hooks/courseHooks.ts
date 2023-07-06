@@ -11,7 +11,7 @@ export const useGetAllCoursesQuery = () =>
 
 export const useRegisterCourseMutation = () =>
   useMutation({
-    mutationFn: async (courseId) =>
+    mutationFn: async (courseId: string) =>
       (await axios.patch('/api/courses/register-course', { courseId })).data,
     onSuccess: () => queryClient.invalidateQueries(['all-courses']),
   });

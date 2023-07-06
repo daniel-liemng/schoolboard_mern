@@ -1,8 +1,7 @@
-import { Box, useTheme } from '@mui/material';
+import { Box } from '@mui/material';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const Loading = () => {
-  const theme = useTheme();
   return (
     <Box
       sx={{
