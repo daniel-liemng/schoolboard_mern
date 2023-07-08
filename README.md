@@ -5,6 +5,7 @@ MERN Stack - Material UI
 Deploy on Vercel
 
 [Live website](https://schoolboard-3vmnq0q5l-daniel-liemng.vercel.app)
+
 (Note: For some reasons. the live website isn't working as expected. I use cookie with httpOnly to send the API requests. In production, cookie is not set over https. I'm working on this bug. Therefore, please clone it and run it locally )
 
 ## Table of Contents
