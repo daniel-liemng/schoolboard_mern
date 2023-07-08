@@ -1,186 +1,130 @@
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <h3 align="center">School Board</h3>
+# School Board
 
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />  
-    <br />
-    <a href="https://schoolboard-3vmnq0q5l-daniel-liemng.vercel.app">View Demo</a>        
-  </p>
-</div>
+MERN Stack - Material UI
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
+Deploy on Vercel
 
-<!-- ABOUT THE PROJECT -->
+[Live website](https://schoolboard-3vmnq0q5l-daniel-liemng.vercel.app)
+
+## Table of Contents
+
+* [About The Project](#about)
+
+* [Tech Stack](#tech-stack)
+
+* [Work flow](#work-flow)
+
+* [Getting started](#getting-started)
 
 ## About The Project
 
-[![screenshots][AdminCourses.png]]
+A MERN stack web application where students can registered the listed courses. Students need to login to be able to register the desired courses.
 
-School Board is a MERN stack web application where users can view all the courses listed and need to create an account to register for the courses.
+There are 3 main user roles with the 3 different UI layouts accordingly.
+- Student
+- Instructor
+- Admin
 
-There are 3 main user roles as well as 3 main layouts accordingly.
-<li>Student</li>
-<li>Instructor</li>
-<li>Admin</li>
+## Tech Stack
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+  * ##### MERN: MongoDB, Express, ReactJS, NodeJS
+  * ##### Material-UI, Redux Toolkit, React Query, React Hook Form
+  * ##### Mongoose, JSON Web Token
+  * ##### Dark Mode
+  
+## Work Flow
 
-### Built With
+* Admin Credentials for testing
+    Email: admin@gmail.com
+    Password: 123456
 
-This is a MERN stack web app built with
-- Frontend
-<ul>
-  <li>React.js</li>
-  <li>Redux Tool Kit</li>
-  <li>React Query</li>
-  <li>React Hook Form</li>
-  <li>Cloudinary</li>
-  <li>Material-UI</li>  
-</ul>
+* Instructor Credentials for testing
+    Email: daniel@gmail.com
+    Password: 123456
+  
+* Student: Feel free to create a new account
 
-- Backend
-<ul>
-  <li>Node.js</li>
-  <li>Express.js</li>
-  <li>Jsonwebtoken</li>
-</ul>
+* At homepage or courses, any users can access to view a list of available courses.
 
-- [![React][React.js]][React-url]
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/Home.PNG)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/AllCourses.PNG)
 
-<!-- GETTING STARTED -->
+* Users sign up or log in to access the User Dashboard page where they can register the courses, upload the profile image, change password, and update the profile info.
 
-## Getting Started
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/Profile.PNG)
 
-- You need to have Node and Node packages like npm, yarn installed to run the project.
-- Clone the Git repository or download the Zip file.
+* Instructors can access the Instructor Dashboard to view all their own courses and students of each course. Especially, instructors can create the sessions and check the student attendance of that course.
 
-### Prerequisites
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/InstructorDashboard.PNG)
 
-- Node.js
-  https://nodejs.org/en
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/InstructorStudent.PNG)
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/InstructorCheckAttendance.PNG)
 
-### Installation
 
-1. Clone the repo
-   ```sh
-   git clone https://github.com/daniel-liemng/schoolboard_mern.git
-   ```
-2. For the backend, install dependencies, devDependencies packages
-   ```sh
-   cd backend
-   npm install
-   ```
-4. Add .env to the backend folder
-   ```js
-   NODE_ENV=development
-   PORT=5000
-   MONGO_URI=
-   JWT_SECRET=
-   ```
-5. Run backend
-   ```sh
-   npm run dev
-   ```
-6. For the frontend, install dependencies, devDependencies packages
-   ```sh
-   cd frontend
-   npm install
-   ```
-4. Add .env to the frontend folder
-   ```js
-   VITE_CLOUDINARY_UPLOAD_PRESET=
-   VITE_CLOUDINARY_NAME=
-   ```
-5. Run backend
-   ```sh
-   npm run dev
-   ```
+* Admin can access the Admin Dashboard to 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/AdminDashboard.PNG)
 
-<!-- USAGE EXAMPLES -->
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/AdminCourses.PNG)
 
-## Usage
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/AdminCategory.PNG)
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/AdminCourses.PNG)
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/AdminUpdateCourses.PNG)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/AdminChangeUserRole.PNG)
 
-<!-- ROADMAP -->
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/AdminResetPassword.PNG)
 
-## Roadmap
+* User can switch to the Dark Mode
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-  - [ ] Chinese
-  - [ ] Spanish
+![Image](https://github.com/daniel-liemng/schoolboard_mern/blob/master/screenshots/DarkMode.PNG)
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+## Getting started
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+**1.** In order to run this app, you need to have `node.js` and package manager like npm or yarn installed.
 
-<!-- CONTRIBUTING -->
+**2.** Clone the Git Repository: `git clone https://github.com/daniel-liemng/schoolboard_mern.git`
 
-## Contact
+**3.** Install server-side and client-side dependencies
 
-Website - 
+##### Environment variables
 
-Liem Nguyen - [https://www.linkedin.com/in/daniel-liemng](https://www.linkedin.com/in/daniel-liemng)
+Create `.env` file in backend folder
+
+```
+NODE_ENV=development
+PORT=5000
+MONGO_URI=<MONGO_URI>
+JWT_SECRET=<JWT_SECRET>
+```
+
+Create `.env` file in frontend folder
+Create Cloudinary account at <a href='https://cloudinary.com'>https://cloudinary.com</a>
+
+```
+VITE_CLOUDINARY_UPLOAD_PRESET=<VITE_CLOUDINARY_UPLOAD_PRESET>
+VITE_CLOUDINARY_NAME=<VITE_CLOUDINARY_NAME>
+```
+
+Server-side
+
+```
+cd backend
+npm install
+npm run dev
+```
+
+Client-side
+
+```
+cd client
+npm install
+npm run dev
+```
 
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGMENTS -->
-
-## Acknowledgments
-
-- [Choose an Open Source License](https://choosealicense.com)
-- [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-- [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-- [Malven's Grid Cheatsheet](https://grid.malven.co/)
-- [Img Shields](https://shields.io)
-- [GitHub Pages](https://pages.github.com)
-- [Font Awesome](https://fontawesome.com)
-- [React Icons](https://react-icons.github.io/react-icons/search)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
