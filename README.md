@@ -28,19 +28,19 @@ There are 3 main user roles with the 3 different UI layouts accordingly.
 ## Tech Stack
 
   * ##### MERN: MongoDB, Express, ReactJS, NodeJS
-  * ##### Material-UI, Redux Toolkit, React Query, React Hook Form
+  * ##### Material-UI, Redux Toolkit, React Query, React Hook Form, Cloudinary
   * ##### Mongoose, JSON Web Token
   * ##### Dark Mode
   
 ## Work Flow
 
-* Admin Credentials for testing
-    Email: admin@gmail.com
-    Password: 123456
+* ##### Admin Credentials for testing
+   - Email: admin@gmail.com
+   - Password: 123456
 
-* Instructor Credentials for testing
-    Email: daniel@gmail.com
-    Password: 123456
+* ##### Instructor Credentials for testing
+   - Email: daniel@gmail.com
+   - Password: 123456
   
 * Student: Feel free to create a new account
 
