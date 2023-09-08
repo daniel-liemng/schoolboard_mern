@@ -32,7 +32,7 @@ app.use(
     credentials: true,
     sameSite: 'none',
     secure: true,
-    domain: 'https://schoolboard.vercel.app',
+    // domain: 'https://schoolboard.vercel.app',
   })
 );
 
