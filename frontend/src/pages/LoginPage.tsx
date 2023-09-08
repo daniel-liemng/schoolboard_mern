@@ -61,6 +61,8 @@ const LoginPage = () => {
 
     const result = await axios.post('/api/users/login', data);
 
+    console.log(result);
+
     const {
       _id,
       name,
@@ -71,7 +73,8 @@ const LoginPage = () => {
       role,
       registeredCourseIds,
       avatar,
-    } = result;
+      // eslint-disable-next-line no-unsafe-optional-chaining
+    } = result?.data;
 
     dispatch(
       setCurrentUser({

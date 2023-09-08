@@ -41,11 +41,13 @@ app.use(
   cors({
     // origin: 'http://localhost:5173',
     // origin: 'https://schoolboard-3vmnq0q5l-daniel-liemng.vercel.app',
-    origin: 'https://schoolboard.vercel.app',
+    origin:
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:5173'
+        : 'https://schoolboard.vercel.app',
     credentials: true,
     sameSite: 'none',
     secure: true,
-    // domain: 'https://schoolboard.vercel.app',
   })
 );
 
