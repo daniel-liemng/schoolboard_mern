@@ -59,7 +59,7 @@ const LoginPage = () => {
   const onSubmit = async (data: { email: string; password: string }) => {
     // const result = await login(data);
 
-    const result = await await axios.post('/api/users/login', data);
+    const result = await axios.post('/api/users/login', data);
 
     const {
       _id,
