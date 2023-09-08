@@ -14,12 +14,12 @@ import { useEffect, useState } from 'react';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLoginUserMutation } from '../hooks/userHooks.js';
+// import { useLoginUserMutation } from '../hooks/userHooks.js';
 import { toast } from 'react-hot-toast';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks.js';
 import { setCurrentUser } from '../redux/userSlice.js';
-import Loading from '../compnents/Loading.js';
+// import Loading from '../compnents/Loading.js';
 import { grey } from '@mui/material/colors';
 
 type FormValues = {
@@ -46,7 +46,7 @@ const LoginPage = () => {
     },
   });
 
-  const { mutateAsync: login, isLoading, error } = useLoginUserMutation();
+  // const { mutateAsync: login, isLoading, error } = useLoginUserMutation();
 
   const [showPassword, setshowPassword] = useState(false);
 
@@ -99,13 +99,13 @@ const LoginPage = () => {
     setshowPassword((val) => !val);
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
-  if (error instanceof AxiosError) {
-    toast.error(error?.response?.data?.message || 'Something went wrong');
-  }
+  // if (error instanceof AxiosError) {
+  //   toast.error(error?.response?.data?.message || 'Something went wrong');
+  // }
 
   return (
     <Box
@@ -191,7 +191,7 @@ const LoginPage = () => {
             fullWidth
             disableElevation
             size='large'
-            disabled={isLoading}
+            disabled={false}
             sx={{ marginTop: '1rem' }}
           >
             Login
