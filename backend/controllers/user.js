@@ -20,7 +20,13 @@ const signup = asyncHandler(async (req, res, next) => {
 
   const token = newUser.generateToken();
 
-  res.cookie('token', token, { httpOnly: true, maxAge: 3600 * 10000 });
+  res.cookie('token', token, {
+    httpOnly: true,
+    maxAge: 3600 * 10000,
+    sameSite: 'none',
+    secure: true,
+    domain: 'vercel.app',
+  });
   res.status(201).json(newUser);
 });
 
@@ -41,7 +47,13 @@ const login = asyncHandler(async (req, res, next) => {
 
   const token = user.generateToken();
 
-  res.cookie('token', token, { httpOnly: true, maxAge: 3600 * 10000 });
+  res.cookie('token', token, {
+    httpOnly: true,
+    maxAge: 3600 * 10000,
+    sameSite: 'none',
+    secure: true,
+    domain: 'vercel.app',
+  });
   res.status(200).json(user);
 });
 
