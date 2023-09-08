@@ -27,7 +27,8 @@ app.use(morgan('dev'));
 app.use(
   cors({
     // origin: 'http://localhost:5173',
-    origin: 'https://schoolboard-3vmnq0q5l-daniel-liemng.vercel.app',
+    // origin: 'https://schoolboard-3vmnq0q5l-daniel-liemng.vercel.app',
+    origin: 'https://schoolboard.vercel.app',
     credentials: true,
     sameSite: 'none',
     secure: true,
