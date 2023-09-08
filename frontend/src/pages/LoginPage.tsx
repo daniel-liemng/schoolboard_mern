@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from '../hooks/userHooks.js';
 import { toast } from 'react-hot-toast';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks.js';
 import { setCurrentUser } from '../redux/userSlice.js';
 import Loading from '../compnents/Loading.js';
@@ -57,7 +57,9 @@ const LoginPage = () => {
   }, [isAuthenticated, user, navigate]);
 
   const onSubmit = async (data: { email: string; password: string }) => {
-    const result = await login(data);
+    // const result = await login(data);
+
+    const result = await await axios.post('/api/users/login', data);
 
     const {
       _id,
