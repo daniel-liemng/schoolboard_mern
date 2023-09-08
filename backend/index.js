@@ -31,6 +31,7 @@ app.use(
     credentials: true,
     sameSite: 'none',
     secure: true,
+    domain: 'vercel.app',
   })
 );
 
