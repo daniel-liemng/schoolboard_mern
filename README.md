@@ -4,9 +4,7 @@ MERN Stack - Material UI
 
 Deploy on Vercel
 
-[Live website](https://schoolboard-3vmnq0q5l-daniel-liemng.vercel.app)
-
-(Note: For some reasons. the live website isn't working as expected. I use cookie with httpOnly to send the API requests. In production, cookie is not set over https. I'm working on this bug. Therefore, please clone it and run it locally )
+[Live website](https://schoolboard.vercel.app)
 
 ## Table of Contents
 
@@ -41,7 +39,7 @@ There are 3 main user roles with the 3 different UI layouts accordingly.
    - Password: 123456
 
 * ##### Instructor Credentials for testing
-   - Email: daniel@gmail.com
+   - Email: dan@gmail.com
    - Password: 123456
   
 * Student: Feel free to create a new account
