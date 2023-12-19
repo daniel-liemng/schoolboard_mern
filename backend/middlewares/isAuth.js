@@ -8,6 +8,8 @@ const isAuthenticated = async (req, res, next) => {
 
   const token = cookies['user-token'];
 
+  console.log('TOKEN', token);
+
   if (!token) {
     return next(new CustomError('No token. Please login', 401));
   }

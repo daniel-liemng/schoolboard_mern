@@ -10,7 +10,7 @@ const initialState: UserState = {
   isAuthenticated: localStorage.getItem('user') ? true : false,
   user: localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user') || '')
-    : null,
+    : undefined,
 };
 
 export const userSlice = createSlice({
@@ -26,7 +26,7 @@ export const userSlice = createSlice({
       localStorage.removeItem('user');
       // localStorage.clear();
       state.isAuthenticated = false;
-      state.user = null;
+      state.user = undefined;
     },
   },
 });
