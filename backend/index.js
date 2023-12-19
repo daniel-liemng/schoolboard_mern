@@ -21,18 +21,18 @@ connectDB();
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header(
-    'Access-Control-Allow-Methods',
-    'GET,PUT,POST,DELETE,UPDATE,OPTIONS'
-  );
-  res.header(
-    'Access-Control-Allow-Headers',
-    'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
-  );
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Credentials', true);
+//   res.header(
+//     'Access-Control-Allow-Methods',
+//     'GET,PUT,POST,DELETE,UPDATE,OPTIONS'
+//   );
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
+//   );
+//   next();
+// });
 
 app.use(express.json());
 app.use(cookieParser());
@@ -40,14 +40,11 @@ app.use(morgan('dev'));
 app.use(
   cors({
     // origin: 'http://localhost:5173',
-    // origin: 'https://schoolboard-3vmnq0q5l-daniel-liemng.vercel.app',
     origin:
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:5173'
         : 'https://schoolboard.vercel.app',
     credentials: true,
-    sameSite: 'none',
-    secure: true,
   })
 );
 

@@ -21,6 +21,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 
 import { setCurrentUser } from '../redux/userSlice';
 import { useLogoutUserMutation } from '../hooks/userHooks';
+import Logo from '../assets/logo.svg';
 
 const drawerWidth = 240;
 
@@ -129,9 +130,20 @@ const Navbar = (props: NavbarProps) => {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant='h6' sx={{ my: 2 }}>
-        Tech School
-      </Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1rem',
+          m: '1rem',
+        }}
+      >
+        <img src={Logo} alt='logo' style={{ width: '2rem', height: '2rem' }} />
+        <Typography variant='h6' sx={{ textTransform: 'uppercase' }}>
+          School board
+        </Typography>
+      </Box>
+
       <Divider />
       <List>
         <Box
@@ -166,9 +178,9 @@ const Navbar = (props: NavbarProps) => {
           )}
           <ListItem onClick={colorMode.toggleColorMode}>
             {theme.palette.mode === 'dark' ? (
-              <DarkModeIcon fontSize='large' />
-            ) : (
               <LightModeIcon fontSize='large' />
+            ) : (
+              <DarkModeIcon fontSize='large' />
             )}
           </ListItem>
         </Box>
@@ -256,11 +268,17 @@ const Navbar = (props: NavbarProps) => {
               variant='h6'
               component='div'
               sx={{
-                flexGrow: 1,
-                display: { xs: 'none', sm: 'block' },
+                display: { xs: 'none', sm: 'flex' },
+                alignItems: 'center',
+                gap: '0.5rem',
                 textTransform: 'uppercase',
               }}
             >
+              <img
+                src={Logo}
+                alt='logo'
+                style={{ width: '2rem', height: '2rem' }}
+              />
               School Board
             </Typography>
           </Link>
@@ -310,9 +328,9 @@ const Navbar = (props: NavbarProps) => {
             )}
             <IconButton onClick={colorMode.toggleColorMode}>
               {theme.palette.mode === 'dark' ? (
-                <DarkModeIcon fontSize='large' />
+                <LightModeIcon fontSize='small' />
               ) : (
-                <LightModeIcon fontSize='large' />
+                <DarkModeIcon fontSize='small' />
               )}
             </IconButton>
           </Box>

@@ -301,7 +301,10 @@ const App = () => {
   const [mode, setMode] = useState<PaletteMode>('light');
 
   const { data: currentUser } = useGetCurrentUserQuery();
+
   const { data: allCourses } = useGetAllCoursesQuery();
+
+  console.log('8888', currentUser);
 
   useEffect(() => {
     if (currentUser) {

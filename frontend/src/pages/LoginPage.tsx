@@ -51,7 +51,7 @@ const LoginPage = () => {
   const [showPassword, setshowPassword] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated || user) {
+    if (isAuthenticated && user) {
       navigate('/');
     }
   }, [isAuthenticated, user, navigate]);

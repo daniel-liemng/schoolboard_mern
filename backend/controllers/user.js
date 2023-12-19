@@ -1,7 +1,4 @@
 const asyncHandler = require('express-async-handler');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const Cookies = require('js-cookie');
 
 const User = require('../models/user');
 const CustomError = require('../utils/CustomError');
@@ -23,8 +20,6 @@ const signup = asyncHandler(async (req, res, next) => {
   res.cookie('user-token', token, {
     httpOnly: true,
     maxAge: 3600 * 10000,
-    secure: true,
-    domain: process.env.NODE_ENV !== 'development' && '.vercel.app',
   });
   res.status(201).json(newUser);
 });
@@ -51,14 +46,12 @@ const login = asyncHandler(async (req, res, next) => {
   res.cookie('user-token', token, {
     httpOnly: true,
     maxAge: 3600 * 10000,
-    secure: true,
-    domain: process.env.NODE_ENV !== 'development' && '.vercel.app',
   });
   res.status(200).json(user);
 });
 
 const logout = asyncHandler(async (req, res, next) => {
-  res.clearCookie('token');
+  res.clearCookie('user-token');
   res.status(200).json({ message: 'Logout OK' });
 });
 
@@ -66,6 +59,8 @@ const getCurrentUser = asyncHandler(async (req, res, next) => {
   const { email } = req.user;
 
   const user = await User.findOne({ email });
+
+  console.log('hahah', user);
 
   if (!user) {
     return next(new CustomError('User Not Found', 404));

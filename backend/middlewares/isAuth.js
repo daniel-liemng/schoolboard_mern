@@ -4,7 +4,9 @@ const CustomError = require('../utils/CustomError');
 const User = require('../models/user');
 
 const isAuthenticated = async (req, res, next) => {
-  const { token } = req.cookies;
+  const cookies = req.cookies;
+
+  const token = cookies['user-token'];
 
   if (!token) {
     return next(new CustomError('No token. Please login', 401));
