@@ -6,6 +6,8 @@ const isAdmin = async (req, res, next) => {
 
   const user = await User.findOne({ email });
 
+  console.log('Admin', user);
+
   if (user.role !== 'admin') {
     return next(new CustomError('Not an Admin. Unauthorized', 401));
   }

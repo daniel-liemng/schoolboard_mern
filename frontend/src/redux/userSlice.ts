@@ -7,7 +7,7 @@ interface UserState {
   user: User | undefined;
 }
 const initialState: UserState = {
-  isAuthenticated: false,
+  isAuthenticated: localStorage.getItem('user') ? true : false,
   user: localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user') || '')
     : null,

@@ -38,8 +38,8 @@ import { useGetAllCoursesQuery } from './hooks/courseHooks';
 import { setCourses } from './redux/courseSlice';
 import AdminUpdateCoursePage from './pages/admin/AdminUpdateCoursePage';
 
-// axios.defaults.baseURL = 'http://localhost:5000';
-axios.defaults.baseURL = 'https://schoolboard-mern-api.vercel.app';
+axios.defaults.baseURL = 'http://localhost:5000';
+// axios.defaults.baseURL = 'https://schoolboard-mern-api.vercel.app';
 axios.defaults.withCredentials = true;
 
 const router = createBrowserRouter([
