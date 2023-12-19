@@ -21,7 +21,7 @@ const signup = asyncHandler(async (req, res, next) => {
     httpOnly: true,
     maxAge: 3600 * 10000,
     secure: true,
-    sameSite: 'lax',
+    sameSite: 'none',
   });
   res.status(201).json(newUser);
 });
@@ -49,7 +49,7 @@ const login = asyncHandler(async (req, res, next) => {
     httpOnly: true,
     maxAge: 3600 * 10000,
     secure: true,
-    sameSite: 'lax',
+    sameSite: 'none',
   });
   res.status(200).json(user);
 });
@@ -58,7 +58,7 @@ const logout = asyncHandler(async (req, res, next) => {
   res.clearCookie('user-token', {
     httpOnly: true,
     secure: true,
-    sameSite: 'lax',
+    sameSite: 'none',
   });
   res.status(200).json({ message: 'Logout OK' });
 });
