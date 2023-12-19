@@ -47,7 +47,7 @@ const login = asyncHandler(async (req, res, next) => {
     httpOnly: true,
     maxAge: 3600 * 10000,
     secure: true,
-    sameSite: 'lax',
+    sameSite: 'none',
   });
   res.status(200).json(user);
 });
