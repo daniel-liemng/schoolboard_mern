@@ -20,6 +20,8 @@ const signup = asyncHandler(async (req, res, next) => {
   res.cookie('user-token', token, {
     httpOnly: true,
     maxAge: 3600 * 10000,
+    secure: true,
+    sameSite: 'none',
   });
   res.status(201).json(newUser);
 });
