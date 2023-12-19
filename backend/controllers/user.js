@@ -55,7 +55,11 @@ const login = asyncHandler(async (req, res, next) => {
 });
 
 const logout = asyncHandler(async (req, res, next) => {
-  res.clearCookie('user-token');
+  res.clearCookie('user-token', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none',
+  });
   res.status(200).json({ message: 'Logout OK' });
 });
 
