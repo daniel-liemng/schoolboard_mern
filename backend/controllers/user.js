@@ -46,6 +46,8 @@ const login = asyncHandler(async (req, res, next) => {
   res.cookie('user-token', token, {
     httpOnly: true,
     maxAge: 3600 * 10000,
+    secure: true,
+    sameSite: 'lax',
   });
   res.status(200).json(user);
 });
